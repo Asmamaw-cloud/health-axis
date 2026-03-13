@@ -1,0 +1,133 @@
+import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
+import { UsersService } from '../users/users.service';
+import { RegisterDto, LoginDto, ResetPasswordDto } from './dto/auth.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { UserRole } from '../generated/prisma/client';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  private async hashPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    return bcrypt.hash(password, saltRounds);
+  }
+
+  private async verifyPassword(password: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(password, hash);
+  }
+
+  async register(payload: RegisterDto) {
+    const existing = await this.usersService.findByEmailOrPhone(
+      payload.email,
+      payload.phoneNumber,
+    );
+
+    if (existing) {
+      throw new ConflictException('User with provided email or phone already exists');
+    }
+
+    const passwordHash = await this.hashPassword(payload.password);
+
+    const user = await this.usersService.createUser({
+      fullName: payload.fullName,
+      email: payload.email,
+      phoneNumber: payload.phoneNumber,
+      passwordHash,
+      role: payload.role as UserRole,
+    });
+
+    const accessToken = await this.createAccessToken(user.id, user.role);
+
+    return {
+      accessToken,
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+      },
+    };
+  }
+
+  async login(payload: LoginDto) {
+    const user = await this.usersService.findByEmailOrPhone(
+      payload.email,
+      payload.phoneNumber,
+    );
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const passwordValid = await this.verifyPassword(payload.password, user.password);
+    if (!passwordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const accessToken = await this.createAccessToken(user.id, user.role);
+
+    return {
+      accessToken,
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+      },
+    };
+  }
+
+  async resetPassword(payload: ResetPasswordDto) {
+    // Minimal stub implementation using a simple token lookup.
+    const resetRecord = await this.prisma.notification.findFirst({
+      where: {
+        type: 'password_reset',
+        message: payload.token,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    if (!resetRecord || !resetRecord.user) {
+      throw new UnauthorizedException('Invalid or expired reset token');
+    }
+
+    const newHash = await this.hashPassword(payload.newPassword);
+
+    await this.prisma.user.update({
+      where: { id: resetRecord.userId },
+      data: { password: newHash },
+    });
+
+    // Mark token as used
+    await this.prisma.notification.update({
+      where: { id: resetRecord.id },
+      data: { isRead: true },
+    });
+
+    return { success: true };
+  }
+
+  async createAccessToken(userId: string, role: UserRole) {
+    const payload = { sub: userId, role };
+    const expiresInSeconds =
+      Number(this.configService.get<string>('JWT_EXPIRES_IN') ?? '3600') || 3600;
+
+    return this.jwtService.signAsync(payload, {
+      expiresIn: expiresInSeconds,
+    });
+  }
+}
+

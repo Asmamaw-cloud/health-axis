@@ -1,0 +1,202 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// User roles matching the platform specification.
+enum UserRole {
+  patient
+  provider
+  pharmacy
+  admin
+}
+
+/// Verification status for providers and pharmacies.
+enum VerificationStatus {
+  pending
+  approved
+  rejected
+}
+
+/// Consultation status values.
+enum ConsultationStatus {
+  pending
+  scheduled
+  completed
+  cancelled
+  rejected
+  expired
+}
+
+/// Core users
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  fullName     String
+  email        String?   @unique
+  phoneNumber  String?   @unique
+  password     String
+  role         UserRole
+  createdAt    DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+
+  provider     Provider?
+  pharmacy     Pharmacy?
+  sentMessages Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  notifications Notification[]
+  healthReadings HealthReading[]
+  patientConsultations Consultation[] @relation("PatientConsultations")
+
+  @@map("users")
+}
+
+/// Providers
+model Provider {
+  id                  String              @id @default(uuid()) @db.Uuid
+  userId              String              @unique @db.Uuid
+  specialization      String?
+  yearsExperience     Int?
+  consultationFee     Decimal?            @db.Decimal(10, 2)
+  profileDescription  String?
+  availabilitySchedule Json?
+  verificationStatus  VerificationStatus  @default(pending)
+  createdAt           DateTime            @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
+
+  user           User        @relation(fields: [userId], references: [id])
+  consultations  Consultation[]
+
+  @@map("providers")
+}
+
+/// Pharmacies
+model Pharmacy {
+  id                  String             @id @default(uuid()) @db.Uuid
+  userId              String             @unique @db.Uuid
+  pharmacyName        String
+  location            String?
+  contactInfo         String?
+  verificationStatus  VerificationStatus @default(pending)
+  createdAt           DateTime           @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime           @default(now()) @updatedAt @db.Timestamptz(6)
+
+  user      User               @relation(fields: [userId], references: [id])
+  medicines PharmacyMedicine[]
+
+  @@map("pharmacies")
+}
+
+/// Pharmacy medicines (Drug Finder)
+model PharmacyMedicine {
+  id                 String   @id @default(uuid()) @db.Uuid
+  pharmacyId         String   @db.Uuid
+  medicineName       String
+  genericName        String?
+  quantity           Int      @default(0)
+  availabilityStatus Boolean  @default(true)
+  updatedAt          DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  pharmacy Pharmacy @relation(fields: [pharmacyId], references: [id])
+
+  @@index([pharmacyId])
+  @@index([medicineName])
+  @@index([genericName])
+  @@map("pharmacy_medicines")
+}
+
+/// Consultations
+model Consultation {
+  id                 String              @id @default(uuid()) @db.Uuid
+  patientId          String              @db.Uuid
+  providerId         String              @db.Uuid
+  consultationDate   DateTime            @db.Date
+  consultationTime   DateTime            @db.Time(6)
+  consultationStatus ConsultationStatus  @default(pending)
+  meetingLink        String?
+  consultationNotes  String?
+  createdAt          DateTime            @default(now()) @db.Timestamptz(6)
+  updatedAt          DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
+
+  patient      User        @relation("PatientConsultations", fields: [patientId], references: [id])
+  provider     Provider    @relation(fields: [providerId], references: [id])
+  prescriptions Prescription[]
+
+  @@index([patientId])
+  @@index([providerId])
+  @@map("consultations")
+}
+
+/// Prescriptions
+model Prescription {
+  id              String        @id @default(uuid()) @db.Uuid
+  consultationId  String?       @db.Uuid
+  medicineName    String
+  dosage          String?
+  frequency       String?
+  duration        String?
+  instructions    String?
+
+  consultation Consultation? @relation(fields: [consultationId], references: [id])
+
+  @@index([consultationId])
+  @@map("prescriptions")
+}
+
+/// Health readings (remote monitoring)
+model HealthReading {
+  id             String   @id @default(uuid()) @db.Uuid
+  patientId      String   @db.Uuid
+  bloodPressure  String?
+  heartRate      Int?
+  temperature    Decimal? @db.Decimal(4, 1)
+  bloodGlucose   Decimal? @db.Decimal(5, 2)
+  weight         Decimal? @db.Decimal(5, 2)
+  timestamp      DateTime @default(now()) @db.Timestamptz(6)
+
+  patient User @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@map("health_readings")
+}
+
+/// Messages
+model Message {
+  id          String   @id @default(uuid()) @db.Uuid
+  senderId    String   @db.Uuid
+  receiverId  String   @db.Uuid
+  messageText String?
+  imageUrl    String?
+  timestamp   DateTime @default(now()) @db.Timestamptz(6)
+
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@map("messages")
+}
+
+/// Notifications (in-app + email ready)
+model Notification {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  type       String
+  message    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("notifications")
+}
+

@@ -23,76 +23,76 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Health Axis unified backend API built with Nest.js, PostgreSQL, and Prisma. It provides REST and WebSocket endpoints for patients, providers, pharmacies, and admins, including consultations, prescriptions, health monitoring, messaging, and notifications.
 
 ## Project setup
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+## Environment configuration
+
+Copy `.env.example` to `.env` and fill in:
+
+- `DATABASE_URL` – PostgreSQL connection string
+- `JWT_SECRET`, `JWT_EXPIRES_IN`
+- `FRONTEND_ORIGINS` – comma-separated list of allowed origins
+- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
+- `AGORA_APP_ID`, `AGORA_APP_CERTIFICATE`
+
+## Database & Prisma
+
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+## Run the project
 
 ```bash
 # development
-$ npm run start
+npm run start:dev
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# production build
+npm run build
+npm run start:prod
 ```
 
-## Run tests
+The API will be available at `http://localhost:3000`, with Swagger docs at `http://localhost:3000/docs`.
+
+## Core endpoints (high level)
+
+- `POST /auth/register`, `POST /auth/login`, `POST /auth/logout`, `POST /auth/reset-password`
+- `GET /providers`, `GET /providers/:id`, `PATCH /providers/:id`
+- `POST /consultations/book`, `GET /consultations`, `PUT /consultations/:id/status`, `POST /consultations/:id/start`
+- `POST /consultations/:id/prescription`
+- `GET /medicines/search`, `POST /pharmacy/medicines`, `PUT /pharmacy/medicines/:id`
+- `POST /health-readings`, `GET /health-readings`
+- `POST /messages`, `GET /messages?with=:userId`
+- `GET /notifications`
+- `GET /admin/providers`, `PATCH /admin/providers/:id/approve`
+- `GET /admin/pharmacies`, `PATCH /admin/pharmacies/:id/approve`
+- `GET /admin/analytics`
+- `GET /me`, `GET /dashboard`
+
+## WebSocket usage
+
+- Connect to the Socket.io gateway using JWT (e.g. via `auth: { userId }` during handshake).
+- Events:
+  - `message:send` / `message:received`
+  - `notification:new`
+
+## Tests
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run test        # unit tests
+npm run test:e2e    # e2e tests
+npm run test:cov    # coverage
 ```
 
-## Deployment
+## Deployment notes
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- Platforms: Render, Railway, or similar Node hosting.
+- Use `npm run build` then `npm run start:prod`.
+- Ensure `DATABASE_URL` and other env vars are configured in the platform dashboard.
