@@ -45,6 +45,33 @@ export class AuthService {
       role: payload.role as UserRole,
     });
 
+    // Create role-specific records (provider / pharmacy) when applicable
+    if (payload.role === UserRole.provider) {
+      const p = payload as any;
+      await this.prisma.provider.create({
+        data: {
+          userId: user.id,
+          specialization: p.specialization ?? undefined,
+          yearsExperience: p.yearsExperience !== undefined ? Number(p.yearsExperience) : undefined,
+          consultationFee: p.consultationFee ?? undefined,
+          profileDescription: p.profileDescription ?? undefined,
+          availabilitySchedule: p.availabilitySchedule ?? undefined,
+        },
+      });
+    }
+
+    if (payload.role === UserRole.pharmacy) {
+      const ph = payload as any;
+      await this.prisma.pharmacy.create({
+        data: {
+          userId: user.id,
+          pharmacyName: ph.pharmacyName ?? user.fullName,
+          location: ph.location ?? undefined,
+          contactInfo: ph.contactInfo ?? undefined,
+        },
+      });
+    }
+
     const accessToken = await this.createAccessToken(user.id, user.role);
 
     return {
@@ -62,6 +89,7 @@ export class AuthService {
   async login(payload: LoginDto) {
     const user = await this.usersService.findByEmailOrPhone(
       payload.email,
+      (payload as any).phoneNumber,
     );
 
     if (!user) {

@@ -24,6 +24,32 @@ export class RegisterDto {
 
   @ApiProperty({ description: 'User role', enum: UserRole })
   role!: UserRole;
+
+  // Provider-specific fields (optional on registration)
+  @ApiProperty({ description: 'Provider specialization', required: false })
+  specialization?: string;
+
+  @ApiProperty({ description: 'Years of experience', required: false })
+  yearsExperience?: number;
+
+  @ApiProperty({ description: 'Consultation fee', required: false })
+  consultationFee?: string;
+
+  @ApiProperty({ description: 'Profile description', required: false })
+  profileDescription?: string;
+
+  @ApiProperty({ description: 'Availability schedule (JSON)', required: false })
+  availabilitySchedule?: any;
+
+  // Pharmacy-specific fields (optional on registration)
+  @ApiProperty({ description: 'Pharmacy name', required: false })
+  pharmacyName?: string;
+
+  @ApiProperty({ description: 'Pharmacy location', required: false })
+  location?: string;
+
+  @ApiProperty({ description: 'Pharmacy contact info', required: false })
+  contactInfo?: string;
 }
 
 export class AdminRegisterDto {
@@ -42,8 +68,11 @@ export class AdminRegisterDto {
 export class LoginDto {
   static schema = loginSchema;
 
-  @ApiProperty({ description: 'Email address' })
-  email!: string;
+  @ApiProperty({ description: 'Email address (or phone number if using phone login)', required: false })
+  email?: string;
+
+  @ApiProperty({ description: 'Phone number (optional)', required: false })
+  phoneNumber?: string;
 
   @ApiProperty({ description: 'Password' })
   password!: string;
