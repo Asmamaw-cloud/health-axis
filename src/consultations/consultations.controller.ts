@@ -35,6 +35,8 @@ export class ConsultationsController {
     );
   }
 
+
+  //Provider can update status of their consultations (e.g. mark as completed, cancelled, etc.)
   @Put(':id/status')
   @Roles(UserRole.provider)
   async updateStatus(

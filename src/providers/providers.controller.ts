@@ -20,10 +20,14 @@ export class ProvidersController {
     @Query('fee_max') feeMax?: string,
     @Query('available') available?: string,
   ) {
+    const rawFee = feeMax ? Number(feeMax) : undefined;
+    const feeVal = Number.isFinite(rawFee) ? rawFee : undefined;
+    const availableFlag = available === 'true' ? true : available === 'false' ? false : undefined;
+
     const filter = {
-      specialization,
-      feeMax: feeMax ? Number(feeMax) : undefined,
-      available: available === 'true',
+      specialization: specialization?.trim(),
+      feeMax: feeVal,
+      available: availableFlag,
     };
 
     return this.providersService.listProviders(filter);

@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { Public } from './public.decorator';
 import {
   LoginDto,
   RegisterDto,
@@ -21,16 +22,19 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @Public()
   async register(@Body() body: RegisterDto) {
     return this.authService.register(body);
   }
 
   @Post('login')
+  @Public()
   async login(@Body() body: LoginDto) {
     return this.authService.login(body);
   }
 
   @Post('admin/register')
+  @Public()
   async adminRegister(@Body() body: AdminRegisterDto) {
     // Convert to RegisterDto with admin role
     const registerData: RegisterDto = {
@@ -41,6 +45,7 @@ export class AuthController {
   }
 
   @Post('admin/login')
+  @Public()
   async adminLogin(@Body() body: LoginDto) {
     // First verify the user is an admin
     const user = await this.prisma.user.findUnique({

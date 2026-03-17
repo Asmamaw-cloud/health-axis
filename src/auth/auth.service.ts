@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
@@ -9,6 +9,7 @@ import { UserRole } from '../generated/prisma/client';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     private readonly usersService: UsersService,
     private readonly prisma: PrismaService,
@@ -93,15 +94,22 @@ export class AuthService {
     );
 
     if (!user) {
+      this.logger.log(`Login attempt failed: user not found for email=${payload.email} phone=${(payload as any).phoneNumber}`);
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    this.logger.log(`Login attempt: found user id=${user.id} email=${user.email} phone=${user.phoneNumber} role=${user.role}`);
+
     const passwordValid = await this.verifyPassword(payload.password, user.password);
+    if (!passwordValid) {
+      this.logger.log(`Login attempt failed: invalid password for userId=${user.id}`);
+    }
     if (!passwordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
     const accessToken = await this.createAccessToken(user.id, user.role);
+    this.logger.log(`Login successful for userId=${user.id}; issuing token`);
 
     return {
       accessToken,

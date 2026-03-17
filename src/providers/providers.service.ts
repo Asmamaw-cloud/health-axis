@@ -16,16 +16,19 @@ export class ProvidersService {
     const where: any = {};
 
     if (filter.specialization) {
-      where.specialization = filter.specialization;
+      // Partial, case-insensitive match on specialization
+      where.specialization = { contains: filter.specialization, mode: 'insensitive' };
     }
 
-    if (typeof filter.feeMax === 'number') {
+    if (filter.feeMax !== undefined) {
       where.consultationFee = { lte: filter.feeMax };
     }
 
-    if (filter.available) {
+    if (filter.available === true) {
       // For now, approximate availability by having a non-null schedule.
       where.availabilitySchedule = { not: null };
+    } else if (filter.available === false) {
+      where.availabilitySchedule = null;
     }
 
     where.verificationStatus = VerificationStatus.approved;
