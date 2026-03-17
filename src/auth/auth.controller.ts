@@ -7,7 +7,6 @@ import {
   ResetPasswordDto,
   ResetPasswordRequestDto,
   AdminRegisterDto,
-  AdminLoginDto,
 } from './dto/auth.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma/client';
@@ -42,15 +41,10 @@ export class AuthController {
   }
 
   @Post('admin/login')
-  async adminLogin(@Body() body: AdminLoginDto) {
+  async adminLogin(@Body() body: LoginDto) {
     // First verify the user is an admin
-    const user = await this.prisma.user.findFirst({
-      where: {
-        OR: [
-          body.email ? { email: body.email } : undefined,
-          body.phoneNumber ? { phoneNumber: body.phoneNumber } : undefined,
-        ].filter(Boolean) as Array<{ email?: string; phoneNumber?: string }>,
-      },
+    const user = await this.prisma.user.findUnique({
+      where: { email: body.email },
     });
 
     if (!user || user.role !== UserRole.admin) {

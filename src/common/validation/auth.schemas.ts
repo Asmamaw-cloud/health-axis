@@ -14,16 +14,10 @@ export const registerSchema = z
     path: ['email'],
   });
 
-export const loginSchema = z
-  .object({
-    email: z.string().email().optional(),
-    phoneNumber: z.string().min(3).optional(),
-    password: z.string().min(1),
-  })
-  .refine((data) => data.email || data.phoneNumber, {
-    message: 'Either email or phoneNumber is required',
-    path: ['email'],
-  });
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+});
 
 export const resetPasswordRequestSchema = z.object({
   email: z.string().email(),

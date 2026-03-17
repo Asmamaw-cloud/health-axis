@@ -62,7 +62,6 @@ export class AuthService {
   async login(payload: LoginDto) {
     const user = await this.usersService.findByEmailOrPhone(
       payload.email,
-      payload.phoneNumber,
     );
 
     if (!user) {
