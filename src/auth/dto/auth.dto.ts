@@ -26,7 +26,36 @@ export class RegisterDto {
   role!: UserRole;
 }
 
+export class AdminRegisterDto {
+  static schema = registerSchema;
+
+  @ApiProperty({ description: 'Full name of the admin' })
+  fullName!: string;
+
+  @ApiProperty({ description: 'Email address (optional if phone provided)', required: false })
+  email?: string;
+
+  @ApiProperty({ description: 'Phone number (optional if email provided)', required: false })
+  phoneNumber?: string;
+
+  @ApiProperty({ description: 'Password (minimum 6 characters)' })
+  password!: string;
+}
+
 export class LoginDto {
+  static schema = loginSchema;
+
+  @ApiProperty({ description: 'Email address (optional if phone provided)', required: false })
+  email?: string;
+
+  @ApiProperty({ description: 'Phone number (optional if email provided)', required: false })
+  phoneNumber?: string;
+
+  @ApiProperty({ description: 'Password' })
+  password!: string;
+}
+
+export class AdminLoginDto {
   static schema = loginSchema;
 
   @ApiProperty({ description: 'Email address (optional if phone provided)', required: false })
