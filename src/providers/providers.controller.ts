@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/prisma/client';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { UpdateProviderProfileDto } from './dto/provider.dto';
 
 @ApiTags('providers')
 @ApiBearerAuth()
@@ -38,7 +39,7 @@ export class ProvidersController {
   async updateOwnProfile(
     @Param('id') _id: string,
     @CurrentUser() user: { userId: string },
-    @Body() body: any,
+    @Body() body: UpdateProviderProfileDto,
   ) {
     // Provider can only update their own profile regardless of path param.
     return this.providersService.updateOwnProviderProfile(user.userId, body);

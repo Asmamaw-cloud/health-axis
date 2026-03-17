@@ -6,6 +6,7 @@ import { Roles } from '../auth/roles.decorator';
 import { UserRole, ConsultationStatus } from '../generated/prisma/client';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
+import { BookConsultationDto, UpdateConsultationStatusDto } from './dto/consultation.dto';
 
 @ApiTags('consultations')
 @ApiBearerAuth()
@@ -21,13 +22,7 @@ export class ConsultationsController {
   @Roles(UserRole.patient)
   async book(
     @CurrentUser() user: { userId: string },
-    @Body()
-    body: {
-      providerId: string;
-      consultationDate: string;
-      consultationTime: string;
-      notes?: string;
-    },
+    @Body() body: BookConsultationDto,
   ) {
     return this.consultationsService.bookConsultation(user.userId, body);
   }
@@ -45,7 +40,7 @@ export class ConsultationsController {
   async updateStatus(
     @Param('id') id: string,
     @CurrentUser() user: { userId: string },
-    @Body() body: { status: ConsultationStatus },
+    @Body() body: UpdateConsultationStatusDto,
   ) {
     const updated = await this.consultationsService.updateStatusForProvider(
       user.userId,

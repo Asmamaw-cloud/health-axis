@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/prisma/client';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { AddPrescriptionDto } from './dto/prescription.dto';
 
 @ApiTags('prescriptions')
 @ApiBearerAuth()
@@ -18,16 +19,7 @@ export class PrescriptionsController {
   async addPrescription(
     @Param('id') id: string,
     @CurrentUser() user: { userId: string },
-    @Body()
-    body: {
-      medicines: Array<{
-        medicineName: string;
-        dosage?: string;
-        frequency?: string;
-        duration?: string;
-        instructions?: string;
-      }>;
-    },
+    @Body() body: AddPrescriptionDto,
   ) {
     return this.prescriptionsService.addPrescriptionForConsultation(
       user.userId,

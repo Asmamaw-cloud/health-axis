@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/prisma/client';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { CreateHealthReadingDto } from './dto/health-reading.dto';
 
 @ApiTags('health-readings')
 @ApiBearerAuth()
@@ -19,14 +20,7 @@ export class HealthReadingsController {
   @Roles(UserRole.patient)
   async create(
     @CurrentUser() user: { userId: string },
-    @Body()
-    body: {
-      bloodPressure?: string;
-      heartRate?: number;
-      temperature?: number;
-      bloodGlucose?: number;
-      weight?: number;
-    },
+    @Body() body: CreateHealthReadingDto,
   ) {
     return this.healthReadingsService.createReading(user.userId, body);
   }

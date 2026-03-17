@@ -4,6 +4,7 @@ import { MessagesService } from './messages.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { RealtimeGateway } from '../realtime/realtime.gateway';
+import { SendMessageDto } from './dto/message.dto';
 
 @ApiTags('messages')
 @ApiBearerAuth()
@@ -18,12 +19,7 @@ export class MessagesController {
   @Post()
   async send(
     @CurrentUser() user: { userId: string },
-    @Body()
-    body: {
-      receiverId: string;
-      messageText?: string;
-      imageUrl?: string;
-    },
+    @Body() body: SendMessageDto,
   ) {
     const message = await this.messagesService.sendMessage(
       user.userId,
