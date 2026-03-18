@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConsultationsService } from './consultations.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole, ConsultationStatus } from '../generated/prisma/client';
+import { UserRole, ConsultationStatus } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
 import { BookConsultationDto, UpdateConsultationStatusDto } from './dto/consultation.dto';

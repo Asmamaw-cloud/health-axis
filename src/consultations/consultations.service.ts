@@ -5,14 +5,16 @@ import {
 } from '@nestjs/common';
 import {
   ConsultationStatus,
+  ConsultationType,
   UserRole,
-} from '../generated/prisma/client';
+} from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
 
 interface BookConsultationPayload {
   providerId: string;
   consultationDate: string;
   consultationTime: string;
+  consultationType: ConsultationType;
   notes?: string;
 }
 
@@ -24,12 +26,16 @@ export class ConsultationsService {
     patientId: string,
     payload: BookConsultationPayload,
   ) {
+    // Combine date and time strings for correct parsing (e.g. "2024-03-18T21:00")
+    const combinedDateTime = new Date(`${payload.consultationDate}T${payload.consultationTime}`);
+    
     return this.prisma.consultation.create({
       data: {
         patientId,
         providerId: payload.providerId,
         consultationDate: new Date(payload.consultationDate),
-        consultationTime: new Date(payload.consultationTime),
+        consultationTime: combinedDateTime,
+        consultationType: payload.consultationType,
         consultationStatus: ConsultationStatus.pending,
         consultationNotes: payload.notes,
       },

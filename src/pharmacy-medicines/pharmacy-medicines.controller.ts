@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PharmacyMedicinesService } from './pharmacy-medicines.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AddPharmacyMedicineDto, UpdatePharmacyMedicineDto } from './dto/pharmacy-medicine.dto';
 

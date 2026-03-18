@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { VerificationStatus } from '../generated/prisma/client';
+import { VerificationStatus } from '../generated/prisma';
 
 interface ProviderFilter {
+  q?: string;
   specialization?: string;
   feeMax?: number;
   available?: boolean;
@@ -14,6 +15,13 @@ export class ProvidersService {
 
   async listProviders(filter: ProviderFilter) {
     const where: any = {};
+
+    if (filter.q) {
+      // Search by provider's user fullName
+      where.user = {
+        fullName: { contains: filter.q, mode: 'insensitive' },
+      };
+    }
 
     if (filter.specialization) {
       // Partial, case-insensitive match on specialization
@@ -31,6 +39,7 @@ export class ProvidersService {
       where.availabilitySchedule = null;
     }
 
+    // Strictly enforce approved status as requested
     where.verificationStatus = VerificationStatus.approved;
 
     return this.prisma.provider.findMany({

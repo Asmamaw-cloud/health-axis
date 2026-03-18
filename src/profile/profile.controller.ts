@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 
 @ApiTags('profile')
 @ApiBearerAuth()

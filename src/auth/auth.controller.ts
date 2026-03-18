@@ -10,7 +10,7 @@ import {
   AdminRegisterDto,
 } from './dto/auth.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 import { UnauthorizedException } from '@nestjs/common';
 
 @ApiTags('auth')

@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 import { RegisterDto, LoginDto, ResetPasswordDto } from './dto/auth.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 
 @Injectable()
 export class AuthService {

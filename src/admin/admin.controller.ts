@@ -2,7 +2,7 @@ import { Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole, VerificationStatus } from '../generated/prisma/client';
+import { UserRole, VerificationStatus } from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
 
 @ApiTags('admin')

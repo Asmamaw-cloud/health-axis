@@ -172,6 +172,7 @@ exports.Prisma.ConsultationScalarFieldEnum = {
   consultationDate: 'consultationDate',
   consultationTime: 'consultationTime',
   consultationStatus: 'consultationStatus',
+  consultationType: 'consultationType',
   meetingLink: 'meetingLink',
   consultationNotes: 'consultationNotes',
   createdAt: 'createdAt',
@@ -262,6 +263,12 @@ exports.ConsultationStatus = exports.$Enums.ConsultationStatus = {
   cancelled: 'cancelled',
   rejected: 'rejected',
   expired: 'expired'
+};
+
+exports.ConsultationType = exports.$Enums.ConsultationType = {
+  video: 'video',
+  audio: 'audio',
+  chat: 'chat'
 };
 
 exports.Prisma.ModelName = {

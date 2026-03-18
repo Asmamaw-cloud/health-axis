@@ -37,6 +37,13 @@ enum ConsultationStatus {
   expired
 }
 
+/// Type of consultation: video call, audio call, or text chat.
+enum ConsultationType {
+  video
+  audio
+  chat
+}
+
 /// Core users
 model User {
   id          String   @id @default(uuid()) @db.Uuid
@@ -121,6 +128,7 @@ model Consultation {
   consultationDate   DateTime           @db.Date
   consultationTime   DateTime           @db.Time(6)
   consultationStatus ConsultationStatus @default(pending)
+  consultationType   ConsultationType   @default(video)
   meetingLink        String?
   consultationNotes  String?
   createdAt          DateTime           @default(now()) @db.Timestamptz(6)
