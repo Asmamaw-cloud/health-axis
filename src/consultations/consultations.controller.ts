@@ -54,6 +54,15 @@ export class ConsultationsController {
     return updated;
   }
 
+  @Put(':id/cancel')
+  @Roles(UserRole.patient)
+  async cancel(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.consultationsService.cancelConsultation(user.userId, id);
+  }
+
   @Post(':id/start')
   @Roles(UserRole.provider)
   async start(
