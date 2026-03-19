@@ -35,6 +35,16 @@ export class ConsultationsController {
     );
   }
 
+  @Get(':id')
+  async getConsultation(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string; role: UserRole },
+  ) {
+    const consultation = await this.consultationsService.getConsultation(user.userId, user.role, id);
+    const token = this.agoraService.generateRtcToken(id, user.userId);
+    const appId = this.agoraService.getAppId();
+    return { ...consultation, token, appId };
+  }
 
   //Provider can update status of their consultations (e.g. mark as completed, cancelled, etc.)
   @Put(':id/status')
@@ -75,15 +85,16 @@ export class ConsultationsController {
         id,
       );
 
-    if (consultation.meetingLink) {
-      return { meetingLink: consultation.meetingLink };
+    let meetingLink = consultation.meetingLink;
+    if (!meetingLink) {
+      meetingLink = this.agoraService.generateMeetingLink(id);
+      await this.consultationsService.setMeetingLink(id, meetingLink);
     }
 
-    const meetingLink = this.agoraService.generateMeetingLink(id);
+    const token = this.agoraService.generateRtcToken(id, user.userId);
+    const appId = this.agoraService.getAppId();
 
-    await this.consultationsService.setMeetingLink(id, meetingLink);
-
-    return { meetingLink };
+    return { meetingLink, token, appId };
   }
 }
 

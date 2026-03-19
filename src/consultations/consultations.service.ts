@@ -106,6 +106,27 @@ export class ConsultationsService {
     return markExpired(data);
   }
 
+  async getConsultation(userId: string, role: UserRole, id: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id },
+      include: { patient: true, provider: true },
+    });
+
+    if (!consultation) {
+      throw new NotFoundException('Consultation not found');
+    }
+
+    if (role === UserRole.patient && consultation.patientId !== userId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    if (role === UserRole.provider && consultation.provider?.userId !== userId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    return consultation;
+  }
+
   async cancelConsultation(patientId: string, consultationId: string) {
     const consultation = await this.prisma.consultation.findUnique({
       where: { id: consultationId },
