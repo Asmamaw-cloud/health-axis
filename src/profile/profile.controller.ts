@@ -63,6 +63,7 @@ export class ProfileController {
       const [upcoming, unreadNotifications] = await this.prisma.$transaction([
         this.prisma.consultation.findMany({
           where: { providerId },
+          include: { patient: true },
           orderBy: { consultationDate: 'asc' },
           take: 5,
         }),
