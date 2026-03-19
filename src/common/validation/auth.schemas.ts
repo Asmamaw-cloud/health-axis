@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserRole } from '../../generated/prisma/client';
+import { UserRole } from '../../generated/prisma';
 
 export const registerSchema = z
   .object({

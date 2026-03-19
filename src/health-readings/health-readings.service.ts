@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 
 interface CreateReadingPayload {
   bloodPressure?: string;
@@ -55,7 +55,8 @@ export class HealthReadingsService {
 
   async getReadingsForProvider(
     providerUserId: string,
-    patientId: string,
+    patientId?: string,
+    search?: string,
   ) {
     const provider = await this.prisma.provider.findUnique({
       where: { userId: providerUserId },
@@ -64,10 +65,40 @@ export class HealthReadingsService {
       throw new ForbiddenException('Provider profile not found');
     }
 
-    // In a more advanced model, we'd ensure this provider is actually assigned to the patient.
+    if (patientId) {
+      // Ensure linked
+      const consultation = await this.prisma.consultation.findFirst({
+        where: { providerId: provider.id, patientId },
+      });
+      if (!consultation) {
+        throw new ForbiddenException('You are not linked to this patient');
+      }
+
+      return this.prisma.healthReading.findMany({
+        where: { patientId },
+        orderBy: { timestamp: 'desc' },
+        include: { patient: true },
+      });
+    }
+
+    // No patientId, fetch all readings for linked patients
+    const linkedConsultations = await this.prisma.consultation.findMany({
+      where: { providerId: provider.id },
+      select: { patientId: true },
+    });
+    const linkedPatientIds = [...new Set(linkedConsultations.map(c => c.patientId))];
+
+    if (linkedPatientIds.length === 0) return [];
+
     return this.prisma.healthReading.findMany({
-      where: { patientId },
+      where: { 
+        patientId: { in: linkedPatientIds },
+        patient: search ? {
+          fullName: { contains: search, mode: 'insensitive' }
+        } : undefined,
+      },
       orderBy: { timestamp: 'desc' },
+      include: { patient: true },
     });
   }
 
@@ -79,6 +110,7 @@ export class HealthReadingsService {
     return this.prisma.healthReading.findMany({
       where: { patientId: userId },
       orderBy: { timestamp: 'desc' },
+      include: { patient: true },
     });
   }
 }

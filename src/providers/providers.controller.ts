@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProvidersService } from './providers.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { UpdateProviderProfileDto } from './dto/provider.dto';
 
@@ -16,6 +16,7 @@ export class ProvidersController {
 
   @Get()
   async listProviders(
+    @Query('q') q?: string,
     @Query('specialization') specialization?: string,
     @Query('fee_max') feeMax?: string,
     @Query('available') available?: string,
@@ -25,6 +26,7 @@ export class ProvidersController {
     const availableFlag = available === 'true' ? true : available === 'false' ? false : undefined;
 
     const filter = {
+      q: q?.trim(),
       specialization: specialization?.trim(),
       feeMax: feeVal,
       available: availableFlag,

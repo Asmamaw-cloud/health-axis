@@ -2,7 +2,7 @@ import { Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole, VerificationStatus } from '../generated/prisma/client';
+import { UserRole, VerificationStatus } from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
 
 @ApiTags('admin')
@@ -41,19 +41,35 @@ export class AdminController {
 
   @Get('analytics')
   async analytics() {
-    const [users, consultations, pharmaciesCount, healthReadings] =
-      await this.prisma.$transaction([
-        this.prisma.user.count(),
-        this.prisma.consultation.count(),
-        this.prisma.pharmacy.count(),
-        this.prisma.healthReading.count(),
-      ]);
+    const [
+      totalPatients,
+      totalProviders,
+      totalPharmacies,
+      totalConsultations,
+      pendingProviders,
+      pendingPharmacies
+    ] = await this.prisma.$transaction([
+      this.prisma.user.count({ where: { role: UserRole.patient } }),
+      this.prisma.provider.count({ where: { verificationStatus: VerificationStatus.approved } }),
+      this.prisma.pharmacy.count({ where: { verificationStatus: VerificationStatus.approved } }),
+      this.prisma.consultation.count(),
+      this.prisma.provider.findMany({ 
+        where: { verificationStatus: VerificationStatus.pending },
+        include: { user: true }
+      }),
+      this.prisma.pharmacy.findMany({ 
+        where: { verificationStatus: VerificationStatus.pending },
+        include: { user: true }
+      }),
+    ]);
 
     return {
-      totalUsers: users,
-      totalConsultations: consultations,
-      pharmaciesCount,
-      healthReadings,
+      totalPatients,
+      totalProviders,
+      totalPharmacies,
+      totalConsultations,
+      pendingProviders,
+      pendingPharmacies,
     };
   }
 }

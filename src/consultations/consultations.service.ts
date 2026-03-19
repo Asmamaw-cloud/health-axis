@@ -5,14 +5,16 @@ import {
 } from '@nestjs/common';
 import {
   ConsultationStatus,
+  ConsultationType,
   UserRole,
-} from '../generated/prisma/client';
+} from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
 
 interface BookConsultationPayload {
   providerId: string;
   consultationDate: string;
   consultationTime: string;
+  consultationType: ConsultationType;
   notes?: string;
 }
 
@@ -24,12 +26,16 @@ export class ConsultationsService {
     patientId: string,
     payload: BookConsultationPayload,
   ) {
+    // Combine date and time strings for correct parsing (e.g. "2024-03-18T21:00")
+    const combinedDateTime = new Date(`${payload.consultationDate}T${payload.consultationTime}`);
+    
     return this.prisma.consultation.create({
       data: {
         patientId,
         providerId: payload.providerId,
         consultationDate: new Date(payload.consultationDate),
-        consultationTime: new Date(payload.consultationTime),
+        consultationTime: combinedDateTime,
+        consultationType: payload.consultationType,
         consultationStatus: ConsultationStatus.pending,
         consultationNotes: payload.notes,
       },
@@ -37,13 +43,47 @@ export class ConsultationsService {
   }
 
   async listConsultations(userId: string, role: UserRole) {
+    const markExpired = async (consultations: any[]) => {
+      const now = new Date();
+      const expiredIds = consultations
+        .filter((c) => {
+          if (c.consultationStatus !== ConsultationStatus.pending) return false;
+          const cDate = c.consultationDate;
+          const cTime = c.consultationTime;
+          const combined = new Date(
+            cDate.getFullYear(),
+            cDate.getMonth(),
+            cDate.getDate(),
+            cTime.getHours(),
+            cTime.getMinutes(),
+            cTime.getSeconds()
+          );
+          return combined < now;
+        })
+        .map((c) => c.id);
+
+      if (expiredIds.length > 0) {
+        await this.prisma.consultation.updateMany({
+          where: { id: { in: expiredIds } },
+          data: { consultationStatus: ConsultationStatus.expired },
+        });
+        return consultations.map((c) =>
+          expiredIds.includes(c.id)
+            ? { ...c, consultationStatus: ConsultationStatus.expired }
+            : c
+        );
+      }
+      return consultations;
+    };
+
     if (role === UserRole.patient) {
-      return this.prisma.consultation.findMany({
+      const data = await this.prisma.consultation.findMany({
         where: { patientId: userId },
         include: { provider: true },
       });
-    }
-
+      return markExpired(data);
+    } 
+    
     if (role === UserRole.provider) {
       const provider = await this.prisma.provider.findUnique({
         where: { userId },
@@ -52,15 +92,58 @@ export class ConsultationsService {
         return [];
       }
 
-      return this.prisma.consultation.findMany({
+      const data = await this.prisma.consultation.findMany({
         where: { providerId: provider.id },
         include: { patient: true },
       });
+      return markExpired(data);
     }
 
-    // admin: see all
-    return this.prisma.consultation.findMany({
+    if (role === UserRole.admin) {
+      const data = await this.prisma.consultation.findMany({
+        include: { patient: true, provider: true },
+      });
+      return markExpired(data);
+    }
+
+    return [];
+  }
+
+  async getConsultation(userId: string, role: UserRole, id: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id },
       include: { patient: true, provider: true },
+    });
+
+    if (!consultation) {
+      throw new NotFoundException('Consultation not found');
+    }
+
+    if (role === UserRole.patient && consultation.patientId !== userId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    if (role === UserRole.provider && consultation.provider?.userId !== userId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    return consultation;
+  }
+
+  async cancelConsultation(patientId: string, consultationId: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: consultationId },
+    });
+
+    if (!consultation || consultation.patientId !== patientId) {
+      throw new ForbiddenException('You cannot modify this consultation');
+    }
+
+    return this.prisma.consultation.update({
+      where: { id: consultationId },
+      data: {
+        consultationStatus: ConsultationStatus.cancelled,
+      },
     });
   }
 

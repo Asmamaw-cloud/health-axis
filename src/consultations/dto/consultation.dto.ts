@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ConsultationStatus } from '../../generated/prisma/client';
+import { ConsultationStatus, ConsultationType } from '../../generated/prisma';
 
 export class BookConsultationDto {
   @ApiProperty({ description: 'ID of the healthcare provider' })
@@ -10,6 +10,9 @@ export class BookConsultationDto {
 
   @ApiProperty({ description: 'Time of the consultation (HH:MM:SS)' })
   consultationTime: string;
+
+  @ApiProperty({ description: 'Type of consultation (video, audio, chat)', enum: ConsultationType })
+  consultationType: ConsultationType;
 
   @ApiProperty({ description: 'Optional notes for the consultation', required: false })
   notes?: string;

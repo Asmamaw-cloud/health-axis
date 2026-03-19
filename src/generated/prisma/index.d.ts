@@ -93,6 +93,15 @@ export const ConsultationStatus: {
 
 export type ConsultationStatus = (typeof ConsultationStatus)[keyof typeof ConsultationStatus]
 
+
+export const ConsultationType: {
+  video: 'video',
+  audio: 'audio',
+  chat: 'chat'
+};
+
+export type ConsultationType = (typeof ConsultationType)[keyof typeof ConsultationType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -106,6 +115,10 @@ export const VerificationStatus: typeof $Enums.VerificationStatus
 export type ConsultationStatus = $Enums.ConsultationStatus
 
 export const ConsultationStatus: typeof $Enums.ConsultationStatus
+
+export type ConsultationType = $Enums.ConsultationType
+
+export const ConsultationType: typeof $Enums.ConsultationType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -6537,6 +6550,7 @@ export namespace Prisma {
     consultationDate: Date | null
     consultationTime: Date | null
     consultationStatus: $Enums.ConsultationStatus | null
+    consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
     consultationNotes: string | null
     createdAt: Date | null
@@ -6550,6 +6564,7 @@ export namespace Prisma {
     consultationDate: Date | null
     consultationTime: Date | null
     consultationStatus: $Enums.ConsultationStatus | null
+    consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
     consultationNotes: string | null
     createdAt: Date | null
@@ -6563,6 +6578,7 @@ export namespace Prisma {
     consultationDate: number
     consultationTime: number
     consultationStatus: number
+    consultationType: number
     meetingLink: number
     consultationNotes: number
     createdAt: number
@@ -6578,6 +6594,7 @@ export namespace Prisma {
     consultationDate?: true
     consultationTime?: true
     consultationStatus?: true
+    consultationType?: true
     meetingLink?: true
     consultationNotes?: true
     createdAt?: true
@@ -6591,6 +6608,7 @@ export namespace Prisma {
     consultationDate?: true
     consultationTime?: true
     consultationStatus?: true
+    consultationType?: true
     meetingLink?: true
     consultationNotes?: true
     createdAt?: true
@@ -6604,6 +6622,7 @@ export namespace Prisma {
     consultationDate?: true
     consultationTime?: true
     consultationStatus?: true
+    consultationType?: true
     meetingLink?: true
     consultationNotes?: true
     createdAt?: true
@@ -6690,6 +6709,7 @@ export namespace Prisma {
     consultationDate: Date
     consultationTime: Date
     consultationStatus: $Enums.ConsultationStatus
+    consultationType: $Enums.ConsultationType
     meetingLink: string | null
     consultationNotes: string | null
     createdAt: Date
@@ -6720,6 +6740,7 @@ export namespace Prisma {
     consultationDate?: boolean
     consultationTime?: boolean
     consultationStatus?: boolean
+    consultationType?: boolean
     meetingLink?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
@@ -6737,6 +6758,7 @@ export namespace Prisma {
     consultationDate?: boolean
     consultationTime?: boolean
     consultationStatus?: boolean
+    consultationType?: boolean
     meetingLink?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
@@ -6752,6 +6774,7 @@ export namespace Prisma {
     consultationDate?: boolean
     consultationTime?: boolean
     consultationStatus?: boolean
+    consultationType?: boolean
     meetingLink?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
@@ -6767,13 +6790,14 @@ export namespace Prisma {
     consultationDate?: boolean
     consultationTime?: boolean
     consultationStatus?: boolean
+    consultationType?: boolean
     meetingLink?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "meetingLink" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
+  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "consultationType" | "meetingLink" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
   export type ConsultationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     patient?: boolean | UserDefaultArgs<ExtArgs>
     provider?: boolean | ProviderDefaultArgs<ExtArgs>
@@ -6803,6 +6827,7 @@ export namespace Prisma {
       consultationDate: Date
       consultationTime: Date
       consultationStatus: $Enums.ConsultationStatus
+      consultationType: $Enums.ConsultationType
       meetingLink: string | null
       consultationNotes: string | null
       createdAt: Date
@@ -7239,6 +7264,7 @@ export namespace Prisma {
     readonly consultationDate: FieldRef<"Consultation", 'DateTime'>
     readonly consultationTime: FieldRef<"Consultation", 'DateTime'>
     readonly consultationStatus: FieldRef<"Consultation", 'ConsultationStatus'>
+    readonly consultationType: FieldRef<"Consultation", 'ConsultationType'>
     readonly meetingLink: FieldRef<"Consultation", 'String'>
     readonly consultationNotes: FieldRef<"Consultation", 'String'>
     readonly createdAt: FieldRef<"Consultation", 'DateTime'>
@@ -12180,6 +12206,7 @@ export namespace Prisma {
     consultationDate: 'consultationDate',
     consultationTime: 'consultationTime',
     consultationStatus: 'consultationStatus',
+    consultationType: 'consultationType',
     meetingLink: 'meetingLink',
     consultationNotes: 'consultationNotes',
     createdAt: 'createdAt',
@@ -12402,6 +12429,20 @@ export namespace Prisma {
    * Reference to a field of type 'ConsultationStatus[]'
    */
   export type ListEnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConsultationType'
+   */
+  export type EnumConsultationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConsultationType[]'
+   */
+  export type ListEnumConsultationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationType[]'>
     
 
 
@@ -12745,6 +12786,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFilter<"Consultation"> | Date | string
     consultationTime?: DateTimeFilter<"Consultation"> | Date | string
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12761,6 +12803,7 @@ export namespace Prisma {
     consultationDate?: SortOrder
     consultationTime?: SortOrder
     consultationStatus?: SortOrder
+    consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -12780,6 +12823,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFilter<"Consultation"> | Date | string
     consultationTime?: DateTimeFilter<"Consultation"> | Date | string
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12796,6 +12840,7 @@ export namespace Prisma {
     consultationDate?: SortOrder
     consultationTime?: SortOrder
     consultationStatus?: SortOrder
+    consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -12815,6 +12860,7 @@ export namespace Prisma {
     consultationDate?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     consultationTime?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     consultationStatus?: EnumConsultationStatusWithAggregatesFilter<"Consultation"> | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeWithAggregatesFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     consultationNotes?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
@@ -13434,6 +13480,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -13450,6 +13497,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -13462,6 +13510,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13478,6 +13527,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13492,6 +13542,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -13503,6 +13554,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13516,6 +13568,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14318,6 +14371,13 @@ export namespace Prisma {
     not?: NestedEnumConsultationStatusFilter<$PrismaModel> | $Enums.ConsultationStatus
   }
 
+  export type EnumConsultationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConsultationType | EnumConsultationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConsultationTypeFilter<$PrismaModel> | $Enums.ConsultationType
+  }
+
   export type ProviderScalarRelationFilter = {
     is?: ProviderWhereInput
     isNot?: ProviderWhereInput
@@ -14340,6 +14400,7 @@ export namespace Prisma {
     consultationDate?: SortOrder
     consultationTime?: SortOrder
     consultationStatus?: SortOrder
+    consultationType?: SortOrder
     meetingLink?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
@@ -14353,6 +14414,7 @@ export namespace Prisma {
     consultationDate?: SortOrder
     consultationTime?: SortOrder
     consultationStatus?: SortOrder
+    consultationType?: SortOrder
     meetingLink?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
@@ -14366,6 +14428,7 @@ export namespace Prisma {
     consultationDate?: SortOrder
     consultationTime?: SortOrder
     consultationStatus?: SortOrder
+    consultationType?: SortOrder
     meetingLink?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
@@ -14380,6 +14443,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConsultationStatusFilter<$PrismaModel>
     _max?: NestedEnumConsultationStatusFilter<$PrismaModel>
+  }
+
+  export type EnumConsultationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConsultationType | EnumConsultationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConsultationTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConsultationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConsultationTypeFilter<$PrismaModel>
+    _max?: NestedEnumConsultationTypeFilter<$PrismaModel>
   }
 
   export type UuidNullableFilter<$PrismaModel = never> = {
@@ -15023,6 +15096,10 @@ export namespace Prisma {
     set?: $Enums.ConsultationStatus
   }
 
+  export type EnumConsultationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ConsultationType
+  }
+
   export type UserUpdateOneRequiredWithoutPatientConsultationsNestedInput = {
     create?: XOR<UserCreateWithoutPatientConsultationsInput, UserUncheckedCreateWithoutPatientConsultationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPatientConsultationsInput
@@ -15431,6 +15508,13 @@ export namespace Prisma {
     not?: NestedEnumConsultationStatusFilter<$PrismaModel> | $Enums.ConsultationStatus
   }
 
+  export type NestedEnumConsultationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConsultationType | EnumConsultationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConsultationTypeFilter<$PrismaModel> | $Enums.ConsultationType
+  }
+
   export type NestedEnumConsultationStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ConsultationStatus | EnumConsultationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ConsultationStatus[] | ListEnumConsultationStatusFieldRefInput<$PrismaModel>
@@ -15439,6 +15523,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConsultationStatusFilter<$PrismaModel>
     _max?: NestedEnumConsultationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumConsultationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConsultationType | EnumConsultationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConsultationType[] | ListEnumConsultationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConsultationTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConsultationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConsultationTypeFilter<$PrismaModel>
+    _max?: NestedEnumConsultationTypeFilter<$PrismaModel>
   }
 
   export type NestedUuidNullableFilter<$PrismaModel = never> = {
@@ -15637,6 +15731,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -15651,6 +15746,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -15866,6 +15962,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFilter<"Consultation"> | Date | string
     consultationTime?: DateTimeFilter<"Consultation"> | Date | string
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -15916,6 +16013,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -15930,6 +16028,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -16423,6 +16522,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -16438,6 +16538,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -16465,6 +16566,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16480,6 +16582,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16862,6 +16965,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -16975,6 +17079,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16989,6 +17094,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17002,6 +17108,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17014,6 +17121,7 @@ export namespace Prisma {
     consultationDate: Date | string
     consultationTime: Date | string
     consultationStatus?: $Enums.ConsultationStatus
+    consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
     consultationNotes?: string | null
     createdAt?: Date | string
@@ -17025,6 +17133,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17039,6 +17148,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17052,6 +17162,7 @@ export namespace Prisma {
     consultationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationTime?: DateTimeFieldUpdateOperationsInput | Date | string
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+    consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

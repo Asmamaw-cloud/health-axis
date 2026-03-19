@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConsultationsService } from './consultations.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole, ConsultationStatus } from '../generated/prisma/client';
+import { UserRole, ConsultationStatus } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
 import { BookConsultationDto, UpdateConsultationStatusDto } from './dto/consultation.dto';
@@ -28,6 +28,7 @@ export class ConsultationsController {
   }
 
   @Get()
+  @Roles(UserRole.patient, UserRole.provider, UserRole.admin)
   async list(@CurrentUser() user: { userId: string; role: UserRole }) {
     return this.consultationsService.listConsultations(
       user.userId,
@@ -35,6 +36,16 @@ export class ConsultationsController {
     );
   }
 
+  @Get(':id')
+  async getConsultation(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string; role: UserRole },
+  ) {
+    const consultation = await this.consultationsService.getConsultation(user.userId, user.role, id);
+    const token = this.agoraService.generateRtcToken(id, user.userId);
+    const appId = this.agoraService.getAppId();
+    return { ...consultation, token, appId };
+  }
 
   //Provider can update status of their consultations (e.g. mark as completed, cancelled, etc.)
   @Put(':id/status')
@@ -54,6 +65,15 @@ export class ConsultationsController {
     return updated;
   }
 
+  @Put(':id/cancel')
+  @Roles(UserRole.patient)
+  async cancel(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.consultationsService.cancelConsultation(user.userId, id);
+  }
+
   @Post(':id/start')
   @Roles(UserRole.provider)
   async start(
@@ -66,15 +86,16 @@ export class ConsultationsController {
         id,
       );
 
-    if (consultation.meetingLink) {
-      return { meetingLink: consultation.meetingLink };
+    let meetingLink = consultation.meetingLink;
+    if (!meetingLink) {
+      meetingLink = this.agoraService.generateMeetingLink(id);
+      await this.consultationsService.setMeetingLink(id, meetingLink);
     }
 
-    const meetingLink = this.agoraService.generateMeetingLink(id);
+    const token = this.agoraService.generateRtcToken(id, user.userId);
+    const appId = this.agoraService.getAppId();
 
-    await this.consultationsService.setMeetingLink(id, meetingLink);
-
-    return { meetingLink };
+    return { meetingLink, token, appId };
   }
 }
 

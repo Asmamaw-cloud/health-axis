@@ -45,6 +45,29 @@ export class PharmacyMedicinesService {
     });
   }
 
+  async getPharmacyInventory(userId: string) {
+    const pharmacy = await this.prisma.pharmacy.findUnique({
+      where: { userId },
+    });
+
+    if (!pharmacy) {
+      throw new NotFoundException('Pharmacy profile not found');
+    }
+
+    return this.prisma.pharmacyMedicine.findMany({
+      where: { pharmacyId: pharmacy.id },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
+
+  async deleteMedicineForPharmacy(userId: string, id: string) {
+    await this.ensureOwnership(id, userId);
+
+    return this.prisma.pharmacyMedicine.delete({
+      where: { id },
+    });
+  }
+
   async updateMedicineForPharmacy(userId: string, id: string, data: any) {
     await this.ensureOwnership(id, userId);
 
@@ -58,22 +81,32 @@ export class PharmacyMedicinesService {
   }
 
   async searchMedicines(query: string, location?: string) {
-    const medicines = await this.prisma.pharmacyMedicine.findMany({
+    return this.prisma.pharmacyMedicine.findMany({
       where: {
-        medicineName: { contains: query, mode: 'insensitive' },
+        AND: [
+          {
+            OR: [
+              { medicineName: { contains: query, mode: 'insensitive' } },
+              { genericName: { contains: query, mode: 'insensitive' } },
+            ],
+          },
+          location
+            ? {
+                pharmacy: {
+                  location: { contains: location, mode: 'insensitive' },
+                },
+              }
+            : {},
+        ],
       },
       include: {
         pharmacy: true,
       },
+      orderBy: [
+        { availabilityStatus: 'desc' },
+        { medicineName: 'asc' },
+      ],
     });
-
-    return medicines.filter((m) =>
-      location
-        ? m.pharmacy?.location
-            ?.toLowerCase()
-            .includes(location.toLowerCase())
-        : true,
-    );
   }
 }
 

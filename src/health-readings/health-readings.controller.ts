@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { HealthReadingsService } from './health-readings.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/prisma/client';
+import { UserRole } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { CreateHealthReadingDto } from './dto/health-reading.dto';
 
@@ -29,14 +29,13 @@ export class HealthReadingsController {
   async get(
     @CurrentUser() user: { userId: string; role: UserRole },
     @Query('patientId') patientId?: string,
+    @Query('search') search?: string,
   ) {
     if (user.role === UserRole.provider) {
-      if (!patientId) {
-        return [];
-      }
       return this.healthReadingsService.getReadingsForProvider(
         user.userId,
         patientId,
+        search,
       );
     }
 
