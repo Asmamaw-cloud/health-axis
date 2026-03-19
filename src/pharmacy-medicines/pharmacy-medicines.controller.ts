@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PharmacyMedicinesService } from './pharmacy-medicines.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -24,6 +24,14 @@ export class PharmacyMedicinesController {
     return this.pharmacyMedicinesService.searchMedicines(q, location);
   }
 
+  @Get('pharmacy/medicines')
+  @Roles(UserRole.pharmacy)
+  async getMyMedicines(
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.pharmacyMedicinesService.getPharmacyInventory(user.userId);
+  }
+
   @Post('pharmacy/medicines')
   @Roles(UserRole.pharmacy)
   async addMedicine(
@@ -47,6 +55,18 @@ export class PharmacyMedicinesController {
       user.userId,
       id,
       body,
+    );
+  }
+
+  @Delete('pharmacy/medicines/:id')
+  @Roles(UserRole.pharmacy)
+  async deleteMedicine(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.pharmacyMedicinesService.deleteMedicineForPharmacy(
+      user.userId,
+      id,
     );
   }
 }

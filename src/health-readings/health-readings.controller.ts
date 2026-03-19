@@ -29,14 +29,13 @@ export class HealthReadingsController {
   async get(
     @CurrentUser() user: { userId: string; role: UserRole },
     @Query('patientId') patientId?: string,
+    @Query('search') search?: string,
   ) {
     if (user.role === UserRole.provider) {
-      if (!patientId) {
-        return [];
-      }
       return this.healthReadingsService.getReadingsForProvider(
         user.userId,
         patientId,
+        search,
       );
     }
 

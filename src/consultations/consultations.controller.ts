@@ -28,6 +28,7 @@ export class ConsultationsController {
   }
 
   @Get()
+  @Roles(UserRole.patient, UserRole.provider, UserRole.admin)
   async list(@CurrentUser() user: { userId: string; role: UserRole }) {
     return this.consultationsService.listConsultations(
       user.userId,

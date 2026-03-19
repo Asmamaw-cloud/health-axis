@@ -82,8 +82,8 @@ export class ConsultationsService {
         include: { provider: true },
       });
       return markExpired(data);
-    }
-
+    } 
+    
     if (role === UserRole.provider) {
       const provider = await this.prisma.provider.findUnique({
         where: { userId },
@@ -99,11 +99,14 @@ export class ConsultationsService {
       return markExpired(data);
     }
 
-    // admin: see all
-    const data = await this.prisma.consultation.findMany({
-      include: { patient: true, provider: true },
-    });
-    return markExpired(data);
+    if (role === UserRole.admin) {
+      const data = await this.prisma.consultation.findMany({
+        include: { patient: true, provider: true },
+      });
+      return markExpired(data);
+    }
+
+    return [];
   }
 
   async getConsultation(userId: string, role: UserRole, id: string) {

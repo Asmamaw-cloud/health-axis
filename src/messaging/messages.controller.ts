@@ -42,5 +42,13 @@ export class MessagesController {
   ) {
     return this.messagesService.getConversation(user.userId, withUserId);
   }
+
+  @Get('contacts')
+  async getContacts(
+    @CurrentUser() user: { userId: string; role: string },
+    @Query('search') search?: string,
+  ) {
+    return this.messagesService.getContacts(user.userId, user.role, search);
+  }
 }
 
