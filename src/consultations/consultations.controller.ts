@@ -107,6 +107,6 @@ export class ConsultationsController {
     const token = this.agoraService.generateRtcToken(id, user.userId);
     const appId = this.agoraService.getAppId();
 
-    return { meetingLink, token, appId };
+    return { ...consultation, meetingLink, token, appId };
   }
 }

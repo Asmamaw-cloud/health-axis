@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PrescriptionsService } from './prescriptions.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -10,14 +10,33 @@ import { AddPrescriptionDto } from './dto/prescription.dto';
 @ApiTags('prescriptions')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('consultations/:id')
+@Controller('prescriptions')
 export class PrescriptionsController {
   constructor(private readonly prescriptionsService: PrescriptionsService) {}
 
-  @Post('prescription')
+  @Get()
+  @Roles(UserRole.patient)
+  async getMyPrescriptions(@CurrentUser() user: { userId: string }) {
+    return this.prescriptionsService.getPatientPrescriptions(user.userId);
+  }
+
+  @Get('consultation/:consultationId')
+  @Roles(UserRole.patient, UserRole.provider)
+  async getConsultationPrescriptions(
+    @Param('consultationId') consultationId: string,
+    @CurrentUser() user: { userId: string; role: UserRole },
+  ) {
+    return this.prescriptionsService.getConsultationPrescriptions(
+      consultationId,
+      user.userId,
+      user.role,
+    );
+  }
+
+  @Post('consultation/:consultationId')
   @Roles(UserRole.provider)
   async addPrescription(
-    @Param('id') id: string,
+    @Param('consultationId') id: string,
     @CurrentUser() user: { userId: string },
     @Body() body: AddPrescriptionDto,
   ) {

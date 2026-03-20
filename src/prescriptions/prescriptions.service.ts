@@ -58,4 +58,54 @@ export class PrescriptionsService {
 
     return created;
   }
+  
+  async getPatientPrescriptions(userId: string) {
+    return this.prisma.prescription.findMany({
+      where: {
+        consultation: {
+          patientId: userId,
+        },
+      },
+      include: {
+        consultation: {
+          include: {
+            provider: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        consultation: {
+           consultationDate: 'desc'
+        }
+      }
+    });
+  }
+
+  async getConsultationPrescriptions(consultationId: string, userId: string, role: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: consultationId },
+      include: { provider: true }
+    });
+
+    if (!consultation) {
+      throw new NotFoundException('Consultation not found');
+    }
+
+    // Access control
+    if (role === 'patient' && consultation.patientId !== userId) {
+      throw new ForbiddenException('You cannot access this prescription');
+    }
+
+    if (role === 'provider' && consultation.provider?.userId !== userId) {
+      throw new ForbiddenException('You cannot access this prescription');
+    }
+
+    return this.prisma.prescription.findMany({
+      where: { consultationId },
+    });
+  }
 }
