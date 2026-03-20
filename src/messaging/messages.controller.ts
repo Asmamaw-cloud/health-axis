@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { RealtimeGateway } from '../realtime/realtime.gateway';
 import { SendMessageDto } from './dto/message.dto';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @ApiTags('messages')
 @ApiBearerAuth()
@@ -14,6 +15,7 @@ export class MessagesController {
   constructor(
     private readonly messagesService: MessagesService,
     private readonly realtimeGateway: RealtimeGateway,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   @Post()
@@ -31,6 +33,17 @@ export class MessagesController {
     );
 
     this.realtimeGateway.emitMessage(body.receiverId, message);
+
+    const notificationMessage = body.messageText
+      ? `New message received: ${body.messageText}`
+      : 'New message received';
+
+    await this.notificationsService.dispatchNotification(
+      body.receiverId,
+      'new_message',
+      notificationMessage,
+      { senderId: user.userId },
+    );
 
     return message;
   }

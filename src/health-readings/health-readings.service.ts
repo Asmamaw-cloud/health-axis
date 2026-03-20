@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma';
+import { NotificationsService } from '../notifications/notifications.service';
 
 interface CreateReadingPayload {
   bloodPressure?: string;
@@ -16,7 +17,10 @@ interface CreateReadingPayload {
 
 @Injectable()
 export class HealthReadingsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async createReading(patientId: string, data: CreateReadingPayload) {
     const reading = await this.prisma.healthReading.create({
@@ -45,14 +49,18 @@ export class HealthReadingsService {
       reading.temperature != null && Number(reading.temperature) > 38;
 
     if (highBp || highHr || highTemp) {
-      // Find providers for this patient – for now, create a generic notification
-      await this.prisma.notification.create({
-        data: {
-          userId: patientId,
-          type: 'abnormal_reading',
-          message: 'Abnormal health reading detected',
-        },
-      });
+      const triggered: string[] = [];
+
+      if (highBp) triggered.push('blood pressure');
+      if (highHr) triggered.push('heart rate');
+      if (highTemp) triggered.push('temperature');
+
+      await this.notificationsService.dispatchNotification(
+        patientId,
+        'abnormal_reading',
+        `Abnormal health reading detected (${triggered.join(', ')}).`,
+        { senderId: patientId },
+      );
     }
 
     return reading;

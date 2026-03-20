@@ -14,6 +14,8 @@ import { Roles } from '../auth/roles.decorator';
 import { UserRole, ConsultationStatus } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import {
   BookConsultationDto,
   UpdateConsultationStatusDto,
@@ -27,6 +29,8 @@ export class ConsultationsController {
   constructor(
     private readonly consultationsService: ConsultationsService,
     private readonly agoraService: AgoraService,
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   @Post('book')
@@ -35,7 +39,43 @@ export class ConsultationsController {
     @CurrentUser() user: { userId: string },
     @Body() body: BookConsultationDto,
   ) {
-    return this.consultationsService.bookConsultation(user.userId, body);
+    const created = await this.consultationsService.bookConsultation(
+      user.userId,
+      body,
+    );
+
+    // Notify the provider that a new consultation request was created.
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: created.id },
+      include: {
+        patient: true,
+        provider: { include: { user: true } },
+      },
+    });
+
+    if (consultation?.provider?.userId) {
+      const alreadySent = await this.prisma.notification.findFirst({
+        where: {
+          userId: consultation.provider.userId,
+          type: 'consultation_request',
+          message: { contains: consultation.id },
+        },
+      });
+
+      if (!alreadySent) {
+        const patientName = consultation.patient?.fullName ?? 'a patient';
+        const message = `New consultation request (ID: ${consultation.id}) from ${patientName}.`;
+
+        await this.notificationsService.dispatchNotification(
+          consultation.provider.userId,
+          'consultation_request',
+          message,
+          { senderId: consultation.patientId },
+        );
+      }
+    }
+
+    return created;
   }
 
   @Get()
@@ -73,7 +113,91 @@ export class ConsultationsController {
       body.status,
     );
 
-    // Placeholder: notification + email can be triggered here.
+    // Consultation confirmation: when provider moves a consultation to `scheduled`.
+    if (body.status === ConsultationStatus.scheduled) {
+      const consultation = await this.prisma.consultation.findUnique({
+        where: { id },
+        include: {
+          patient: true,
+          provider: { include: { user: true } },
+        },
+      });
+
+      if (consultation) {
+        const alreadySent = await this.prisma.notification.findFirst({
+          where: {
+            userId: consultation.patientId,
+            type: 'consultation_confirmation',
+            message: { contains: consultation.id },
+          },
+        });
+
+        if (!alreadySent) {
+          const providerName =
+            consultation.provider?.user?.fullName || 'your provider';
+
+          const d = consultation.consultationDate;
+          const t = consultation.consultationTime;
+          const pad = (n: number) => String(n).padStart(2, '0');
+          const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(
+            d.getDate(),
+          )}`;
+          const time = `${pad(t.getHours())}:${pad(t.getMinutes())}`;
+
+          const message = `Your consultation (ID: ${consultation.id}) with Dr. ${providerName} has been confirmed for ${date} at ${time}.`;
+
+          await this.notificationsService.dispatchNotification(
+            consultation.patientId,
+            'consultation_confirmation',
+            message,
+            { senderId: consultation.provider.userId },
+          );
+        }
+      }
+    }
+
+    // Consultation decline: when provider moves a consultation to `rejected`.
+    if (body.status === ConsultationStatus.rejected) {
+      const consultation = await this.prisma.consultation.findUnique({
+        where: { id },
+        include: {
+          patient: true,
+          provider: { include: { user: true } },
+        },
+      });
+
+      if (consultation) {
+        const alreadySent = await this.prisma.notification.findFirst({
+          where: {
+            userId: consultation.patientId,
+            type: 'consultation_declined',
+            message: { contains: consultation.id },
+          },
+        });
+
+        if (!alreadySent) {
+          const providerName =
+            consultation.provider?.user?.fullName || 'your provider';
+          const d = consultation.consultationDate;
+          const t = consultation.consultationTime;
+          const pad = (n: number) => String(n).padStart(2, '0');
+          const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(
+            d.getDate(),
+          )}`;
+          const time = `${pad(t.getHours())}:${pad(t.getMinutes())}`;
+
+          const message = `Your consultation (ID: ${consultation.id}) with Dr. ${providerName} was declined for ${date} at ${time}.`;
+
+          await this.notificationsService.dispatchNotification(
+            consultation.patientId,
+            'consultation_declined',
+            message,
+            { senderId: consultation.provider.userId },
+          );
+        }
+      }
+    }
+
     return updated;
   }
 

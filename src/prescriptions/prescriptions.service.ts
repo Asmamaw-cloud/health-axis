@@ -4,10 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class PrescriptionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async addPrescriptionForConsultation(
     providerUserId: string,
@@ -54,6 +58,14 @@ export class PrescriptionsService {
           },
         }),
       ),
+    );
+
+    // Notification for the patient when a provider adds prescriptions.
+    await this.notificationsService.dispatchNotification(
+      consultation.patientId,
+      'prescription_added',
+      `New prescription added for your consultation (ID: ${consultationId}).`,
+      { senderId: providerUserId },
     );
 
     return created;
