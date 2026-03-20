@@ -75,6 +75,8 @@ model Provider {
   consultationFee      Decimal?           @db.Decimal(10, 2)
   profileDescription   String?
   availabilitySchedule Json?
+  /// Uploaded license URL for admin verification
+  licenseUrl           String?
   verificationStatus   VerificationStatus @default(pending)
   createdAt            DateTime           @default(now()) @db.Timestamptz(6)
   updatedAt            DateTime           @default(now()) @updatedAt @db.Timestamptz(6)
@@ -92,6 +94,8 @@ model Pharmacy {
   pharmacyName       String
   location           String?
   contactInfo        String?
+  /// Uploaded license URL for admin verification
+  licenseUrl         String?
   verificationStatus VerificationStatus @default(pending)
   createdAt          DateTime           @default(now()) @db.Timestamptz(6)
   updatedAt          DateTime           @default(now()) @updatedAt @db.Timestamptz(6)

@@ -70,6 +70,7 @@ export class AuthService {
           consultationFee: p.consultationFee ?? undefined,
           profileDescription: p.profileDescription ?? undefined,
           availabilitySchedule: p.availabilitySchedule ?? undefined,
+          licenseUrl: p.licenseUrl ?? undefined,
         },
       });
     }
@@ -82,6 +83,7 @@ export class AuthService {
           pharmacyName: ph.pharmacyName ?? user.fullName,
           location: ph.location ?? undefined,
           contactInfo: ph.contactInfo ?? undefined,
+          licenseUrl: ph.licenseUrl ?? undefined,
         },
       });
     }

@@ -47,6 +47,12 @@ export class RegisterDto {
   @ApiProperty({ description: 'Availability schedule (JSON)', required: false })
   availabilitySchedule?: any;
 
+  @ApiProperty({
+    description: 'Uploaded license URL for admin verification',
+    required: false,
+  })
+  licenseUrl?: string;
+
   // Pharmacy-specific fields (optional on registration)
   @ApiProperty({ description: 'Pharmacy name', required: false })
   pharmacyName?: string;

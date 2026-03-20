@@ -139,6 +139,7 @@ exports.Prisma.ProviderScalarFieldEnum = {
   consultationFee: 'consultationFee',
   profileDescription: 'profileDescription',
   availabilitySchedule: 'availabilitySchedule',
+  licenseUrl: 'licenseUrl',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -150,6 +151,7 @@ exports.Prisma.PharmacyScalarFieldEnum = {
   pharmacyName: 'pharmacyName',
   location: 'location',
   contactInfo: 'contactInfo',
+  licenseUrl: 'licenseUrl',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

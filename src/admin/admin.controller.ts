@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -19,10 +27,20 @@ export class AdminController {
   }
 
   @Patch('providers/:id/approve')
-  async approveProvider(@Param('id') id: string) {
+  async approveProvider(
+    @Param('id') id: string,
+    @Body() body: { verificationStatus: VerificationStatus },
+  ) {
+    const status = body.verificationStatus;
+    if (
+      status !== VerificationStatus.approved &&
+      status !== VerificationStatus.rejected
+    ) {
+      throw new BadRequestException('Invalid verificationStatus');
+    }
     return this.prisma.provider.update({
       where: { id },
-      data: { verificationStatus: VerificationStatus.approved },
+      data: { verificationStatus: status },
     });
   }
 
@@ -32,10 +50,20 @@ export class AdminController {
   }
 
   @Patch('pharmacies/:id/approve')
-  async approvePharmacy(@Param('id') id: string) {
+  async approvePharmacy(
+    @Param('id') id: string,
+    @Body() body: { verificationStatus: VerificationStatus },
+  ) {
+    const status = body.verificationStatus;
+    if (
+      status !== VerificationStatus.approved &&
+      status !== VerificationStatus.rejected
+    ) {
+      throw new BadRequestException('Invalid verificationStatus');
+    }
     return this.prisma.pharmacy.update({
       where: { id },
-      data: { verificationStatus: VerificationStatus.approved },
+      data: { verificationStatus: status },
     });
   }
 

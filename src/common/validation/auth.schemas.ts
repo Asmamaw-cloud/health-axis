@@ -15,6 +15,7 @@ export const registerSchema = z
     consultationFee: z.string().optional(),
     profileDescription: z.string().optional(),
     availabilitySchedule: z.any().optional(),
+    licenseUrl: z.string().url().optional(),
 
     // Pharmacy-specific (optional)
     pharmacyName: z.string().optional(),
@@ -24,6 +25,18 @@ export const registerSchema = z
   .refine((data) => data.email || data.phoneNumber, {
     message: 'Either email or phoneNumber is required',
     path: ['email'],
+  })
+  .superRefine((data, ctx) => {
+    const needsLicense = data.role === UserRole.provider || data.role === UserRole.pharmacy;
+    if (!needsLicense) return;
+
+    if (!data.licenseUrl || data.licenseUrl.trim().length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['licenseUrl'],
+        message: 'License is required',
+      });
+    }
   });
 
 export const loginSchema = z
