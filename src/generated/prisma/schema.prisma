@@ -186,7 +186,7 @@ model Message {
   senderId    String   @db.Uuid
   receiverId  String   @db.Uuid
   messageText String?
-  imageUrl    String?
+  fileUrl     String?
   timestamp   DateTime @default(now()) @db.Timestamptz(6)
 
   sender   User @relation("SentMessages", fields: [senderId], references: [id])

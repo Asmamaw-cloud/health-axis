@@ -9,14 +9,17 @@ export class MessagesService {
   async sendMessage(
     senderId: string,
     receiverId: string,
-    payload: { messageText?: string; imageUrl?: string },
+    payload: {
+      messageText?: string;
+      fileUrl?: string;
+    },
   ) {
     return this.prisma.message.create({
       data: {
         senderId,
         receiverId,
         messageText: payload.messageText,
-        imageUrl: payload.imageUrl,
+        fileUrl: payload.fileUrl,
       },
     });
   }

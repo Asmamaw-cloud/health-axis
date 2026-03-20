@@ -10015,7 +10015,7 @@ export namespace Prisma {
     senderId: string | null
     receiverId: string | null
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date | null
   }
 
@@ -10024,7 +10024,7 @@ export namespace Prisma {
     senderId: string | null
     receiverId: string | null
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date | null
   }
 
@@ -10033,7 +10033,7 @@ export namespace Prisma {
     senderId: number
     receiverId: number
     messageText: number
-    imageUrl: number
+    fileUrl: number
     timestamp: number
     _all: number
   }
@@ -10044,7 +10044,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
   }
 
@@ -10053,7 +10053,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
   }
 
@@ -10062,7 +10062,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
     _all?: true
   }
@@ -10144,7 +10144,7 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date
     _count: MessageCountAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
@@ -10170,7 +10170,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10181,7 +10181,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10192,7 +10192,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10203,11 +10203,11 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "receiverId" | "messageText" | "imageUrl" | "timestamp", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "receiverId" | "messageText" | "fileUrl" | "timestamp", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10232,7 +10232,7 @@ export namespace Prisma {
       senderId: string
       receiverId: string
       messageText: string | null
-      imageUrl: string | null
+      fileUrl: string | null
       timestamp: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
@@ -10663,7 +10663,7 @@ export namespace Prisma {
     readonly senderId: FieldRef<"Message", 'String'>
     readonly receiverId: FieldRef<"Message", 'String'>
     readonly messageText: FieldRef<"Message", 'String'>
-    readonly imageUrl: FieldRef<"Message", 'String'>
+    readonly fileUrl: FieldRef<"Message", 'String'>
     readonly timestamp: FieldRef<"Message", 'DateTime'>
   }
     
@@ -12282,7 +12282,7 @@ export namespace Prisma {
     senderId: 'senderId',
     receiverId: 'receiverId',
     messageText: 'messageText',
-    imageUrl: 'imageUrl',
+    fileUrl: 'fileUrl',
     timestamp: 'timestamp'
   };
 
@@ -13056,7 +13056,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
     receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13067,7 +13067,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrderInput | SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
     timestamp?: SortOrder
     sender?: UserOrderByWithRelationInput
     receiver?: UserOrderByWithRelationInput
@@ -13081,7 +13081,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
     receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13092,7 +13092,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrderInput | SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
     timestamp?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
@@ -13107,7 +13107,7 @@ export namespace Prisma {
     senderId?: UuidWithAggregatesFilter<"Message"> | string
     receiverId?: UuidWithAggregatesFilter<"Message"> | string
     messageText?: StringNullableWithAggregatesFilter<"Message"> | string | null
-    imageUrl?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    fileUrl?: StringNullableWithAggregatesFilter<"Message"> | string | null
     timestamp?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
@@ -13781,7 +13781,7 @@ export namespace Prisma {
   export type MessageCreateInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     sender: UserCreateNestedOneWithoutSentMessagesInput
     receiver: UserCreateNestedOneWithoutReceivedMessagesInput
@@ -13792,14 +13792,14 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
   export type MessageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
@@ -13810,7 +13810,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13819,14 +13819,14 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
   export type MessageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13835,7 +13835,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14633,7 +14633,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -14642,7 +14642,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -14651,7 +14651,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -15689,7 +15689,7 @@ export namespace Prisma {
   export type MessageCreateWithoutSenderInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     receiver: UserCreateNestedOneWithoutReceivedMessagesInput
   }
@@ -15698,7 +15698,7 @@ export namespace Prisma {
     id?: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -15715,7 +15715,7 @@ export namespace Prisma {
   export type MessageCreateWithoutReceiverInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     sender: UserCreateNestedOneWithoutSentMessagesInput
   }
@@ -15724,7 +15724,7 @@ export namespace Prisma {
     id?: string
     senderId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -15930,7 +15930,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
   }
 
@@ -17009,7 +17009,7 @@ export namespace Prisma {
     id?: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -17017,7 +17017,7 @@ export namespace Prisma {
     id?: string
     senderId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -17055,7 +17055,7 @@ export namespace Prisma {
   export type MessageUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
   }
@@ -17064,7 +17064,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17072,14 +17072,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUpdateWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
   }
@@ -17088,7 +17088,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17096,7 +17096,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

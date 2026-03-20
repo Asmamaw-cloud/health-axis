@@ -207,7 +207,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   senderId: 'senderId',
   receiverId: 'receiverId',
   messageText: 'messageText',
-  imageUrl: 'imageUrl',
+  fileUrl: 'fileUrl',
   timestamp: 'timestamp'
 };
 

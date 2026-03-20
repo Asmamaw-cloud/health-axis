@@ -26,7 +26,7 @@ export class MessagesController {
       body.receiverId,
       {
         messageText: body.messageText,
-        imageUrl: body.imageUrl,
+        fileUrl: body.fileUrl,
       },
     );
 

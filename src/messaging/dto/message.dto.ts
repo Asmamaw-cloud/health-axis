@@ -7,6 +7,5 @@ export class SendMessageDto {
   @ApiProperty({ description: 'Text content of the message', required: false })
   messageText?: string;
 
-  @ApiProperty({ description: 'URL of an image attachment', required: false })
-  imageUrl?: string;
+  fileUrl?: string;
 }
