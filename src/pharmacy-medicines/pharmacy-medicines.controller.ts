@@ -30,8 +30,21 @@ export class PharmacyMedicinesController {
   ) {}
 
   @Get('medicines/search')
-  async search(@Query('q') q: string, @Query('location') location?: string) {
-    return this.pharmacyMedicinesService.searchMedicines(q, location);
+  async search(
+    @Query('q') q?: string,
+    @Query('location') location?: string,
+    @Query('page') page = '1',
+    @Query('pageSize') pageSize = '10',
+  ) {
+    const pageNum = Math.max(1, Number(page) || 1);
+    const pageSizeNum = Math.max(1, Math.min(50, Number(pageSize) || 10));
+
+    return this.pharmacyMedicinesService.searchMedicines(
+      q,
+      location,
+      pageNum,
+      pageSizeNum,
+    );
   }
 
   @Get('pharmacy/medicines')

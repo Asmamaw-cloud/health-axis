@@ -86,20 +86,34 @@ export class PharmacyMedicinesService {
     });
   }
 
-  async searchMedicines(query: string, location?: string) {
+  async searchMedicines(
+    query?: string,
+    location?: string,
+    page = 1,
+    pageSize = 10,
+  ) {
+    const trimmedQuery = query?.trim();
+    const trimmedLocation = location?.trim();
+    const mode = 'insensitive' as const;
+
+    const orFilter =
+      trimmedQuery && trimmedQuery.length > 0
+        ? {
+            OR: [
+              { medicineName: { contains: trimmedQuery, mode } },
+              { genericName: { contains: trimmedQuery, mode } },
+            ],
+          }
+        : undefined;
+
     return this.prisma.pharmacyMedicine.findMany({
       where: {
         AND: [
-          {
-            OR: [
-              { medicineName: { contains: query, mode: 'insensitive' } },
-              { genericName: { contains: query, mode: 'insensitive' } },
-            ],
-          },
-          location
+          orFilter ?? {},
+          trimmedLocation
             ? {
                 pharmacy: {
-                  location: { contains: location, mode: 'insensitive' },
+                  location: { contains: trimmedLocation, mode },
                 },
               }
             : {},
@@ -108,7 +122,13 @@ export class PharmacyMedicinesService {
       include: {
         pharmacy: true,
       },
-      orderBy: [{ availabilityStatus: 'desc' }, { medicineName: 'asc' }],
+      orderBy: [
+        { medicineName: 'asc' },
+        { genericName: 'asc' },
+        { availabilityStatus: 'desc' },
+      ],
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
   }
 }
