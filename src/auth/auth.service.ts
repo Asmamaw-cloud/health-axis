@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
@@ -22,7 +27,10 @@ export class AuthService {
     return bcrypt.hash(password, saltRounds);
   }
 
-  private async verifyPassword(password: string, hash: string): Promise<boolean> {
+  private async verifyPassword(
+    password: string,
+    hash: string,
+  ): Promise<boolean> {
     return bcrypt.compare(password, hash);
   }
 
@@ -33,7 +41,9 @@ export class AuthService {
     );
 
     if (existing) {
-      throw new ConflictException('User with provided email or phone already exists');
+      throw new ConflictException(
+        'User with provided email or phone already exists',
+      );
     }
 
     const passwordHash = await this.hashPassword(payload.password);
@@ -43,7 +53,7 @@ export class AuthService {
       email: payload.email,
       phoneNumber: payload.phoneNumber,
       passwordHash,
-      role: payload.role as UserRole,
+      role: payload.role,
     });
 
     // Create role-specific records (provider / pharmacy) when applicable
@@ -53,7 +63,10 @@ export class AuthService {
         data: {
           userId: user.id,
           specialization: p.specialization ?? undefined,
-          yearsExperience: p.yearsExperience !== undefined ? Number(p.yearsExperience) : undefined,
+          yearsExperience:
+            p.yearsExperience !== undefined
+              ? Number(p.yearsExperience)
+              : undefined,
           consultationFee: p.consultationFee ?? undefined,
           profileDescription: p.profileDescription ?? undefined,
           availabilitySchedule: p.availabilitySchedule ?? undefined,
@@ -94,15 +107,24 @@ export class AuthService {
     );
 
     if (!user) {
-      this.logger.log(`Login attempt failed: user not found for email=${payload.email} phone=${(payload as any).phoneNumber}`);
+      this.logger.log(
+        `Login attempt failed: user not found for email=${payload.email} phone=${(payload as any).phoneNumber}`,
+      );
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    this.logger.log(`Login attempt: found user id=${user.id} email=${user.email} phone=${user.phoneNumber} role=${user.role}`);
+    this.logger.log(
+      `Login attempt: found user id=${user.id} email=${user.email} phone=${user.phoneNumber} role=${user.role}`,
+    );
 
-    const passwordValid = await this.verifyPassword(payload.password, user.password);
+    const passwordValid = await this.verifyPassword(
+      payload.password,
+      user.password,
+    );
     if (!passwordValid) {
-      this.logger.log(`Login attempt failed: invalid password for userId=${user.id}`);
+      this.logger.log(
+        `Login attempt failed: invalid password for userId=${user.id}`,
+      );
     }
     if (!passwordValid) {
       throw new UnauthorizedException('Invalid credentials');
@@ -158,11 +180,11 @@ export class AuthService {
   async createAccessToken(userId: string, role: UserRole) {
     const payload = { sub: userId, role };
     const expiresInSeconds =
-      Number(this.configService.get<string>('JWT_EXPIRES_IN') ?? '3600') || 3600;
+      Number(this.configService.get<string>('JWT_EXPIRES_IN') ?? '3600') ||
+      3600;
 
     return this.jwtService.signAsync(payload, {
       expiresIn: expiresInSeconds,
     });
   }
 }
-

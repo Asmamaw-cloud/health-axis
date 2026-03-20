@@ -7,4 +7,3 @@ import { PrismaModule } from '../prisma/prisma.module';
   controllers: [AdminController],
 })
 export class AdminModule {}
-

@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma';
 
@@ -30,8 +34,9 @@ export class HealthReadingsService {
     const highBp =
       reading.bloodPressure &&
       (() => {
-        const [systolic, diastolic] =
-          reading.bloodPressure.split('/').map((v) => Number(v));
+        const [systolic, diastolic] = reading.bloodPressure
+          .split('/')
+          .map((v) => Number(v));
         return systolic > 160 || diastolic > 100;
       })();
 
@@ -86,16 +91,20 @@ export class HealthReadingsService {
       where: { providerId: provider.id },
       select: { patientId: true },
     });
-    const linkedPatientIds = [...new Set(linkedConsultations.map(c => c.patientId))];
+    const linkedPatientIds = [
+      ...new Set(linkedConsultations.map((c) => c.patientId)),
+    ];
 
     if (linkedPatientIds.length === 0) return [];
 
     return this.prisma.healthReading.findMany({
-      where: { 
+      where: {
         patientId: { in: linkedPatientIds },
-        patient: search ? {
-          fullName: { contains: search, mode: 'insensitive' }
-        } : undefined,
+        patient: search
+          ? {
+              fullName: { contains: search, mode: 'insensitive' },
+            }
+          : undefined,
       },
       orderBy: { timestamp: 'desc' },
       include: { patient: true },
@@ -104,7 +113,9 @@ export class HealthReadingsService {
 
   async getReadingsForPatient(userId: string, role: UserRole) {
     if (role !== UserRole.patient) {
-      throw new ForbiddenException('Only patients can access their readings here');
+      throw new ForbiddenException(
+        'Only patients can access their readings here',
+      );
     }
 
     return this.prisma.healthReading.findMany({
@@ -114,4 +125,3 @@ export class HealthReadingsService {
     });
   }
 }
-

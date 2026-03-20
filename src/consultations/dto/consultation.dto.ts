@@ -11,14 +11,23 @@ export class BookConsultationDto {
   @ApiProperty({ description: 'Time of the consultation (HH:MM:SS)' })
   consultationTime: string;
 
-  @ApiProperty({ description: 'Type of consultation (video, audio, chat)', enum: ConsultationType })
+  @ApiProperty({
+    description: 'Type of consultation (video, audio, chat)',
+    enum: ConsultationType,
+  })
   consultationType: ConsultationType;
 
-  @ApiProperty({ description: 'Optional notes for the consultation', required: false })
+  @ApiProperty({
+    description: 'Optional notes for the consultation',
+    required: false,
+  })
   notes?: string;
 }
 
 export class UpdateConsultationStatusDto {
-  @ApiProperty({ description: 'New status for the consultation', enum: ConsultationStatus })
+  @ApiProperty({
+    description: 'New status for the consultation',
+    enum: ConsultationStatus,
+  })
   status: ConsultationStatus;
 }

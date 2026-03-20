@@ -51,4 +51,3 @@ export class MessagesController {
     return this.messagesService.getContacts(user.userId, user.role, search);
   }
 }
-

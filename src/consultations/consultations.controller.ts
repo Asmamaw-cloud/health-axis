@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConsultationsService } from './consultations.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -6,7 +14,10 @@ import { Roles } from '../auth/roles.decorator';
 import { UserRole, ConsultationStatus } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
-import { BookConsultationDto, UpdateConsultationStatusDto } from './dto/consultation.dto';
+import {
+  BookConsultationDto,
+  UpdateConsultationStatusDto,
+} from './dto/consultation.dto';
 
 @ApiTags('consultations')
 @ApiBearerAuth()
@@ -30,10 +41,7 @@ export class ConsultationsController {
   @Get()
   @Roles(UserRole.patient, UserRole.provider, UserRole.admin)
   async list(@CurrentUser() user: { userId: string; role: UserRole }) {
-    return this.consultationsService.listConsultations(
-      user.userId,
-      user.role,
-    );
+    return this.consultationsService.listConsultations(user.userId, user.role);
   }
 
   @Get(':id')
@@ -41,7 +49,11 @@ export class ConsultationsController {
     @Param('id') id: string,
     @CurrentUser() user: { userId: string; role: UserRole },
   ) {
-    const consultation = await this.consultationsService.getConsultation(user.userId, user.role, id);
+    const consultation = await this.consultationsService.getConsultation(
+      user.userId,
+      user.role,
+      id,
+    );
     const token = this.agoraService.generateRtcToken(id, user.userId);
     const appId = this.agoraService.getAppId();
     return { ...consultation, token, appId };
@@ -98,4 +110,3 @@ export class ConsultationsController {
     return { meetingLink, token, appId };
   }
 }
-

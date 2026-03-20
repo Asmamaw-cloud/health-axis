@@ -18,6 +18,9 @@ export class MedicineDto {
 }
 
 export class AddPrescriptionDto {
-  @ApiProperty({ description: 'List of medicines to prescribe', type: [MedicineDto] })
+  @ApiProperty({
+    description: 'List of medicines to prescribe',
+    type: [MedicineDto],
+  })
   medicines: MedicineDto[];
 }

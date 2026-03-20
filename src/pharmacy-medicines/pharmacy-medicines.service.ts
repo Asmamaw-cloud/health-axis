@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -16,7 +20,9 @@ export class PharmacyMedicinesService {
     }
 
     if (!medicine.pharmacy || medicine.pharmacy.userId !== userId) {
-      throw new ForbiddenException('You cannot modify medicines of another pharmacy');
+      throw new ForbiddenException(
+        'You cannot modify medicines of another pharmacy',
+      );
     }
 
     return medicine;
@@ -102,11 +108,7 @@ export class PharmacyMedicinesService {
       include: {
         pharmacy: true,
       },
-      orderBy: [
-        { availabilityStatus: 'desc' },
-        { medicineName: 'asc' },
-      ],
+      orderBy: [{ availabilityStatus: 'desc' }, { medicineName: 'asc' }],
     });
   }
 }
-

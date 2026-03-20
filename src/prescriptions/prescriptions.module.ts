@@ -10,4 +10,3 @@ import { PrismaModule } from '../prisma/prisma.module';
   exports: [PrescriptionsService],
 })
 export class PrescriptionsModule {}
-

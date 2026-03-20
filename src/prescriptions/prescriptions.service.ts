@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -32,7 +36,9 @@ export class PrescriptionsService {
     }
 
     if (consultation.providerId !== provider.id) {
-      throw new ForbiddenException('You cannot prescribe for this consultation');
+      throw new ForbiddenException(
+        'You cannot prescribe for this consultation',
+      );
     }
 
     const created = await this.prisma.$transaction(
@@ -53,4 +59,3 @@ export class PrescriptionsService {
     return created;
   }
 }
-

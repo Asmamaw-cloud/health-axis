@@ -22,13 +22,12 @@ interface BookConsultationPayload {
 export class ConsultationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async bookConsultation(
-    patientId: string,
-    payload: BookConsultationPayload,
-  ) {
+  async bookConsultation(patientId: string, payload: BookConsultationPayload) {
     // Combine date and time strings for correct parsing (e.g. "2024-03-18T21:00")
-    const combinedDateTime = new Date(`${payload.consultationDate}T${payload.consultationTime}`);
-    
+    const combinedDateTime = new Date(
+      `${payload.consultationDate}T${payload.consultationTime}`,
+    );
+
     return this.prisma.consultation.create({
       data: {
         patientId,
@@ -56,7 +55,7 @@ export class ConsultationsService {
             cDate.getDate(),
             cTime.getHours(),
             cTime.getMinutes(),
-            cTime.getSeconds()
+            cTime.getSeconds(),
           );
           return combined < now;
         })
@@ -70,7 +69,7 @@ export class ConsultationsService {
         return consultations.map((c) =>
           expiredIds.includes(c.id)
             ? { ...c, consultationStatus: ConsultationStatus.expired }
-            : c
+            : c,
         );
       }
       return consultations;
@@ -82,8 +81,8 @@ export class ConsultationsService {
         include: { provider: true },
       });
       return markExpired(data);
-    } 
-    
+    }
+
     if (role === UserRole.provider) {
       const provider = await this.prisma.provider.findUnique({
         where: { userId },
@@ -112,7 +111,7 @@ export class ConsultationsService {
   async getConsultation(userId: string, role: UserRole, id: string) {
     const consultation = await this.prisma.consultation.findUnique({
       where: { id },
-      include: { patient: true, provider: true },
+      include: { patient: true, provider: { include: { user: true } } },
     });
 
     if (!consultation) {
@@ -123,7 +122,10 @@ export class ConsultationsService {
       throw new ForbiddenException('You cannot access this consultation');
     }
 
-    if (role === UserRole.provider && consultation.provider?.userId !== userId) {
+    if (
+      role === UserRole.provider &&
+      consultation.provider?.userId !== userId
+    ) {
       throw new ForbiddenException('You cannot access this consultation');
     }
 
@@ -192,6 +194,7 @@ export class ConsultationsService {
 
     const consultation = await this.prisma.consultation.findUnique({
       where: { id: consultationId },
+      include: { patient: true, provider: { include: { user: true } } },
     });
 
     if (!consultation) {
@@ -205,14 +208,10 @@ export class ConsultationsService {
     return consultation;
   }
 
-  async setMeetingLink(
-    consultationId: string,
-    meetingLink: string,
-  ) {
+  async setMeetingLink(consultationId: string, meetingLink: string) {
     return this.prisma.consultation.update({
       where: { id: consultationId },
       data: { meetingLink },
     });
   }
 }
-

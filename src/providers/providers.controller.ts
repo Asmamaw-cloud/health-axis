@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Patch, Query, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProvidersService } from './providers.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -23,7 +31,8 @@ export class ProvidersController {
   ) {
     const rawFee = feeMax ? Number(feeMax) : undefined;
     const feeVal = Number.isFinite(rawFee) ? rawFee : undefined;
-    const availableFlag = available === 'true' ? true : available === 'false' ? false : undefined;
+    const availableFlag =
+      available === 'true' ? true : available === 'false' ? false : undefined;
 
     const filter = {
       q: q?.trim(),
@@ -51,4 +60,3 @@ export class ProvidersController {
     return this.providersService.updateOwnProviderProfile(user.userId, body);
   }
 }
-

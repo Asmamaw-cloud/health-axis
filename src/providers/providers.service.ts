@@ -25,7 +25,10 @@ export class ProvidersService {
 
     if (filter.specialization) {
       // Partial, case-insensitive match on specialization
-      where.specialization = { contains: filter.specialization, mode: 'insensitive' };
+      where.specialization = {
+        contains: filter.specialization,
+        mode: 'insensitive',
+      };
     }
 
     if (filter.feeMax !== undefined) {
@@ -86,4 +89,3 @@ export class ProvidersService {
     });
   }
 }
-

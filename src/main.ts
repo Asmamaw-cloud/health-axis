@@ -15,7 +15,10 @@ async function bootstrap() {
 
   // CORS configuration
   const origins =
-    configService.get<string>('FRONTEND_ORIGINS')?.split(',').map((o) => o.trim()) ?? [];
+    configService
+      .get<string>('FRONTEND_ORIGINS')
+      ?.split(',')
+      .map((o) => o.trim()) ?? [];
   app.enableCors({
     origin: origins.length > 0 ? origins : undefined,
     credentials: true,

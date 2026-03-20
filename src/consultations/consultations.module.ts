@@ -11,4 +11,3 @@ import { AgoraService } from '../integrations/agora.service';
   exports: [ConsultationsService],
 })
 export class ConsultationsModule {}
-

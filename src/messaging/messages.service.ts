@@ -4,9 +4,7 @@ import { UserRole, VerificationStatus } from '../generated/prisma';
 
 @Injectable()
 export class MessagesService {
-  constructor(
-    private readonly prisma: PrismaService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async sendMessage(
     senderId: string,
@@ -48,9 +46,11 @@ export class MessagesService {
           NOT: {
             consultationStatus: { in: ['pending', 'cancelled'] },
           },
-          patient: search ? {
-            fullName: { contains: search, mode: 'insensitive' }
-          } : undefined,
+          patient: search
+            ? {
+                fullName: { contains: search, mode: 'insensitive' },
+              }
+            : undefined,
         },
         select: {
           patient: {
@@ -78,20 +78,26 @@ export class MessagesService {
 
     if (role === UserRole.patient) {
       const providers = await this.prisma.provider.findMany({
-        where: { 
+        where: {
           verificationStatus: VerificationStatus.approved,
-          user: search ? {
-            OR: [
-              { fullName: { contains: search, mode: 'insensitive' } },
-            ]
-          } : undefined,
+          user: search
+            ? {
+                OR: [{ fullName: { contains: search, mode: 'insensitive' } }],
+              }
+            : undefined,
           // Move specialization search outside user if search exists
-          ...(search ? {
-            OR: [
-              { user: { fullName: { contains: search, mode: 'insensitive' } } },
-              { specialization: { contains: search, mode: 'insensitive' } },
-            ]
-          } : {})
+          ...(search
+            ? {
+                OR: [
+                  {
+                    user: {
+                      fullName: { contains: search, mode: 'insensitive' },
+                    },
+                  },
+                  { specialization: { contains: search, mode: 'insensitive' } },
+                ],
+              }
+            : {}),
         },
         include: {
           user: {
@@ -114,4 +120,3 @@ export class MessagesService {
     return [];
   }
 }
-

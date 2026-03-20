@@ -47,19 +47,23 @@ export class AdminController {
       totalPharmacies,
       totalConsultations,
       pendingProviders,
-      pendingPharmacies
+      pendingPharmacies,
     ] = await this.prisma.$transaction([
       this.prisma.user.count({ where: { role: UserRole.patient } }),
-      this.prisma.provider.count({ where: { verificationStatus: VerificationStatus.approved } }),
-      this.prisma.pharmacy.count({ where: { verificationStatus: VerificationStatus.approved } }),
-      this.prisma.consultation.count(),
-      this.prisma.provider.findMany({ 
-        where: { verificationStatus: VerificationStatus.pending },
-        include: { user: true }
+      this.prisma.provider.count({
+        where: { verificationStatus: VerificationStatus.approved },
       }),
-      this.prisma.pharmacy.findMany({ 
+      this.prisma.pharmacy.count({
+        where: { verificationStatus: VerificationStatus.approved },
+      }),
+      this.prisma.consultation.count(),
+      this.prisma.provider.findMany({
         where: { verificationStatus: VerificationStatus.pending },
-        include: { user: true }
+        include: { user: true },
+      }),
+      this.prisma.pharmacy.findMany({
+        where: { verificationStatus: VerificationStatus.pending },
+        include: { user: true },
       }),
     ]);
 
@@ -73,4 +77,3 @@ export class AdminController {
     };
   }
 }
-
