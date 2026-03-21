@@ -1831,6 +1831,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string | null
     role: $Enums.UserRole | null
+    isSuspended: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1842,6 +1843,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string | null
     role: $Enums.UserRole | null
+    isSuspended: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1853,6 +1855,7 @@ export namespace Prisma {
     phoneNumber: number
     password: number
     role: number
+    isSuspended: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1866,6 +1869,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1877,6 +1881,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1888,6 +1893,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1972,6 +1978,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2000,6 +2007,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     provider?: boolean | User$providerArgs<ExtArgs>
@@ -2019,6 +2027,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2030,6 +2039,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2041,11 +2051,12 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phoneNumber" | "password" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phoneNumber" | "password" | "role" | "isSuspended" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     provider?: boolean | User$providerArgs<ExtArgs>
     pharmacy?: boolean | User$pharmacyArgs<ExtArgs>
@@ -2077,6 +2088,7 @@ export namespace Prisma {
       phoneNumber: string | null
       password: string
       role: $Enums.UserRole
+      isSuspended: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2515,6 +2527,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly isSuspended: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -12197,6 +12210,7 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     password: 'password',
     role: 'role',
+    isSuspended: 'isSuspended',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12393,6 +12407,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -12463,13 +12484,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'ConsultationStatus'
    */
   export type EnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationStatus'>
@@ -12524,6 +12538,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     provider?: XOR<ProviderNullableScalarRelationFilter, ProviderWhereInput> | null
@@ -12542,6 +12557,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     provider?: ProviderOrderByWithRelationInput
@@ -12563,6 +12579,7 @@ export namespace Prisma {
     fullName?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     provider?: XOR<ProviderNullableScalarRelationFilter, ProviderWhereInput> | null
@@ -12581,6 +12598,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -12598,6 +12616,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -13200,6 +13219,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -13218,6 +13238,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -13236,6 +13257,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -13254,6 +13276,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -13272,6 +13295,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13283,6 +13307,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13294,6 +13319,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13979,6 +14005,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -14052,6 +14083,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14063,6 +14095,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14074,6 +14107,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14137,6 +14171,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14385,11 +14427,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type PharmacyScalarRelationFilter = {
     is?: PharmacyWhereInput
     isNot?: PharmacyWhereInput
@@ -14447,14 +14484,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumConsultationStatusFilter<$PrismaModel = never> = {
@@ -14820,6 +14849,10 @@ export namespace Prisma {
     set?: $Enums.UserRole
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -15150,10 +15183,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type PharmacyUpdateOneRequiredWithoutMedicinesNestedInput = {
     create?: XOR<PharmacyCreateWithoutMedicinesInput, PharmacyUncheckedCreateWithoutMedicinesInput>
     connectOrCreate?: PharmacyCreateOrConnectWithoutMedicinesInput
@@ -15358,6 +15387,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15447,6 +15481,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -15557,11 +15599,6 @@ export namespace Prisma {
     _max?: NestedEnumVerificationStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -15587,14 +15624,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumConsultationStatusFilter<$PrismaModel = never> = {
@@ -16083,6 +16112,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     pharmacy?: PharmacyCreateNestedOneWithoutUserInput
@@ -16100,6 +16130,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     pharmacy?: PharmacyUncheckedCreateNestedOneWithoutUserInput
@@ -16171,6 +16202,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pharmacy?: PharmacyUpdateOneWithoutUserNestedInput
@@ -16188,6 +16220,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pharmacy?: PharmacyUncheckedUpdateOneWithoutUserNestedInput
@@ -16221,6 +16254,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16238,6 +16272,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16299,6 +16334,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16316,6 +16352,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16426,6 +16463,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16443,6 +16481,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16537,6 +16576,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16554,6 +16594,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16711,6 +16752,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16728,6 +16770,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16761,6 +16804,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16778,6 +16822,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16795,6 +16840,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16812,6 +16858,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16834,6 +16881,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16851,6 +16899,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16884,6 +16933,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16901,6 +16951,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16929,6 +16980,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16946,6 +16998,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16963,6 +17016,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16980,6 +17034,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -17013,6 +17068,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -17030,6 +17086,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput

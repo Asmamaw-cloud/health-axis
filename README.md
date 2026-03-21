@@ -45,8 +45,11 @@ Copy `.env.example` to `.env` and fill in:
 
 ```bash
 npx prisma migrate dev --name init
+npx prisma migrate deploy   # apply pending migrations (e.g. users.isSuspended)
 npx prisma generate
 ```
+
+Suspended users (`users.isSuspended = true`) cannot log in or use JWT-backed APIs. List/directory endpoints exclude them (providers, pharmacies, drug search, message contacts, consultations/prescriptions/dashboard slices, etc.). Admin routes still list all users for moderation.
 
 ## Run the project
 
@@ -71,8 +74,9 @@ The API will be available at `http://localhost:3000`, with Swagger docs at `http
 - `POST /health-readings`, `GET /health-readings`
 - `POST /messages`, `GET /messages?with=:userId`
 - `GET /notifications`
-- `GET /admin/providers`, `PATCH /admin/providers/:id/approve`
-- `GET /admin/pharmacies`, `PATCH /admin/pharmacies/:id/approve`
+- `GET /admin/providers` (includes `user`), `PATCH /admin/providers/:id/approve` (body: `{ verificationStatus }`)
+- `GET /admin/pharmacies` (includes `user`), `PATCH /admin/pharmacies/:id/approve` (body: `{ verificationStatus }`)
+- `GET /admin/users` (optional `?role=`), `PATCH /admin/users/:userId/suspend` (body: `{ suspended: boolean }`) — suspended users cannot log in; JWT validation rejects them
 - `GET /admin/analytics`
 - `GET /me`, `GET /dashboard`
 

@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @Injectable()
 export class PrescriptionsService {
@@ -76,6 +77,7 @@ export class PrescriptionsService {
       where: {
         consultation: {
           patientId: userId,
+          provider: { user: activeUserWhere },
         },
       },
       include: {

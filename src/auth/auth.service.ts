@@ -132,6 +132,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    if (user.isSuspended) {
+      this.logger.log(`Login blocked: suspended userId=${user.id}`);
+      throw new UnauthorizedException('Account suspended');
+    }
+
     const accessToken = await this.createAccessToken(user.id, user.role);
     this.logger.log(`Login successful for userId=${user.id}; issuing token`);
 

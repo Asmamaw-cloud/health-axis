@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @ApiTags('profile')
 @ApiBearerAuth()
@@ -45,7 +46,10 @@ export class ProfileController {
       const [consultations, unreadNotifications, recentReadings] =
         await this.prisma.$transaction([
           this.prisma.consultation.findMany({
-            where: { patientId: user.userId },
+            where: {
+              patientId: user.userId,
+              provider: { user: activeUserWhere },
+            },
             orderBy: { consultationDate: 'asc' },
             include: { provider: { include: { user: true } } },
             take: 5,
@@ -83,6 +87,7 @@ export class ProfileController {
               providerId,
               consultationDate: today,
               consultationStatus: { in: ['scheduled', 'pending'] },
+              patient: activeUserWhere,
             },
             include: { patient: true },
             orderBy: { consultationTime: 'asc' },
@@ -91,6 +96,7 @@ export class ProfileController {
             where: {
               providerId,
               consultationStatus: 'pending',
+              patient: activeUserWhere,
             },
             include: { patient: true },
             orderBy: { consultationDate: 'asc' },

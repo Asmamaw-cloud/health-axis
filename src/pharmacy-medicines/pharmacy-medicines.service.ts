@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @Injectable()
 export class PharmacyMedicinesService {
@@ -114,9 +115,10 @@ export class PharmacyMedicinesService {
             ? {
                 pharmacy: {
                   location: { contains: trimmedLocation, mode },
+                  user: activeUserWhere,
                 },
               }
-            : {},
+            : { pharmacy: { user: activeUserWhere } },
         ],
       },
       include: {

@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma';
+import { activeUserWhere } from '../common/prisma-user-filters';
 import { NotificationsService } from '../notifications/notifications.service';
 
 interface CreateReadingPayload {
@@ -108,11 +109,14 @@ export class HealthReadingsService {
     return this.prisma.healthReading.findMany({
       where: {
         patientId: { in: linkedPatientIds },
-        patient: search
-          ? {
-              fullName: { contains: search, mode: 'insensitive' },
-            }
-          : undefined,
+        patient: {
+          ...activeUserWhere,
+          ...(search
+            ? {
+                fullName: { contains: search, mode: 'insensitive' },
+              }
+            : {}),
+        },
       },
       orderBy: { timestamp: 'desc' },
       include: { patient: true },

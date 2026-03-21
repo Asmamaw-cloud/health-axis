@@ -7,8 +7,10 @@ import {
   ConsultationStatus,
   ConsultationType,
   UserRole,
+  VerificationStatus,
 } from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 interface BookConsultationPayload {
   providerId: string;
@@ -23,6 +25,19 @@ export class ConsultationsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async bookConsultation(patientId: string, payload: BookConsultationPayload) {
+    const providerRow = await this.prisma.provider.findUnique({
+      where: { id: payload.providerId },
+      include: { user: true },
+    });
+
+    if (
+      !providerRow ||
+      providerRow.verificationStatus !== VerificationStatus.approved ||
+      providerRow.user?.isSuspended
+    ) {
+      throw new ForbiddenException('Provider is not available');
+    }
+
     // Combine date and time strings for correct parsing (e.g. "2024-03-18T21:00")
     const combinedDateTime = new Date(
       `${payload.consultationDate}T${payload.consultationTime}`,
@@ -77,8 +92,11 @@ export class ConsultationsService {
 
     if (role === UserRole.patient) {
       const data = await this.prisma.consultation.findMany({
-        where: { patientId: userId },
-        include: { provider: true },
+        where: {
+          patientId: userId,
+          provider: { user: activeUserWhere },
+        },
+        include: { provider: { include: { user: true } } },
       });
       return markExpired(data);
     }
@@ -92,7 +110,10 @@ export class ConsultationsService {
       }
 
       const data = await this.prisma.consultation.findMany({
-        where: { providerId: provider.id },
+        where: {
+          providerId: provider.id,
+          patient: activeUserWhere,
+        },
         include: { patient: true },
       });
       return markExpired(data);
@@ -127,6 +148,15 @@ export class ConsultationsService {
       consultation.provider?.userId !== userId
     ) {
       throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    if (role !== UserRole.admin) {
+      if (consultation.patient?.isSuspended) {
+        throw new NotFoundException('Consultation not found');
+      }
+      if (consultation.provider?.user?.isSuspended) {
+        throw new NotFoundException('Consultation not found');
+      }
     }
 
     return consultation;
@@ -171,6 +201,13 @@ export class ConsultationsService {
 
     if (consultation.providerId !== provider.id) {
       throw new ForbiddenException('You cannot modify this consultation');
+    }
+
+    // `cancelled` is patient-only via PUT /consultations/:id/cancel
+    if (status === ConsultationStatus.cancelled) {
+      throw new ForbiddenException(
+        'Providers cannot cancel consultations; only patients can cancel a booking.',
+      );
     }
 
     return this.prisma.consultation.update({
