@@ -135,6 +135,8 @@ model Consultation {
   consultationStatus ConsultationStatus  @default(pending)
   consultationType   ConsultationType    @default(video)
   meetingLink        String?
+  /// After provider starts the video room, patient must acknowledge the invite (e.g. open notification) before receiving join credentials.
+  patientVideoJoinAllowed Boolean         @default(false)
   consultationNotes  String?
   createdAt          DateTime            @default(now()) @db.Timestamptz(6)
   updatedAt          DateTime            @default(now()) @updatedAt @db.Timestamptz(6)

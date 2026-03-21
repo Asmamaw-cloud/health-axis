@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole } from '../generated/prisma';
+import { ConsultationStatus, UserRole } from '../generated/prisma';
 import { activeUserWhere } from '../common/prisma-user-filters';
 
 @ApiTags('profile')
@@ -48,6 +48,9 @@ export class ProfileController {
           this.prisma.consultation.findMany({
             where: {
               patientId: user.userId,
+              consultationStatus: {
+                in: [ConsultationStatus.pending, ConsultationStatus.scheduled],
+              },
               provider: { user: activeUserWhere },
             },
             orderBy: { consultationDate: 'asc' },
@@ -63,9 +66,13 @@ export class ProfileController {
             take: 5,
           }),
         ]);
+      const upcomingConsultations = consultations.map((c) => ({
+        ...c,
+        meetingLink: c.patientVideoJoinAllowed ? c.meetingLink : null,
+      }));
       return {
         role: user.role,
-        upcomingConsultations: consultations,
+        upcomingConsultations,
         unreadNotifications,
         recentReadings,
       };

@@ -6597,6 +6597,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus | null
     consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean | null
     consultationNotes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6611,6 +6612,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus | null
     consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean | null
     consultationNotes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6625,6 +6627,7 @@ export namespace Prisma {
     consultationStatus: number
     consultationType: number
     meetingLink: number
+    patientVideoJoinAllowed: number
     consultationNotes: number
     createdAt: number
     updatedAt: number
@@ -6641,6 +6644,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6655,6 +6659,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6669,6 +6674,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6756,6 +6762,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus
     consultationType: $Enums.ConsultationType
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean
     consultationNotes: string | null
     createdAt: Date
     updatedAt: Date
@@ -6787,6 +6794,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6805,6 +6813,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6821,6 +6830,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6837,12 +6847,13 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "consultationType" | "meetingLink" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
+  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "consultationType" | "meetingLink" | "patientVideoJoinAllowed" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
   export type ConsultationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     patient?: boolean | UserDefaultArgs<ExtArgs>
     provider?: boolean | ProviderDefaultArgs<ExtArgs>
@@ -6874,6 +6885,10 @@ export namespace Prisma {
       consultationStatus: $Enums.ConsultationStatus
       consultationType: $Enums.ConsultationType
       meetingLink: string | null
+      /**
+       * After provider starts the video room, patient must acknowledge the invite (e.g. open notification) before receiving join credentials.
+       */
+      patientVideoJoinAllowed: boolean
       consultationNotes: string | null
       createdAt: Date
       updatedAt: Date
@@ -7311,6 +7326,7 @@ export namespace Prisma {
     readonly consultationStatus: FieldRef<"Consultation", 'ConsultationStatus'>
     readonly consultationType: FieldRef<"Consultation", 'ConsultationType'>
     readonly meetingLink: FieldRef<"Consultation", 'String'>
+    readonly patientVideoJoinAllowed: FieldRef<"Consultation", 'Boolean'>
     readonly consultationNotes: FieldRef<"Consultation", 'String'>
     readonly createdAt: FieldRef<"Consultation", 'DateTime'>
     readonly updatedAt: FieldRef<"Consultation", 'DateTime'>
@@ -12272,6 +12288,7 @@ export namespace Prisma {
     consultationStatus: 'consultationStatus',
     consultationType: 'consultationType',
     meetingLink: 'meetingLink',
+    patientVideoJoinAllowed: 'patientVideoJoinAllowed',
     consultationNotes: 'consultationNotes',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12868,6 +12885,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12885,6 +12903,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12905,6 +12924,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12922,6 +12942,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12942,6 +12963,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusWithAggregatesFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeWithAggregatesFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolWithAggregatesFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
@@ -13588,6 +13610,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13605,6 +13628,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13618,6 +13642,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13635,6 +13660,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13650,6 +13676,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13662,6 +13689,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13676,6 +13704,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14524,6 +14553,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14538,6 +14568,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14552,6 +14583,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15864,6 +15896,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15879,6 +15912,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16100,6 +16134,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -16153,6 +16188,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16168,6 +16204,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16680,6 +16717,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16696,6 +16734,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16724,6 +16763,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16740,6 +16780,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17140,6 +17181,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17257,6 +17299,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17272,6 +17315,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17286,6 +17330,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17299,6 +17344,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17311,6 +17357,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17326,6 +17373,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17340,6 +17388,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

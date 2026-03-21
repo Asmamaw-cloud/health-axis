@@ -98,7 +98,12 @@ export class ConsultationsService {
         },
         include: { provider: { include: { user: true } } },
       });
-      return markExpired(data);
+      const marked = await markExpired(data);
+      // Hide Agora join credentials until the patient acknowledges the video invite.
+      return marked.map((c) => ({
+        ...c,
+        meetingLink: c.patientVideoJoinAllowed ? c.meetingLink : null,
+      }));
     }
 
     if (role === UserRole.provider) {
@@ -249,6 +254,36 @@ export class ConsultationsService {
     return this.prisma.consultation.update({
       where: { id: consultationId },
       data: { meetingLink },
+    });
+  }
+
+  async resetPatientVideoJoinGate(consultationId: string) {
+    return this.prisma.consultation.update({
+      where: { id: consultationId },
+      data: { patientVideoJoinAllowed: false },
+    });
+  }
+
+  async allowPatientVideoJoin(patientId: string, consultationId: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: consultationId },
+    });
+    if (!consultation || consultation.patientId !== patientId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+    if (consultation.consultationStatus !== ConsultationStatus.scheduled) {
+      throw new ForbiddenException(
+        'Video join is only available for scheduled consultations.',
+      );
+    }
+    if (!consultation.meetingLink) {
+      throw new ForbiddenException(
+        'The provider has not started the video call yet.',
+      );
+    }
+    return this.prisma.consultation.update({
+      where: { id: consultationId },
+      data: { patientVideoJoinAllowed: true },
     });
   }
 }

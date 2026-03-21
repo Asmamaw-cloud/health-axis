@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -11,7 +12,11 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConsultationsService } from './consultations.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole, ConsultationStatus } from '../generated/prisma';
+import {
+  ConsultationStatus,
+  ConsultationType,
+  UserRole,
+} from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AgoraService } from '../integrations/agora.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -94,9 +99,27 @@ export class ConsultationsController {
       user.role,
       id,
     );
-    const token = this.agoraService.generateRtcToken(id, user.userId);
     const appId = this.agoraService.getAppId();
-    return { ...consultation, token, appId };
+    const rawMeetingLink = consultation.meetingLink;
+    const providerVideoStarted = Boolean(rawMeetingLink);
+    const patientBlocked =
+      user.role === UserRole.patient && !consultation.patientVideoJoinAllowed;
+
+    const safeConsultation = patientBlocked
+      ? { ...consultation, meetingLink: null as string | null }
+      : consultation;
+
+    if (patientBlocked) {
+      return {
+        ...safeConsultation,
+        providerVideoStarted,
+        token: null as string | null,
+        appId,
+      };
+    }
+
+    const token = this.agoraService.generateRtcToken(id, user.userId);
+    return { ...safeConsultation, providerVideoStarted, token, appId };
   }
 
   //Provider can update status of their consultations (e.g. mark as completed, cancelled, etc.)
@@ -216,11 +239,23 @@ export class ConsultationsController {
     @Param('id') id: string,
     @CurrentUser() user: { userId: string },
   ) {
-    const consultation =
+    let consultation =
       await this.consultationsService.ensureConsultationForProvider(
         user.userId,
         id,
       );
+
+    if (consultation.consultationStatus !== ConsultationStatus.scheduled) {
+      throw new BadRequestException(
+        'Consultation must be scheduled before starting a video call.',
+      );
+    }
+
+    if (consultation.consultationType === ConsultationType.chat) {
+      throw new BadRequestException(
+        'This consultation type does not support a live call room.',
+      );
+    }
 
     let meetingLink = consultation.meetingLink;
     if (!meetingLink) {
@@ -228,9 +263,46 @@ export class ConsultationsController {
       await this.consultationsService.setMeetingLink(id, meetingLink);
     }
 
+    await this.consultationsService.resetPatientVideoJoinGate(id);
+
+    const full = await this.prisma.consultation.findUnique({
+      where: { id },
+      include: { patient: true, provider: { include: { user: true } } },
+    });
+
+    if (full?.patientId && full.provider?.userId) {
+      const providerName = full.provider.user.fullName || 'Your provider';
+      const message = `Dr. ${providerName} is inviting you to a video call for consultation (ID: ${full.id}). Open this notification in the app to enable Join.`;
+
+      await this.notificationsService.dispatchNotification(
+        full.patientId,
+        'consultation_video_invite',
+        message,
+        {
+          senderId: full.provider.userId,
+          emailSubject: 'Video call invitation',
+        },
+      );
+    }
+
+    consultation =
+      (await this.prisma.consultation.findUnique({
+        where: { id },
+        include: { patient: true, provider: { include: { user: true } } },
+      })) ?? consultation;
+
     const token = this.agoraService.generateRtcToken(id, user.userId);
     const appId = this.agoraService.getAppId();
 
     return { ...consultation, meetingLink, token, appId };
+  }
+
+  @Put(':id/patient-ack-video-invite')
+  @Roles(UserRole.patient)
+  async patientAckVideoInvite(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.consultationsService.allowPatientVideoJoin(user.userId, id);
   }
 }

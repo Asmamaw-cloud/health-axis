@@ -107,6 +107,8 @@ export class NotificationsService {
               return 'Abnormal health reading';
             case 'prescription_added':
               return 'New prescription added';
+            case 'consultation_video_invite':
+              return 'Video call invitation';
             default:
               return 'HealthBridge notification';
           }
@@ -206,7 +208,13 @@ export class NotificationsService {
         ? await this.prisma.notification.count({
             where: {
               userId,
-              type: { in: ['consultation_confirmation', 'consultation_declined'] },
+              type: {
+                in: [
+                  'consultation_confirmation',
+                  'consultation_declined',
+                  'consultation_video_invite',
+                ],
+              },
               isRead: false,
             },
           })
@@ -267,7 +275,13 @@ export class NotificationsService {
     return this.prisma.notification.updateMany({
       where: {
         userId,
-        type: { not: 'new_message' },
+        type: {
+          notIn: [
+            'new_message',
+            'consultation_video_invite',
+            'prescription_added',
+          ],
+        },
         isRead: false,
       },
       data: { isRead: true },

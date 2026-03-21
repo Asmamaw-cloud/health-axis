@@ -177,6 +177,7 @@ exports.Prisma.ConsultationScalarFieldEnum = {
   consultationStatus: 'consultationStatus',
   consultationType: 'consultationType',
   meetingLink: 'meetingLink',
+  patientVideoJoinAllowed: 'patientVideoJoinAllowed',
   consultationNotes: 'consultationNotes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

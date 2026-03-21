@@ -127,17 +127,19 @@ model PharmacyMedicine {
 
 /// Consultations
 model Consultation {
-  id                 String             @id @default(uuid()) @db.Uuid
-  patientId          String             @db.Uuid
-  providerId         String             @db.Uuid
-  consultationDate   DateTime           @db.Date
-  consultationTime   DateTime           @db.Time(6)
-  consultationStatus ConsultationStatus @default(pending)
-  consultationType   ConsultationType   @default(video)
-  meetingLink        String?
-  consultationNotes  String?
-  createdAt          DateTime           @default(now()) @db.Timestamptz(6)
-  updatedAt          DateTime           @default(now()) @updatedAt @db.Timestamptz(6)
+  id                      String             @id @default(uuid()) @db.Uuid
+  patientId               String             @db.Uuid
+  providerId              String             @db.Uuid
+  consultationDate        DateTime           @db.Date
+  consultationTime        DateTime           @db.Time(6)
+  consultationStatus      ConsultationStatus @default(pending)
+  consultationType        ConsultationType   @default(video)
+  meetingLink             String?
+  /// After provider starts the video room, patient must acknowledge the invite (e.g. open notification) before receiving join credentials.
+  patientVideoJoinAllowed Boolean            @default(false)
+  consultationNotes       String?
+  createdAt               DateTime           @default(now()) @db.Timestamptz(6)
+  updatedAt               DateTime           @default(now()) @updatedAt @db.Timestamptz(6)
 
   patient       User           @relation("PatientConsultations", fields: [patientId], references: [id])
   provider      Provider       @relation(fields: [providerId], references: [id])
