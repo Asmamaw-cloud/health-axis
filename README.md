@@ -49,6 +49,31 @@ npx prisma migrate deploy   # apply pending migrations (e.g. users.isSuspended)
 npx prisma generate
 ```
 
+If you're switching to Neon:
+
+1. Create a Neon PostgreSQL database and copy its connection string.
+2. Set `DATABASE_URL` in your environment (Render/Platform dashboard) to the Neon connection string — example:
+
+```env
+DATABASE_URL="postgresql://<user>:<password>@<host>/<db>?sslmode=require"
+```
+
+3. From the project directory, deploy migrations and generate the client:
+
+```bash
+npm run prisma:deploy
+npm run prisma:generate
+```
+
+4. Rebuild and redeploy your app (Render runs `npm run build` during deploy):
+
+```bash
+npm run build
+npm run start:prod
+```
+
+If you need to migrate existing data from another Postgres instance, use `pg_dump`/`pg_restore` or follow Neon import docs.
+
 Suspended users (`users.isSuspended = true`) cannot log in or use JWT-backed APIs. List/directory endpoints exclude them (providers, pharmacies, drug search, message contacts, consultations/prescriptions/dashboard slices, etc.). Admin routes still list all users for moderation.
 
 ## Run the project
