@@ -1,24 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole, VerificationStatus } from '../generated/prisma';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @Injectable()
 export class MessagesService {
-  constructor(
-    private readonly prisma: PrismaService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async sendMessage(
     senderId: string,
     receiverId: string,
-    payload: { messageText?: string; imageUrl?: string },
+    payload: {
+      messageText?: string;
+      fileUrl?: string;
+    },
   ) {
+    const receiver = await this.prisma.user.findUnique({
+      where: { id: receiverId },
+      select: { isSuspended: true },
+    });
+    if (receiver?.isSuspended) {
+      throw new ForbiddenException('Cannot message this user');
+    }
+
     return this.prisma.message.create({
       data: {
         senderId,
         receiverId,
         messageText: payload.messageText,
-        imageUrl: payload.imageUrl,
+        fileUrl: payload.fileUrl,
       },
     });
   }
@@ -48,9 +58,14 @@ export class MessagesService {
           NOT: {
             consultationStatus: { in: ['pending', 'cancelled'] },
           },
-          patient: search ? {
-            fullName: { contains: search, mode: 'insensitive' }
-          } : undefined,
+          patient: {
+            ...activeUserWhere,
+            ...(search
+              ? {
+                  fullName: { contains: search, mode: 'insensitive' },
+                }
+              : {}),
+          },
         },
         select: {
           patient: {
@@ -77,21 +92,29 @@ export class MessagesService {
     }
 
     if (role === UserRole.patient) {
+      const mode = 'insensitive' as const;
       const providers = await this.prisma.provider.findMany({
-        where: { 
-          verificationStatus: VerificationStatus.approved,
-          user: search ? {
-            OR: [
-              { fullName: { contains: search, mode: 'insensitive' } },
-            ]
-          } : undefined,
-          // Move specialization search outside user if search exists
-          ...(search ? {
-            OR: [
-              { user: { fullName: { contains: search, mode: 'insensitive' } } },
-              { specialization: { contains: search, mode: 'insensitive' } },
-            ]
-          } : {})
+        where: {
+          AND: [
+            { verificationStatus: VerificationStatus.approved },
+            { user: activeUserWhere },
+            ...(search
+              ? [
+                  {
+                    OR: [
+                      {
+                        user: {
+                          fullName: { contains: search, mode },
+                        },
+                      },
+                      {
+                        specialization: { contains: search, mode },
+                      },
+                    ],
+                  },
+                ]
+              : []),
+          ],
         },
         include: {
           user: {
@@ -114,4 +137,3 @@ export class MessagesService {
     return [];
   }
 }
-

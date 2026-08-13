@@ -1,11 +1,24 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PharmacyMedicinesService } from './pharmacy-medicines.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/prisma';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { AddPharmacyMedicineDto, UpdatePharmacyMedicineDto } from './dto/pharmacy-medicine.dto';
+import {
+  AddPharmacyMedicineDto,
+  UpdatePharmacyMedicineDto,
+} from './dto/pharmacy-medicine.dto';
 
 @ApiTags('pharmacy-medicines')
 @ApiBearerAuth()
@@ -18,17 +31,25 @@ export class PharmacyMedicinesController {
 
   @Get('medicines/search')
   async search(
-    @Query('q') q: string,
+    @Query('q') q?: string,
     @Query('location') location?: string,
+    @Query('page') page = '1',
+    @Query('pageSize') pageSize = '10',
   ) {
-    return this.pharmacyMedicinesService.searchMedicines(q, location);
+    const pageNum = Math.max(1, Number(page) || 1);
+    const pageSizeNum = Math.max(1, Math.min(50, Number(pageSize) || 10));
+
+    return this.pharmacyMedicinesService.searchMedicines(
+      q,
+      location,
+      pageNum,
+      pageSizeNum,
+    );
   }
 
   @Get('pharmacy/medicines')
   @Roles(UserRole.pharmacy)
-  async getMyMedicines(
-    @CurrentUser() user: { userId: string },
-  ) {
+  async getMyMedicines(@CurrentUser() user: { userId: string }) {
     return this.pharmacyMedicinesService.getPharmacyInventory(user.userId);
   }
 
@@ -70,4 +91,3 @@ export class PharmacyMedicinesController {
     );
   }
 }
-

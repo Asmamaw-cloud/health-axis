@@ -12,9 +12,7 @@ import { CreateHealthReadingDto } from './dto/health-reading.dto';
 @UseGuards(JwtAuthGuard)
 @Controller('health-readings')
 export class HealthReadingsController {
-  constructor(
-    private readonly healthReadingsService: HealthReadingsService,
-  ) {}
+  constructor(private readonly healthReadingsService: HealthReadingsService) {}
 
   @Post()
   @Roles(UserRole.patient)
@@ -45,4 +43,3 @@ export class HealthReadingsController {
     );
   }
 }
-

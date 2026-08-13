@@ -7,4 +7,3 @@ import { PrismaModule } from '../prisma/prisma.module';
   controllers: [ProfileController],
 })
 export class ProfileModule {}
-

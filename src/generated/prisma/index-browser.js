@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   password: 'password',
   role: 'role',
+  isSuspended: 'isSuspended',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -139,6 +140,7 @@ exports.Prisma.ProviderScalarFieldEnum = {
   consultationFee: 'consultationFee',
   profileDescription: 'profileDescription',
   availabilitySchedule: 'availabilitySchedule',
+  licenseUrl: 'licenseUrl',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -150,6 +152,7 @@ exports.Prisma.PharmacyScalarFieldEnum = {
   pharmacyName: 'pharmacyName',
   location: 'location',
   contactInfo: 'contactInfo',
+  licenseUrl: 'licenseUrl',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -174,6 +177,7 @@ exports.Prisma.ConsultationScalarFieldEnum = {
   consultationStatus: 'consultationStatus',
   consultationType: 'consultationType',
   meetingLink: 'meetingLink',
+  patientVideoJoinAllowed: 'patientVideoJoinAllowed',
   consultationNotes: 'consultationNotes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -205,7 +209,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   senderId: 'senderId',
   receiverId: 'receiverId',
   messageText: 'messageText',
-  imageUrl: 'imageUrl',
+  fileUrl: 'fileUrl',
   timestamp: 'timestamp'
 };
 
@@ -213,6 +217,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   type: 'type',
+  senderId: 'senderId',
   message: 'message',
   isRead: 'isRead',
   createdAt: 'createdAt'

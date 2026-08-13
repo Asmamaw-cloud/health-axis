@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateHealthReadingDto {
-  @ApiProperty({ description: 'Blood pressure reading (e.g., "120/80")', required: false })
+  @ApiProperty({
+    description: 'Blood pressure reading (e.g., "120/80")',
+    required: false,
+  })
   bloodPressure?: string;
 
   @ApiProperty({ description: 'Heart rate in BPM', required: false })

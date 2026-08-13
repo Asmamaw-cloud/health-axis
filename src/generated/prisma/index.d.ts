@@ -1831,6 +1831,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string | null
     role: $Enums.UserRole | null
+    isSuspended: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1842,6 +1843,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string | null
     role: $Enums.UserRole | null
+    isSuspended: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1853,6 +1855,7 @@ export namespace Prisma {
     phoneNumber: number
     password: number
     role: number
+    isSuspended: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1866,6 +1869,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1877,6 +1881,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1888,6 +1893,7 @@ export namespace Prisma {
     phoneNumber?: true
     password?: true
     role?: true
+    isSuspended?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1972,6 +1978,7 @@ export namespace Prisma {
     phoneNumber: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2000,6 +2007,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     provider?: boolean | User$providerArgs<ExtArgs>
@@ -2019,6 +2027,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2030,6 +2039,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2041,11 +2051,12 @@ export namespace Prisma {
     phoneNumber?: boolean
     password?: boolean
     role?: boolean
+    isSuspended?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phoneNumber" | "password" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phoneNumber" | "password" | "role" | "isSuspended" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     provider?: boolean | User$providerArgs<ExtArgs>
     pharmacy?: boolean | User$pharmacyArgs<ExtArgs>
@@ -2077,6 +2088,7 @@ export namespace Prisma {
       phoneNumber: string | null
       password: string
       role: $Enums.UserRole
+      isSuspended: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2515,6 +2527,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly isSuspended: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3115,6 +3128,7 @@ export namespace Prisma {
     yearsExperience: number | null
     consultationFee: Decimal | null
     profileDescription: string | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3127,6 +3141,7 @@ export namespace Prisma {
     yearsExperience: number | null
     consultationFee: Decimal | null
     profileDescription: string | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3140,6 +3155,7 @@ export namespace Prisma {
     consultationFee: number
     profileDescription: number
     availabilitySchedule: number
+    licenseUrl: number
     verificationStatus: number
     createdAt: number
     updatedAt: number
@@ -3164,6 +3180,7 @@ export namespace Prisma {
     yearsExperience?: true
     consultationFee?: true
     profileDescription?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -3176,6 +3193,7 @@ export namespace Prisma {
     yearsExperience?: true
     consultationFee?: true
     profileDescription?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -3189,6 +3207,7 @@ export namespace Prisma {
     consultationFee?: true
     profileDescription?: true
     availabilitySchedule?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -3289,6 +3308,7 @@ export namespace Prisma {
     consultationFee: Decimal | null
     profileDescription: string | null
     availabilitySchedule: JsonValue | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus
     createdAt: Date
     updatedAt: Date
@@ -3321,6 +3341,7 @@ export namespace Prisma {
     consultationFee?: boolean
     profileDescription?: boolean
     availabilitySchedule?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3337,6 +3358,7 @@ export namespace Prisma {
     consultationFee?: boolean
     profileDescription?: boolean
     availabilitySchedule?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3351,6 +3373,7 @@ export namespace Prisma {
     consultationFee?: boolean
     profileDescription?: boolean
     availabilitySchedule?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3365,12 +3388,13 @@ export namespace Prisma {
     consultationFee?: boolean
     profileDescription?: boolean
     availabilitySchedule?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "specialization" | "yearsExperience" | "consultationFee" | "profileDescription" | "availabilitySchedule" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["provider"]>
+  export type ProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "specialization" | "yearsExperience" | "consultationFee" | "profileDescription" | "availabilitySchedule" | "licenseUrl" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["provider"]>
   export type ProviderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     consultations?: boolean | Provider$consultationsArgs<ExtArgs>
@@ -3397,6 +3421,10 @@ export namespace Prisma {
       consultationFee: Prisma.Decimal | null
       profileDescription: string | null
       availabilitySchedule: Prisma.JsonValue | null
+      /**
+       * Uploaded license URL for admin verification
+       */
+      licenseUrl: string | null
       verificationStatus: $Enums.VerificationStatus
       createdAt: Date
       updatedAt: Date
@@ -3832,6 +3860,7 @@ export namespace Prisma {
     readonly consultationFee: FieldRef<"Provider", 'Decimal'>
     readonly profileDescription: FieldRef<"Provider", 'String'>
     readonly availabilitySchedule: FieldRef<"Provider", 'Json'>
+    readonly licenseUrl: FieldRef<"Provider", 'String'>
     readonly verificationStatus: FieldRef<"Provider", 'VerificationStatus'>
     readonly createdAt: FieldRef<"Provider", 'DateTime'>
     readonly updatedAt: FieldRef<"Provider", 'DateTime'>
@@ -4294,6 +4323,7 @@ export namespace Prisma {
     pharmacyName: string | null
     location: string | null
     contactInfo: string | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4305,6 +4335,7 @@ export namespace Prisma {
     pharmacyName: string | null
     location: string | null
     contactInfo: string | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4316,6 +4347,7 @@ export namespace Prisma {
     pharmacyName: number
     location: number
     contactInfo: number
+    licenseUrl: number
     verificationStatus: number
     createdAt: number
     updatedAt: number
@@ -4329,6 +4361,7 @@ export namespace Prisma {
     pharmacyName?: true
     location?: true
     contactInfo?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -4340,6 +4373,7 @@ export namespace Prisma {
     pharmacyName?: true
     location?: true
     contactInfo?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -4351,6 +4385,7 @@ export namespace Prisma {
     pharmacyName?: true
     location?: true
     contactInfo?: true
+    licenseUrl?: true
     verificationStatus?: true
     createdAt?: true
     updatedAt?: true
@@ -4435,6 +4470,7 @@ export namespace Prisma {
     pharmacyName: string
     location: string | null
     contactInfo: string | null
+    licenseUrl: string | null
     verificationStatus: $Enums.VerificationStatus
     createdAt: Date
     updatedAt: Date
@@ -4463,6 +4499,7 @@ export namespace Prisma {
     pharmacyName?: boolean
     location?: boolean
     contactInfo?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4477,6 +4514,7 @@ export namespace Prisma {
     pharmacyName?: boolean
     location?: boolean
     contactInfo?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4489,6 +4527,7 @@ export namespace Prisma {
     pharmacyName?: boolean
     location?: boolean
     contactInfo?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4501,12 +4540,13 @@ export namespace Prisma {
     pharmacyName?: boolean
     location?: boolean
     contactInfo?: boolean
+    licenseUrl?: boolean
     verificationStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PharmacyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "pharmacyName" | "location" | "contactInfo" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["pharmacy"]>
+  export type PharmacyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "pharmacyName" | "location" | "contactInfo" | "licenseUrl" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["pharmacy"]>
   export type PharmacyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     medicines?: boolean | Pharmacy$medicinesArgs<ExtArgs>
@@ -4531,6 +4571,10 @@ export namespace Prisma {
       pharmacyName: string
       location: string | null
       contactInfo: string | null
+      /**
+       * Uploaded license URL for admin verification
+       */
+      licenseUrl: string | null
       verificationStatus: $Enums.VerificationStatus
       createdAt: Date
       updatedAt: Date
@@ -4964,6 +5008,7 @@ export namespace Prisma {
     readonly pharmacyName: FieldRef<"Pharmacy", 'String'>
     readonly location: FieldRef<"Pharmacy", 'String'>
     readonly contactInfo: FieldRef<"Pharmacy", 'String'>
+    readonly licenseUrl: FieldRef<"Pharmacy", 'String'>
     readonly verificationStatus: FieldRef<"Pharmacy", 'VerificationStatus'>
     readonly createdAt: FieldRef<"Pharmacy", 'DateTime'>
     readonly updatedAt: FieldRef<"Pharmacy", 'DateTime'>
@@ -6552,6 +6597,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus | null
     consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean | null
     consultationNotes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6566,6 +6612,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus | null
     consultationType: $Enums.ConsultationType | null
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean | null
     consultationNotes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6580,6 +6627,7 @@ export namespace Prisma {
     consultationStatus: number
     consultationType: number
     meetingLink: number
+    patientVideoJoinAllowed: number
     consultationNotes: number
     createdAt: number
     updatedAt: number
@@ -6596,6 +6644,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6610,6 +6659,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6624,6 +6674,7 @@ export namespace Prisma {
     consultationStatus?: true
     consultationType?: true
     meetingLink?: true
+    patientVideoJoinAllowed?: true
     consultationNotes?: true
     createdAt?: true
     updatedAt?: true
@@ -6711,6 +6762,7 @@ export namespace Prisma {
     consultationStatus: $Enums.ConsultationStatus
     consultationType: $Enums.ConsultationType
     meetingLink: string | null
+    patientVideoJoinAllowed: boolean
     consultationNotes: string | null
     createdAt: Date
     updatedAt: Date
@@ -6742,6 +6794,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6760,6 +6813,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6776,6 +6830,7 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6792,12 +6847,13 @@ export namespace Prisma {
     consultationStatus?: boolean
     consultationType?: boolean
     meetingLink?: boolean
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "consultationType" | "meetingLink" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
+  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "providerId" | "consultationDate" | "consultationTime" | "consultationStatus" | "consultationType" | "meetingLink" | "patientVideoJoinAllowed" | "consultationNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
   export type ConsultationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     patient?: boolean | UserDefaultArgs<ExtArgs>
     provider?: boolean | ProviderDefaultArgs<ExtArgs>
@@ -6829,6 +6885,10 @@ export namespace Prisma {
       consultationStatus: $Enums.ConsultationStatus
       consultationType: $Enums.ConsultationType
       meetingLink: string | null
+      /**
+       * After provider starts the video room, patient must acknowledge the invite (e.g. open notification) before receiving join credentials.
+       */
+      patientVideoJoinAllowed: boolean
       consultationNotes: string | null
       createdAt: Date
       updatedAt: Date
@@ -7266,6 +7326,7 @@ export namespace Prisma {
     readonly consultationStatus: FieldRef<"Consultation", 'ConsultationStatus'>
     readonly consultationType: FieldRef<"Consultation", 'ConsultationType'>
     readonly meetingLink: FieldRef<"Consultation", 'String'>
+    readonly patientVideoJoinAllowed: FieldRef<"Consultation", 'Boolean'>
     readonly consultationNotes: FieldRef<"Consultation", 'String'>
     readonly createdAt: FieldRef<"Consultation", 'DateTime'>
     readonly updatedAt: FieldRef<"Consultation", 'DateTime'>
@@ -9983,7 +10044,7 @@ export namespace Prisma {
     senderId: string | null
     receiverId: string | null
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date | null
   }
 
@@ -9992,7 +10053,7 @@ export namespace Prisma {
     senderId: string | null
     receiverId: string | null
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date | null
   }
 
@@ -10001,7 +10062,7 @@ export namespace Prisma {
     senderId: number
     receiverId: number
     messageText: number
-    imageUrl: number
+    fileUrl: number
     timestamp: number
     _all: number
   }
@@ -10012,7 +10073,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
   }
 
@@ -10021,7 +10082,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
   }
 
@@ -10030,7 +10091,7 @@ export namespace Prisma {
     senderId?: true
     receiverId?: true
     messageText?: true
-    imageUrl?: true
+    fileUrl?: true
     timestamp?: true
     _all?: true
   }
@@ -10112,7 +10173,7 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText: string | null
-    imageUrl: string | null
+    fileUrl: string | null
     timestamp: Date
     _count: MessageCountAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
@@ -10138,7 +10199,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10149,7 +10210,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10160,7 +10221,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10171,11 +10232,11 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     messageText?: boolean
-    imageUrl?: boolean
+    fileUrl?: boolean
     timestamp?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "receiverId" | "messageText" | "imageUrl" | "timestamp", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "receiverId" | "messageText" | "fileUrl" | "timestamp", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UserDefaultArgs<ExtArgs>
     receiver?: boolean | UserDefaultArgs<ExtArgs>
@@ -10200,7 +10261,7 @@ export namespace Prisma {
       senderId: string
       receiverId: string
       messageText: string | null
-      imageUrl: string | null
+      fileUrl: string | null
       timestamp: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
@@ -10631,7 +10692,7 @@ export namespace Prisma {
     readonly senderId: FieldRef<"Message", 'String'>
     readonly receiverId: FieldRef<"Message", 'String'>
     readonly messageText: FieldRef<"Message", 'String'>
-    readonly imageUrl: FieldRef<"Message", 'String'>
+    readonly fileUrl: FieldRef<"Message", 'String'>
     readonly timestamp: FieldRef<"Message", 'DateTime'>
   }
     
@@ -11066,6 +11127,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     type: string | null
+    senderId: string | null
     message: string | null
     isRead: boolean | null
     createdAt: Date | null
@@ -11075,6 +11137,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     type: string | null
+    senderId: string | null
     message: string | null
     isRead: boolean | null
     createdAt: Date | null
@@ -11084,6 +11147,7 @@ export namespace Prisma {
     id: number
     userId: number
     type: number
+    senderId: number
     message: number
     isRead: number
     createdAt: number
@@ -11095,6 +11159,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     type?: true
+    senderId?: true
     message?: true
     isRead?: true
     createdAt?: true
@@ -11104,6 +11169,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     type?: true
+    senderId?: true
     message?: true
     isRead?: true
     createdAt?: true
@@ -11113,6 +11179,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     type?: true
+    senderId?: true
     message?: true
     isRead?: true
     createdAt?: true
@@ -11195,6 +11262,7 @@ export namespace Prisma {
     id: string
     userId: string
     type: string
+    senderId: string | null
     message: string
     isRead: boolean
     createdAt: Date
@@ -11221,6 +11289,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    senderId?: boolean
     message?: boolean
     isRead?: boolean
     createdAt?: boolean
@@ -11231,6 +11300,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    senderId?: boolean
     message?: boolean
     isRead?: boolean
     createdAt?: boolean
@@ -11241,6 +11311,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    senderId?: boolean
     message?: boolean
     isRead?: boolean
     createdAt?: boolean
@@ -11251,12 +11322,13 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    senderId?: boolean
     message?: boolean
     isRead?: boolean
     createdAt?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "message" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "senderId" | "message" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -11276,6 +11348,10 @@ export namespace Prisma {
       id: string
       userId: string
       type: string
+      /**
+       * Only used for `new_message` notifications so we can dedupe by sender.
+       */
+      senderId: string | null
       message: string
       isRead: boolean
       createdAt: Date
@@ -11706,6 +11782,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Notification", 'String'>
     readonly userId: FieldRef<"Notification", 'String'>
     readonly type: FieldRef<"Notification", 'String'>
+    readonly senderId: FieldRef<"Notification", 'String'>
     readonly message: FieldRef<"Notification", 'String'>
     readonly isRead: FieldRef<"Notification", 'Boolean'>
     readonly createdAt: FieldRef<"Notification", 'DateTime'>
@@ -12149,6 +12226,7 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     password: 'password',
     role: 'role',
+    isSuspended: 'isSuspended',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12164,6 +12242,7 @@ export namespace Prisma {
     consultationFee: 'consultationFee',
     profileDescription: 'profileDescription',
     availabilitySchedule: 'availabilitySchedule',
+    licenseUrl: 'licenseUrl',
     verificationStatus: 'verificationStatus',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12178,6 +12257,7 @@ export namespace Prisma {
     pharmacyName: 'pharmacyName',
     location: 'location',
     contactInfo: 'contactInfo',
+    licenseUrl: 'licenseUrl',
     verificationStatus: 'verificationStatus',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12208,6 +12288,7 @@ export namespace Prisma {
     consultationStatus: 'consultationStatus',
     consultationType: 'consultationType',
     meetingLink: 'meetingLink',
+    patientVideoJoinAllowed: 'patientVideoJoinAllowed',
     consultationNotes: 'consultationNotes',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12248,7 +12329,7 @@ export namespace Prisma {
     senderId: 'senderId',
     receiverId: 'receiverId',
     messageText: 'messageText',
-    imageUrl: 'imageUrl',
+    fileUrl: 'fileUrl',
     timestamp: 'timestamp'
   };
 
@@ -12259,6 +12340,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     type: 'type',
+    senderId: 'senderId',
     message: 'message',
     isRead: 'isRead',
     createdAt: 'createdAt'
@@ -12342,6 +12424,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -12412,13 +12501,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'ConsultationStatus'
    */
   export type EnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationStatus'>
@@ -12473,6 +12555,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     provider?: XOR<ProviderNullableScalarRelationFilter, ProviderWhereInput> | null
@@ -12491,6 +12574,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     provider?: ProviderOrderByWithRelationInput
@@ -12512,6 +12596,7 @@ export namespace Prisma {
     fullName?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     provider?: XOR<ProviderNullableScalarRelationFilter, ProviderWhereInput> | null
@@ -12530,6 +12615,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -12547,6 +12633,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    isSuspended?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -12562,6 +12649,7 @@ export namespace Prisma {
     consultationFee?: DecimalNullableFilter<"Provider"> | Decimal | DecimalJsLike | number | string | null
     profileDescription?: StringNullableFilter<"Provider"> | string | null
     availabilitySchedule?: JsonNullableFilter<"Provider">
+    licenseUrl?: StringNullableFilter<"Provider"> | string | null
     verificationStatus?: EnumVerificationStatusFilter<"Provider"> | $Enums.VerificationStatus
     createdAt?: DateTimeFilter<"Provider"> | Date | string
     updatedAt?: DateTimeFilter<"Provider"> | Date | string
@@ -12577,6 +12665,7 @@ export namespace Prisma {
     consultationFee?: SortOrderInput | SortOrder
     profileDescription?: SortOrderInput | SortOrder
     availabilitySchedule?: SortOrderInput | SortOrder
+    licenseUrl?: SortOrderInput | SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12595,6 +12684,7 @@ export namespace Prisma {
     consultationFee?: DecimalNullableFilter<"Provider"> | Decimal | DecimalJsLike | number | string | null
     profileDescription?: StringNullableFilter<"Provider"> | string | null
     availabilitySchedule?: JsonNullableFilter<"Provider">
+    licenseUrl?: StringNullableFilter<"Provider"> | string | null
     verificationStatus?: EnumVerificationStatusFilter<"Provider"> | $Enums.VerificationStatus
     createdAt?: DateTimeFilter<"Provider"> | Date | string
     updatedAt?: DateTimeFilter<"Provider"> | Date | string
@@ -12610,6 +12700,7 @@ export namespace Prisma {
     consultationFee?: SortOrderInput | SortOrder
     profileDescription?: SortOrderInput | SortOrder
     availabilitySchedule?: SortOrderInput | SortOrder
+    licenseUrl?: SortOrderInput | SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12631,6 +12722,7 @@ export namespace Prisma {
     consultationFee?: DecimalNullableWithAggregatesFilter<"Provider"> | Decimal | DecimalJsLike | number | string | null
     profileDescription?: StringNullableWithAggregatesFilter<"Provider"> | string | null
     availabilitySchedule?: JsonNullableWithAggregatesFilter<"Provider">
+    licenseUrl?: StringNullableWithAggregatesFilter<"Provider"> | string | null
     verificationStatus?: EnumVerificationStatusWithAggregatesFilter<"Provider"> | $Enums.VerificationStatus
     createdAt?: DateTimeWithAggregatesFilter<"Provider"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Provider"> | Date | string
@@ -12645,6 +12737,7 @@ export namespace Prisma {
     pharmacyName?: StringFilter<"Pharmacy"> | string
     location?: StringNullableFilter<"Pharmacy"> | string | null
     contactInfo?: StringNullableFilter<"Pharmacy"> | string | null
+    licenseUrl?: StringNullableFilter<"Pharmacy"> | string | null
     verificationStatus?: EnumVerificationStatusFilter<"Pharmacy"> | $Enums.VerificationStatus
     createdAt?: DateTimeFilter<"Pharmacy"> | Date | string
     updatedAt?: DateTimeFilter<"Pharmacy"> | Date | string
@@ -12658,6 +12751,7 @@ export namespace Prisma {
     pharmacyName?: SortOrder
     location?: SortOrderInput | SortOrder
     contactInfo?: SortOrderInput | SortOrder
+    licenseUrl?: SortOrderInput | SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12674,6 +12768,7 @@ export namespace Prisma {
     pharmacyName?: StringFilter<"Pharmacy"> | string
     location?: StringNullableFilter<"Pharmacy"> | string | null
     contactInfo?: StringNullableFilter<"Pharmacy"> | string | null
+    licenseUrl?: StringNullableFilter<"Pharmacy"> | string | null
     verificationStatus?: EnumVerificationStatusFilter<"Pharmacy"> | $Enums.VerificationStatus
     createdAt?: DateTimeFilter<"Pharmacy"> | Date | string
     updatedAt?: DateTimeFilter<"Pharmacy"> | Date | string
@@ -12687,6 +12782,7 @@ export namespace Prisma {
     pharmacyName?: SortOrder
     location?: SortOrderInput | SortOrder
     contactInfo?: SortOrderInput | SortOrder
+    licenseUrl?: SortOrderInput | SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12704,6 +12800,7 @@ export namespace Prisma {
     pharmacyName?: StringWithAggregatesFilter<"Pharmacy"> | string
     location?: StringNullableWithAggregatesFilter<"Pharmacy"> | string | null
     contactInfo?: StringNullableWithAggregatesFilter<"Pharmacy"> | string | null
+    licenseUrl?: StringNullableWithAggregatesFilter<"Pharmacy"> | string | null
     verificationStatus?: EnumVerificationStatusWithAggregatesFilter<"Pharmacy"> | $Enums.VerificationStatus
     createdAt?: DateTimeWithAggregatesFilter<"Pharmacy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Pharmacy"> | Date | string
@@ -12788,6 +12885,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12805,6 +12903,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12825,6 +12924,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -12842,6 +12942,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrderInput | SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12862,6 +12963,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusWithAggregatesFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeWithAggregatesFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolWithAggregatesFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
@@ -13012,7 +13114,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
     receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13023,7 +13125,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrderInput | SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
     timestamp?: SortOrder
     sender?: UserOrderByWithRelationInput
     receiver?: UserOrderByWithRelationInput
@@ -13037,7 +13139,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
     receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13048,7 +13150,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrderInput | SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
     timestamp?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
@@ -13063,7 +13165,7 @@ export namespace Prisma {
     senderId?: UuidWithAggregatesFilter<"Message"> | string
     receiverId?: UuidWithAggregatesFilter<"Message"> | string
     messageText?: StringNullableWithAggregatesFilter<"Message"> | string | null
-    imageUrl?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    fileUrl?: StringNullableWithAggregatesFilter<"Message"> | string | null
     timestamp?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
@@ -13074,6 +13176,7 @@ export namespace Prisma {
     id?: UuidFilter<"Notification"> | string
     userId?: UuidFilter<"Notification"> | string
     type?: StringFilter<"Notification"> | string
+    senderId?: UuidNullableFilter<"Notification"> | string | null
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
     createdAt?: DateTimeFilter<"Notification"> | Date | string
@@ -13084,6 +13187,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    senderId?: SortOrderInput | SortOrder
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
@@ -13097,6 +13201,7 @@ export namespace Prisma {
     NOT?: NotificationWhereInput | NotificationWhereInput[]
     userId?: UuidFilter<"Notification"> | string
     type?: StringFilter<"Notification"> | string
+    senderId?: UuidNullableFilter<"Notification"> | string | null
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
     createdAt?: DateTimeFilter<"Notification"> | Date | string
@@ -13107,6 +13212,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    senderId?: SortOrderInput | SortOrder
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
@@ -13122,6 +13228,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"Notification"> | string
     userId?: UuidWithAggregatesFilter<"Notification"> | string
     type?: StringWithAggregatesFilter<"Notification"> | string
+    senderId?: UuidNullableWithAggregatesFilter<"Notification"> | string | null
     message?: StringWithAggregatesFilter<"Notification"> | string
     isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
@@ -13134,6 +13241,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -13152,6 +13260,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -13170,6 +13279,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -13188,6 +13298,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -13206,6 +13317,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13217,6 +13329,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13228,6 +13341,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13239,6 +13353,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13254,6 +13369,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13267,6 +13383,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13282,6 +13399,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13296,6 +13414,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13308,6 +13427,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13321,6 +13441,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13331,6 +13452,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13344,6 +13466,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13355,6 +13478,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13368,6 +13492,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13380,6 +13505,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13390,6 +13516,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13401,6 +13528,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13482,6 +13610,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13499,6 +13628,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13512,6 +13642,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13529,6 +13660,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13544,6 +13676,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13556,6 +13689,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13570,6 +13704,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13723,7 +13858,7 @@ export namespace Prisma {
   export type MessageCreateInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     sender: UserCreateNestedOneWithoutSentMessagesInput
     receiver: UserCreateNestedOneWithoutReceivedMessagesInput
@@ -13734,14 +13869,14 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
   export type MessageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
@@ -13752,7 +13887,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13761,14 +13896,14 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
   export type MessageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13777,13 +13912,14 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateInput = {
     id?: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -13794,6 +13930,7 @@ export namespace Prisma {
     id?: string
     userId: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -13802,6 +13939,7 @@ export namespace Prisma {
   export type NotificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13812,6 +13950,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13821,6 +13960,7 @@ export namespace Prisma {
     id?: string
     userId: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -13829,6 +13969,7 @@ export namespace Prisma {
   export type NotificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13838,6 +13979,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13890,6 +14032,11 @@ export namespace Prisma {
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -13965,6 +14112,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13976,6 +14124,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13987,6 +14136,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    isSuspended?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14050,6 +14200,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14131,6 +14289,7 @@ export namespace Prisma {
     consultationFee?: SortOrder
     profileDescription?: SortOrder
     availabilitySchedule?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14148,6 +14307,7 @@ export namespace Prisma {
     yearsExperience?: SortOrder
     consultationFee?: SortOrder
     profileDescription?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14160,6 +14320,7 @@ export namespace Prisma {
     yearsExperience?: SortOrder
     consultationFee?: SortOrder
     profileDescription?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14254,6 +14415,7 @@ export namespace Prisma {
     pharmacyName?: SortOrder
     location?: SortOrder
     contactInfo?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14265,6 +14427,7 @@ export namespace Prisma {
     pharmacyName?: SortOrder
     location?: SortOrder
     contactInfo?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14276,6 +14439,7 @@ export namespace Prisma {
     pharmacyName?: SortOrder
     location?: SortOrder
     contactInfo?: SortOrder
+    licenseUrl?: SortOrder
     verificationStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14290,11 +14454,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type PharmacyScalarRelationFilter = {
@@ -14356,14 +14515,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type EnumConsultationStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ConsultationStatus | EnumConsultationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ConsultationStatus[] | ListEnumConsultationStatusFieldRefInput<$PrismaModel>
@@ -14402,6 +14553,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14416,6 +14568,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14430,6 +14583,7 @@ export namespace Prisma {
     consultationStatus?: SortOrder
     consultationType?: SortOrder
     meetingLink?: SortOrder
+    patientVideoJoinAllowed?: SortOrder
     consultationNotes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14569,7 +14723,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -14578,7 +14732,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -14587,7 +14741,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     messageText?: SortOrder
-    imageUrl?: SortOrder
+    fileUrl?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -14595,6 +14749,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    senderId?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
@@ -14604,6 +14759,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    senderId?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
@@ -14613,6 +14769,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    senderId?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
@@ -14722,6 +14879,10 @@ export namespace Prisma {
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -15054,10 +15215,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type PharmacyUpdateOneRequiredWithoutMedicinesNestedInput = {
     create?: XOR<PharmacyCreateWithoutMedicinesInput, PharmacyUncheckedCreateWithoutMedicinesInput>
     connectOrCreate?: PharmacyCreateOrConnectWithoutMedicinesInput
@@ -15262,6 +15419,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15351,6 +15513,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -15461,11 +15631,6 @@ export namespace Prisma {
     _max?: NestedEnumVerificationStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -15491,14 +15656,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumConsultationStatusFilter<$PrismaModel = never> = {
@@ -15567,6 +15724,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15580,6 +15738,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15596,6 +15755,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15607,6 +15767,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15621,7 +15782,7 @@ export namespace Prisma {
   export type MessageCreateWithoutSenderInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     receiver: UserCreateNestedOneWithoutReceivedMessagesInput
   }
@@ -15630,7 +15791,7 @@ export namespace Prisma {
     id?: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -15647,7 +15808,7 @@ export namespace Prisma {
   export type MessageCreateWithoutReceiverInput = {
     id?: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
     sender: UserCreateNestedOneWithoutSentMessagesInput
   }
@@ -15656,7 +15817,7 @@ export namespace Prisma {
     id?: string
     senderId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -15673,6 +15834,7 @@ export namespace Prisma {
   export type NotificationCreateWithoutUserInput = {
     id?: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -15681,6 +15843,7 @@ export namespace Prisma {
   export type NotificationUncheckedCreateWithoutUserInput = {
     id?: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -15733,6 +15896,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15748,6 +15912,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15782,6 +15947,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15795,6 +15961,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15817,6 +15984,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15828,6 +15996,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15858,7 +16027,7 @@ export namespace Prisma {
     senderId?: UuidFilter<"Message"> | string
     receiverId?: UuidFilter<"Message"> | string
     messageText?: StringNullableFilter<"Message"> | string | null
-    imageUrl?: StringNullableFilter<"Message"> | string | null
+    fileUrl?: StringNullableFilter<"Message"> | string | null
     timestamp?: DateTimeFilter<"Message"> | Date | string
   }
 
@@ -15901,6 +16070,7 @@ export namespace Prisma {
     id?: UuidFilter<"Notification"> | string
     userId?: UuidFilter<"Notification"> | string
     type?: StringFilter<"Notification"> | string
+    senderId?: UuidNullableFilter<"Notification"> | string | null
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
     createdAt?: DateTimeFilter<"Notification"> | Date | string
@@ -15964,6 +16134,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFilter<"Consultation"> | $Enums.ConsultationType
     meetingLink?: StringNullableFilter<"Consultation"> | string | null
+    patientVideoJoinAllowed?: BoolFilter<"Consultation"> | boolean
     consultationNotes?: StringNullableFilter<"Consultation"> | string | null
     createdAt?: DateTimeFilter<"Consultation"> | Date | string
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
@@ -15976,6 +16147,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     pharmacy?: PharmacyCreateNestedOneWithoutUserInput
@@ -15993,6 +16165,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     pharmacy?: PharmacyUncheckedCreateNestedOneWithoutUserInput
@@ -16015,6 +16188,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16030,6 +16204,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16064,6 +16239,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pharmacy?: PharmacyUpdateOneWithoutUserNestedInput
@@ -16081,6 +16257,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pharmacy?: PharmacyUncheckedUpdateOneWithoutUserNestedInput
@@ -16114,6 +16291,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16131,6 +16309,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16192,6 +16371,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16209,6 +16389,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16253,6 +16434,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16265,6 +16447,7 @@ export namespace Prisma {
     pharmacyName: string
     location?: string | null
     contactInfo?: string | null
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16291,6 +16474,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16303,6 +16487,7 @@ export namespace Prisma {
     pharmacyName?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16315,6 +16500,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16332,6 +16518,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16354,6 +16541,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16368,6 +16556,7 @@ export namespace Prisma {
     consultationFee?: Decimal | DecimalJsLike | number | string | null
     profileDescription?: string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: string | null
     verificationStatus?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16424,6 +16613,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16441,6 +16631,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16469,6 +16660,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16483,6 +16675,7 @@ export namespace Prisma {
     consultationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     profileDescription?: NullableStringFieldUpdateOperationsInput | string | null
     availabilitySchedule?: NullableJsonNullValueInput | InputJsonValue
+    licenseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationStatus?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16524,6 +16717,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16540,6 +16734,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16568,6 +16763,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16584,6 +16780,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16596,6 +16793,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16613,6 +16811,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16646,6 +16845,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16663,6 +16863,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16680,6 +16881,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16697,6 +16899,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16719,6 +16922,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16736,6 +16940,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16769,6 +16974,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16786,6 +16992,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16814,6 +17021,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16831,6 +17039,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16848,6 +17057,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderCreateNestedOneWithoutUserInput
@@ -16865,6 +17075,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     password: string
     role: $Enums.UserRole
+    isSuspended?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
@@ -16898,6 +17109,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUpdateOneWithoutUserNestedInput
@@ -16915,6 +17127,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
@@ -16929,7 +17142,7 @@ export namespace Prisma {
     id?: string
     receiverId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
@@ -16937,13 +17150,14 @@ export namespace Prisma {
     id?: string
     senderId: string
     messageText?: string | null
-    imageUrl?: string | null
+    fileUrl?: string | null
     timestamp?: Date | string
   }
 
   export type NotificationCreateManyUserInput = {
     id?: string
     type: string
+    senderId?: string | null
     message: string
     isRead?: boolean
     createdAt?: Date | string
@@ -16967,6 +17181,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16975,7 +17190,7 @@ export namespace Prisma {
   export type MessageUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
   }
@@ -16984,7 +17199,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16992,14 +17207,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUpdateWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
   }
@@ -17008,7 +17223,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17016,13 +17231,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     messageText?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17031,6 +17247,7 @@ export namespace Prisma {
   export type NotificationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17039,6 +17256,7 @@ export namespace Prisma {
   export type NotificationUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17081,6 +17299,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17096,6 +17315,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17110,6 +17330,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17123,6 +17344,7 @@ export namespace Prisma {
     consultationStatus?: $Enums.ConsultationStatus
     consultationType?: $Enums.ConsultationType
     meetingLink?: string | null
+    patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17135,6 +17357,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17150,6 +17373,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17164,6 +17388,7 @@ export namespace Prisma {
     consultationStatus?: EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
     consultationType?: EnumConsultationTypeFieldUpdateOperationsInput | $Enums.ConsultationType
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

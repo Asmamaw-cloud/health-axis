@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/roles.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -25,6 +26,7 @@ import { ProfileModule } from './profile/profile.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     ThrottlerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => [
@@ -55,14 +57,14 @@ import { ProfileModule } from './profile/profile.module';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
-      {
-        provide: APP_GUARD,
-        useClass: JwtAuthGuard,
-      },
-      {
-        provide: APP_GUARD,
-        useClass: RolesGuard,
-      },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}

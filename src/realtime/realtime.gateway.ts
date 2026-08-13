@@ -33,13 +33,10 @@ export class RealtimeGateway {
   }
 
   emitMessage(receiverUserId: string, message: any) {
-    this.server
-      .to(`user:${receiverUserId}`)
-      .emit('message:received', message);
+    this.server.to(`user:${receiverUserId}`).emit('message:received', message);
   }
 
   emitNotification(userId: string, notification: any) {
     this.server.to(`user:${userId}`).emit('notification:new', notification);
   }
 }
-

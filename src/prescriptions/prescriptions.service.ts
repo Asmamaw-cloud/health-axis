@@ -1,9 +1,18 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @Injectable()
 export class PrescriptionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async addPrescriptionForConsultation(
     providerUserId: string,
@@ -32,7 +41,9 @@ export class PrescriptionsService {
     }
 
     if (consultation.providerId !== provider.id) {
-      throw new ForbiddenException('You cannot prescribe for this consultation');
+      throw new ForbiddenException(
+        'You cannot prescribe for this consultation',
+      );
     }
 
     const created = await this.prisma.$transaction(
@@ -50,7 +61,65 @@ export class PrescriptionsService {
       ),
     );
 
+    // Notification for the patient when a provider adds prescriptions.
+    await this.notificationsService.dispatchNotification(
+      consultation.patientId,
+      'prescription_added',
+      `New prescription added for your consultation (ID: ${consultationId}).`,
+      { senderId: providerUserId },
+    );
+
     return created;
   }
-}
+  
+  async getPatientPrescriptions(userId: string) {
+    return this.prisma.prescription.findMany({
+      where: {
+        consultation: {
+          patientId: userId,
+          provider: { user: activeUserWhere },
+        },
+      },
+      include: {
+        consultation: {
+          include: {
+            provider: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        consultation: {
+           consultationDate: 'desc'
+        }
+      }
+    });
+  }
 
+  async getConsultationPrescriptions(consultationId: string, userId: string, role: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: consultationId },
+      include: { provider: true }
+    });
+
+    if (!consultation) {
+      throw new NotFoundException('Consultation not found');
+    }
+
+    // Access control
+    if (role === 'patient' && consultation.patientId !== userId) {
+      throw new ForbiddenException('You cannot access this prescription');
+    }
+
+    if (role === 'provider' && consultation.provider?.userId !== userId) {
+      throw new ForbiddenException('You cannot access this prescription');
+    }
+
+    return this.prisma.prescription.findMany({
+      where: { consultationId },
+    });
+  }
+}

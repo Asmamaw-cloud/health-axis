@@ -52,6 +52,7 @@ model User {
   phoneNumber  String?   @unique
   password     String
   role         UserRole
+  isSuspended  Boolean   @default(false)
   createdAt    DateTime  @default(now()) @db.Timestamptz(6)
   updatedAt    DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
 
@@ -75,6 +76,8 @@ model Provider {
   consultationFee     Decimal?            @db.Decimal(10, 2)
   profileDescription  String?
   availabilitySchedule Json?
+  /// Uploaded license URL for admin verification
+  licenseUrl         String?
   verificationStatus  VerificationStatus  @default(pending)
   createdAt           DateTime            @default(now()) @db.Timestamptz(6)
   updatedAt           DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
@@ -92,6 +95,8 @@ model Pharmacy {
   pharmacyName        String
   location            String?
   contactInfo         String?
+  /// Uploaded license URL for admin verification
+  licenseUrl         String?
   verificationStatus  VerificationStatus @default(pending)
   createdAt           DateTime           @default(now()) @db.Timestamptz(6)
   updatedAt           DateTime           @default(now()) @updatedAt @db.Timestamptz(6)
@@ -130,6 +135,8 @@ model Consultation {
   consultationStatus ConsultationStatus  @default(pending)
   consultationType   ConsultationType    @default(video)
   meetingLink        String?
+  /// After provider starts the video room, patient must acknowledge the invite (e.g. open notification) before receiving join credentials.
+  patientVideoJoinAllowed Boolean         @default(false)
   consultationNotes  String?
   createdAt          DateTime            @default(now()) @db.Timestamptz(6)
   updatedAt          DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
@@ -182,7 +189,7 @@ model Message {
   senderId    String   @db.Uuid
   receiverId  String   @db.Uuid
   messageText String?
-  imageUrl    String?
+  fileUrl     String?
   timestamp   DateTime @default(now()) @db.Timestamptz(6)
 
   sender   User @relation("SentMessages", fields: [senderId], references: [id])
@@ -198,6 +205,8 @@ model Notification {
   id         String   @id @default(uuid()) @db.Uuid
   userId     String   @db.Uuid
   type       String
+  /// Only used for `new_message` notifications so we can dedupe by sender.
+  senderId   String?  @db.Uuid
   message    String
   isRead     Boolean  @default(false)
   createdAt  DateTime @default(now()) @db.Timestamptz(6)

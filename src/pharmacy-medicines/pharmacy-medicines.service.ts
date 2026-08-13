@@ -1,5 +1,10 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 @Injectable()
 export class PharmacyMedicinesService {
@@ -16,7 +21,9 @@ export class PharmacyMedicinesService {
     }
 
     if (!medicine.pharmacy || medicine.pharmacy.userId !== userId) {
-      throw new ForbiddenException('You cannot modify medicines of another pharmacy');
+      throw new ForbiddenException(
+        'You cannot modify medicines of another pharmacy',
+      );
     }
 
     return medicine;
@@ -80,33 +87,50 @@ export class PharmacyMedicinesService {
     });
   }
 
-  async searchMedicines(query: string, location?: string) {
+  async searchMedicines(
+    query?: string,
+    location?: string,
+    page = 1,
+    pageSize = 10,
+  ) {
+    const trimmedQuery = query?.trim();
+    const trimmedLocation = location?.trim();
+    const mode = 'insensitive' as const;
+
+    const orFilter =
+      trimmedQuery && trimmedQuery.length > 0
+        ? {
+            OR: [
+              { medicineName: { contains: trimmedQuery, mode } },
+              { genericName: { contains: trimmedQuery, mode } },
+            ],
+          }
+        : undefined;
+
     return this.prisma.pharmacyMedicine.findMany({
       where: {
         AND: [
-          {
-            OR: [
-              { medicineName: { contains: query, mode: 'insensitive' } },
-              { genericName: { contains: query, mode: 'insensitive' } },
-            ],
-          },
-          location
+          orFilter ?? {},
+          trimmedLocation
             ? {
                 pharmacy: {
-                  location: { contains: location, mode: 'insensitive' },
+                  location: { contains: trimmedLocation, mode },
+                  user: activeUserWhere,
                 },
               }
-            : {},
+            : { pharmacy: { user: activeUserWhere } },
         ],
       },
       include: {
         pharmacy: true,
       },
       orderBy: [
-        { availabilityStatus: 'desc' },
         { medicineName: 'asc' },
+        { genericName: 'asc' },
+        { availabilityStatus: 'desc' },
       ],
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
   }
 }
-

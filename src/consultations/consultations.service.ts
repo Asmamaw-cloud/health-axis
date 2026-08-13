@@ -7,8 +7,10 @@ import {
   ConsultationStatus,
   ConsultationType,
   UserRole,
+  VerificationStatus,
 } from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 interface BookConsultationPayload {
   providerId: string;
@@ -22,13 +24,25 @@ interface BookConsultationPayload {
 export class ConsultationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async bookConsultation(
-    patientId: string,
-    payload: BookConsultationPayload,
-  ) {
+  async bookConsultation(patientId: string, payload: BookConsultationPayload) {
+    const providerRow = await this.prisma.provider.findUnique({
+      where: { id: payload.providerId },
+      include: { user: true },
+    });
+
+    if (
+      !providerRow ||
+      providerRow.verificationStatus !== VerificationStatus.approved ||
+      providerRow.user?.isSuspended
+    ) {
+      throw new ForbiddenException('Provider is not available');
+    }
+
     // Combine date and time strings for correct parsing (e.g. "2024-03-18T21:00")
-    const combinedDateTime = new Date(`${payload.consultationDate}T${payload.consultationTime}`);
-    
+    const combinedDateTime = new Date(
+      `${payload.consultationDate}T${payload.consultationTime}`,
+    );
+
     return this.prisma.consultation.create({
       data: {
         patientId,
@@ -56,7 +70,7 @@ export class ConsultationsService {
             cDate.getDate(),
             cTime.getHours(),
             cTime.getMinutes(),
-            cTime.getSeconds()
+            cTime.getSeconds(),
           );
           return combined < now;
         })
@@ -70,7 +84,7 @@ export class ConsultationsService {
         return consultations.map((c) =>
           expiredIds.includes(c.id)
             ? { ...c, consultationStatus: ConsultationStatus.expired }
-            : c
+            : c,
         );
       }
       return consultations;
@@ -78,12 +92,20 @@ export class ConsultationsService {
 
     if (role === UserRole.patient) {
       const data = await this.prisma.consultation.findMany({
-        where: { patientId: userId },
-        include: { provider: true },
+        where: {
+          patientId: userId,
+          provider: { user: activeUserWhere },
+        },
+        include: { provider: { include: { user: true } } },
       });
-      return markExpired(data);
-    } 
-    
+      const marked = await markExpired(data);
+      // Hide Agora join credentials until the patient acknowledges the video invite.
+      return marked.map((c) => ({
+        ...c,
+        meetingLink: c.patientVideoJoinAllowed ? c.meetingLink : null,
+      }));
+    }
+
     if (role === UserRole.provider) {
       const provider = await this.prisma.provider.findUnique({
         where: { userId },
@@ -93,7 +115,10 @@ export class ConsultationsService {
       }
 
       const data = await this.prisma.consultation.findMany({
-        where: { providerId: provider.id },
+        where: {
+          providerId: provider.id,
+          patient: activeUserWhere,
+        },
         include: { patient: true },
       });
       return markExpired(data);
@@ -112,7 +137,7 @@ export class ConsultationsService {
   async getConsultation(userId: string, role: UserRole, id: string) {
     const consultation = await this.prisma.consultation.findUnique({
       where: { id },
-      include: { patient: true, provider: true },
+      include: { patient: true, provider: { include: { user: true } } },
     });
 
     if (!consultation) {
@@ -123,8 +148,20 @@ export class ConsultationsService {
       throw new ForbiddenException('You cannot access this consultation');
     }
 
-    if (role === UserRole.provider && consultation.provider?.userId !== userId) {
+    if (
+      role === UserRole.provider &&
+      consultation.provider?.userId !== userId
+    ) {
       throw new ForbiddenException('You cannot access this consultation');
+    }
+
+    if (role !== UserRole.admin) {
+      if (consultation.patient?.isSuspended) {
+        throw new NotFoundException('Consultation not found');
+      }
+      if (consultation.provider?.user?.isSuspended) {
+        throw new NotFoundException('Consultation not found');
+      }
     }
 
     return consultation;
@@ -171,6 +208,13 @@ export class ConsultationsService {
       throw new ForbiddenException('You cannot modify this consultation');
     }
 
+    // `cancelled` is patient-only via PUT /consultations/:id/cancel
+    if (status === ConsultationStatus.cancelled) {
+      throw new ForbiddenException(
+        'Providers cannot cancel consultations; only patients can cancel a booking.',
+      );
+    }
+
     return this.prisma.consultation.update({
       where: { id: consultationId },
       data: {
@@ -192,6 +236,7 @@ export class ConsultationsService {
 
     const consultation = await this.prisma.consultation.findUnique({
       where: { id: consultationId },
+      include: { patient: true, provider: { include: { user: true } } },
     });
 
     if (!consultation) {
@@ -205,14 +250,40 @@ export class ConsultationsService {
     return consultation;
   }
 
-  async setMeetingLink(
-    consultationId: string,
-    meetingLink: string,
-  ) {
+  async setMeetingLink(consultationId: string, meetingLink: string) {
     return this.prisma.consultation.update({
       where: { id: consultationId },
       data: { meetingLink },
     });
   }
-}
 
+  async resetPatientVideoJoinGate(consultationId: string) {
+    return this.prisma.consultation.update({
+      where: { id: consultationId },
+      data: { patientVideoJoinAllowed: false },
+    });
+  }
+
+  async allowPatientVideoJoin(patientId: string, consultationId: string) {
+    const consultation = await this.prisma.consultation.findUnique({
+      where: { id: consultationId },
+    });
+    if (!consultation || consultation.patientId !== patientId) {
+      throw new ForbiddenException('You cannot access this consultation');
+    }
+    if (consultation.consultationStatus !== ConsultationStatus.scheduled) {
+      throw new ForbiddenException(
+        'Video join is only available for scheduled consultations.',
+      );
+    }
+    if (!consultation.meetingLink) {
+      throw new ForbiddenException(
+        'The provider has not started the video call yet.',
+      );
+    }
+    return this.prisma.consultation.update({
+      where: { id: consultationId },
+      data: { patientVideoJoinAllowed: true },
+    });
+  }
+}

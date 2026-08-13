@@ -1,6 +1,12 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/prisma';
+import { activeUserWhere } from '../common/prisma-user-filters';
+import { NotificationsService } from '../notifications/notifications.service';
 
 interface CreateReadingPayload {
   bloodPressure?: string;
@@ -12,7 +18,10 @@ interface CreateReadingPayload {
 
 @Injectable()
 export class HealthReadingsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async createReading(patientId: string, data: CreateReadingPayload) {
     const reading = await this.prisma.healthReading.create({
@@ -30,8 +39,9 @@ export class HealthReadingsService {
     const highBp =
       reading.bloodPressure &&
       (() => {
-        const [systolic, diastolic] =
-          reading.bloodPressure.split('/').map((v) => Number(v));
+        const [systolic, diastolic] = reading.bloodPressure
+          .split('/')
+          .map((v) => Number(v));
         return systolic > 160 || diastolic > 100;
       })();
 
@@ -40,14 +50,18 @@ export class HealthReadingsService {
       reading.temperature != null && Number(reading.temperature) > 38;
 
     if (highBp || highHr || highTemp) {
-      // Find providers for this patient – for now, create a generic notification
-      await this.prisma.notification.create({
-        data: {
-          userId: patientId,
-          type: 'abnormal_reading',
-          message: 'Abnormal health reading detected',
-        },
-      });
+      const triggered: string[] = [];
+
+      if (highBp) triggered.push('blood pressure');
+      if (highHr) triggered.push('heart rate');
+      if (highTemp) triggered.push('temperature');
+
+      await this.notificationsService.dispatchNotification(
+        patientId,
+        'abnormal_reading',
+        `Abnormal health reading detected (${triggered.join(', ')}).`,
+        { senderId: patientId },
+      );
     }
 
     return reading;
@@ -86,16 +100,23 @@ export class HealthReadingsService {
       where: { providerId: provider.id },
       select: { patientId: true },
     });
-    const linkedPatientIds = [...new Set(linkedConsultations.map(c => c.patientId))];
+    const linkedPatientIds = [
+      ...new Set(linkedConsultations.map((c) => c.patientId)),
+    ];
 
     if (linkedPatientIds.length === 0) return [];
 
     return this.prisma.healthReading.findMany({
-      where: { 
+      where: {
         patientId: { in: linkedPatientIds },
-        patient: search ? {
-          fullName: { contains: search, mode: 'insensitive' }
-        } : undefined,
+        patient: {
+          ...activeUserWhere,
+          ...(search
+            ? {
+                fullName: { contains: search, mode: 'insensitive' },
+              }
+            : {}),
+        },
       },
       orderBy: { timestamp: 'desc' },
       include: { patient: true },
@@ -104,7 +125,9 @@ export class HealthReadingsService {
 
   async getReadingsForPatient(userId: string, role: UserRole) {
     if (role !== UserRole.patient) {
-      throw new ForbiddenException('Only patients can access their readings here');
+      throw new ForbiddenException(
+        'Only patients can access their readings here',
+      );
     }
 
     return this.prisma.healthReading.findMany({
@@ -114,4 +137,3 @@ export class HealthReadingsService {
     });
   }
 }
-

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { VerificationStatus } from '../generated/prisma';
+import { activeUserWhere } from '../common/prisma-user-filters';
 
 interface ProviderFilter {
   q?: string;
@@ -16,16 +17,18 @@ export class ProvidersService {
   async listProviders(filter: ProviderFilter) {
     const where: any = {};
 
+    const userWhere: Record<string, unknown> = { ...activeUserWhere };
     if (filter.q) {
-      // Search by provider's user fullName
-      where.user = {
-        fullName: { contains: filter.q, mode: 'insensitive' },
-      };
+      userWhere.fullName = { contains: filter.q, mode: 'insensitive' };
     }
+    where.user = userWhere;
 
     if (filter.specialization) {
       // Partial, case-insensitive match on specialization
-      where.specialization = { contains: filter.specialization, mode: 'insensitive' };
+      where.specialization = {
+        contains: filter.specialization,
+        mode: 'insensitive',
+      };
     }
 
     if (filter.feeMax !== undefined) {
@@ -60,6 +63,10 @@ export class ProvidersService {
       throw new NotFoundException('Provider not found');
     }
 
+    if (provider.user?.isSuspended) {
+      throw new NotFoundException('Provider not found');
+    }
+
     return provider;
   }
 
@@ -86,4 +93,3 @@ export class ProvidersService {
     });
   }
 }
-

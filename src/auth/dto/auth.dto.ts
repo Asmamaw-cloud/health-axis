@@ -13,10 +13,16 @@ export class RegisterDto {
   @ApiProperty({ description: 'Full name of the user' })
   fullName!: string;
 
-  @ApiProperty({ description: 'Email address (optional if phone provided)', required: false })
+  @ApiProperty({
+    description: 'Email address (optional if phone provided)',
+    required: false,
+  })
   email?: string;
 
-  @ApiProperty({ description: 'Phone number (optional if email provided)', required: false })
+  @ApiProperty({
+    description: 'Phone number (optional if email provided)',
+    required: false,
+  })
   phoneNumber?: string;
 
   @ApiProperty({ description: 'Password (minimum 6 characters)' })
@@ -40,6 +46,12 @@ export class RegisterDto {
 
   @ApiProperty({ description: 'Availability schedule (JSON)', required: false })
   availabilitySchedule?: any;
+
+  @ApiProperty({
+    description: 'Uploaded license URL for admin verification',
+    required: false,
+  })
+  licenseUrl?: string;
 
   // Pharmacy-specific fields (optional on registration)
   @ApiProperty({ description: 'Pharmacy name', required: false })
@@ -68,7 +80,10 @@ export class AdminRegisterDto {
 export class LoginDto {
   static schema = loginSchema;
 
-  @ApiProperty({ description: 'Email address (or phone number if using phone login)', required: false })
+  @ApiProperty({
+    description: 'Email address (or phone number if using phone login)',
+    required: false,
+  })
   email?: string;
 
   @ApiProperty({ description: 'Phone number (optional)', required: false })
@@ -94,4 +109,3 @@ export class ResetPasswordDto {
   @ApiProperty({ description: 'New password (minimum 6 characters)' })
   newPassword!: string;
 }
-
