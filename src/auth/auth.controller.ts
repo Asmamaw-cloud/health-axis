@@ -26,6 +26,11 @@ export class AuthController {
   @Post('register')
   @Public()
   async register(@Body() body: RegisterDto) {
+    // Accept snake_case from frontend as a fallback (e.g. full_name)
+    if ((body as any).full_name && !(body as any).fullName) {
+      (body as any).fullName = (body as any).full_name;
+    }
+
     this.logger.log(`Register request payload: ${JSON.stringify(body)}`);
     try {
       return await this.authService.register(body);
