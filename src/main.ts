@@ -14,6 +14,36 @@ async function bootstrap() {
   const apiPrefix = configService.get<string>('API_PREFIX') ?? 'api';
   app.setGlobalPrefix(apiPrefix);
 
+  // Normalize incoming request body keys: snake_case -> camelCase
+  const toCamel = (s: string) =>
+    s.replace(/[_-][a-z]/g, (m) => m.charAt(1).toUpperCase());
+
+  function normalizeKeys(obj: any): any {
+    if (Array.isArray(obj)) return obj.map(normalizeKeys);
+    if (obj && typeof obj === 'object') {
+      const out: any = {};
+      for (const key of Object.keys(obj)) {
+        const camel = toCamel(key);
+        out[camel] = normalizeKeys(obj[key]);
+      }
+      return out;
+    }
+    return obj;
+  }
+
+  app.use((req, _res, next) => {
+    try {
+      if (req.headers && req.headers['content-type']?.includes('application/json')) {
+        if (req.body && typeof req.body === 'object') {
+          req.body = normalizeKeys(req.body);
+        }
+      }
+    } catch (e) {
+      // noop - don't block requests for normalization failures
+    }
+    next();
+  });
+
   // Security headers
   app.use(helmet());
 
