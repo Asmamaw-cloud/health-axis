@@ -53,9 +53,27 @@ async function bootstrap() {
       .get<string>('FRONTEND_ORIGINS')
       ?.split(',')
       .map((o) => o.trim()) ?? [];
+
+  // Use a function so we explicitly echo the request origin when allowed.
   app.enableCors({
-    origin: origins.length > 0 ? origins : undefined,
+    origin: (requestOrigin, callback) => {
+      // Allow non-browser (e.g., server-side) requests when no origin is provided
+      if (!requestOrigin) return callback(null, true);
+
+      if (origins.length === 0) {
+        // If no origins configured, allow any origin
+        return callback(null, true);
+      }
+
+      if (origins.includes(requestOrigin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   // Global validation (Zod-based DTOs)
