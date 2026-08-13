@@ -20,6 +20,8 @@ import { MessagesModule } from './messaging/messages.module';
 import { RealtimeModule } from './realtime/realtime.module';
 import { AdminModule } from './admin/admin.module';
 import { ProfileModule } from './profile/profile.module';
+import { PresenceController } from './presence/presence.controller';
+import { ShopController } from './shop/shop.controller';
 
 @Module({
   imports: [
@@ -50,7 +52,7 @@ import { ProfileModule } from './profile/profile.module';
     AdminModule,
     ProfileModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, PresenceController, ShopController],
   providers: [
     AppService,
     {

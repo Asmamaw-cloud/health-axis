@@ -9,7 +9,7 @@ import { activeUserWhere } from '../common/prisma-user-filters';
 @ApiTags('profile')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller()
+@Controller('profile')
 export class ProfileController {
   constructor(private readonly prisma: PrismaService) {}
 
