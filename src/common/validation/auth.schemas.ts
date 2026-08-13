@@ -27,7 +27,8 @@ export const registerSchema = z
     path: ['email'],
   })
   .superRefine((data, ctx) => {
-    const needsLicense = data.role === UserRole.provider || data.role === UserRole.pharmacy;
+    const needsLicense =
+      data.role === UserRole.provider || data.role === UserRole.pharmacy;
     if (!needsLicense) return;
 
     if (!data.licenseUrl || data.licenseUrl.trim().length === 0) {

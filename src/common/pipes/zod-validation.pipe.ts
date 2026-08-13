@@ -1,4 +1,9 @@
-import { ArgumentMetadata, Injectable, PipeTransform, Logger } from '@nestjs/common';
+import {
+  ArgumentMetadata,
+  Injectable,
+  PipeTransform,
+  Logger,
+} from '@nestjs/common';
 import { ZodTypeAny } from 'zod';
 
 type ZodMetatype = {
@@ -16,7 +21,10 @@ export class ZodValidationPipe implements PipeTransform {
       try {
         return schema.parse(value);
       } catch (err) {
-        this.logger.error('Zod validation error', (err as Error).message ?? String(err));
+        this.logger.error(
+          'Zod validation error',
+          (err as Error).message ?? String(err),
+        );
         throw err;
       }
     }

@@ -10,6 +10,10 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
+  // Global API prefix (use API_PREFIX env var or default to 'api')
+  const apiPrefix = configService.get<string>('API_PREFIX') ?? 'api';
+  app.setGlobalPrefix(apiPrefix);
+
   // Security headers
   app.use(helmet());
 

@@ -71,7 +71,7 @@ export class PrescriptionsService {
 
     return created;
   }
-  
+
   async getPatientPrescriptions(userId: string) {
     return this.prisma.prescription.findMany({
       where: {
@@ -93,16 +93,20 @@ export class PrescriptionsService {
       },
       orderBy: {
         consultation: {
-           consultationDate: 'desc'
-        }
-      }
+          consultationDate: 'desc',
+        },
+      },
     });
   }
 
-  async getConsultationPrescriptions(consultationId: string, userId: string, role: string) {
+  async getConsultationPrescriptions(
+    consultationId: string,
+    userId: string,
+    role: string,
+  ) {
     const consultation = await this.prisma.consultation.findUnique({
       where: { id: consultationId },
-      include: { provider: true }
+      include: { provider: true },
     });
 
     if (!consultation) {

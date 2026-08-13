@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Put,
-  UseGuards,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Param, Put, UseGuards, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { NotificationsService } from './notifications.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -60,9 +53,7 @@ export class NotificationsController {
   }
 
   @Put('mark-prescription-added-read')
-  async markPrescriptionAddedRead(@CurrentUser() user: {
-    userId: string;
-  }) {
+  async markPrescriptionAddedRead(@CurrentUser() user: { userId: string }) {
     return this.notificationsService.markPrescriptionAddedRead(user.userId);
   }
 }
