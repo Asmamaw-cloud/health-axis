@@ -18,23 +18,22 @@ export class PresenceController {
   }
 
   @Post()
-  async upsert(@Body() body: { userId: string; status?: string; typingInConversation?: string | null }) {
-    const { userId, status, typingInConversation } = body || {};
+  async upsert(@Body() body: { userId: string; status?: string; meta?: any }) {
+    const { userId, status, meta } = body || {};
     if (!userId) return { error: 'missing userId' };
 
-    const now = new Date();
     const data: any = {
       userId,
       status: status || 'online',
-      lastSeen: now,
-      updatedAt: now,
+      meta: meta ?? null,
+      updatedAt: new Date(),
     };
-    if (typeof typingInConversation !== 'undefined') data.typingInConversation = typingInConversation;
 
-    const existing = await this.prisma.presence.findUnique({ where: { userId } });
-    if (existing) {
-      return this.prisma.presence.update({ where: { userId }, data });
-    }
-    return this.prisma.presence.create({ data });
+    // Use upsert with unique userId
+    return this.prisma.presence.upsert({
+      where: { userId },
+      update: data,
+      create: data,
+    });
   }
 }
