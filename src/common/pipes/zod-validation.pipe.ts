@@ -17,9 +17,27 @@ export class ZodValidationPipe implements PipeTransform {
     const metatype = metadata.metatype as ZodMetatype | undefined;
     const schema = metatype?.schema;
 
+    // Normalize snake_case keys to camelCase before parsing so frontend
+    // sending snake_case (e.g. full_name) still validates against DTOs.
+    const toCamel = (s: string) => s.replace(/[_-][a-z]/g, (m) => m.charAt(1).toUpperCase());
+    function normalizeKeys(obj: any): any {
+      if (Array.isArray(obj)) return obj.map(normalizeKeys);
+      if (obj && typeof obj === 'object') {
+        const out: any = {};
+        for (const key of Object.keys(obj)) {
+          const camel = toCamel(key);
+          out[camel] = normalizeKeys(obj[key]);
+        }
+        return out;
+      }
+      return obj;
+    }
+
+    const input = (value && typeof value === 'object') ? normalizeKeys(value as any) : value;
+
     if (schema && typeof schema.parse === 'function') {
       try {
-        return schema.parse(value);
+        return schema.parse(input);
       } catch (err) {
         this.logger.error(
           'Zod validation error',
@@ -29,6 +47,6 @@ export class ZodValidationPipe implements PipeTransform {
       }
     }
 
-    return value;
+    return input;
   }
 }
