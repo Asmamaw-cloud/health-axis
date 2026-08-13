@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Logger } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { Public } from './public.decorator';
@@ -16,6 +16,8 @@ import { UnauthorizedException } from '@nestjs/common';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(
     private readonly authService: AuthService,
     private readonly prisma: PrismaService,
@@ -24,7 +26,13 @@ export class AuthController {
   @Post('register')
   @Public()
   async register(@Body() body: RegisterDto) {
-    return this.authService.register(body);
+    this.logger.log(`Register request payload: ${JSON.stringify(body)}`);
+    try {
+      return await this.authService.register(body);
+    } catch (err) {
+      this.logger.error('Register error', (err as Error).stack ?? String(err));
+      throw err;
+    }
   }
 
   @Post('login')
