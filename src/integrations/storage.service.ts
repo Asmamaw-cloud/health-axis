@@ -1,44 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
 
 @Injectable()
 export class StorageService {
-  private client: SupabaseClient | null = null;
+  private localDir: string | null = null;
 
   constructor(private readonly configService: ConfigService) {
-    const url = this.configService.get<string>('SUPABASE_URL');
-    const key = this.configService.get<string>('SUPABASE_SERVICE_ROLE_KEY');
-
-    if (url && key) {
-      this.client = createClient(url, key);
-    }
+    const dir = this.configService.get<string>('STORAGE_LOCAL_DIR');
+    if (dir) this.localDir = dir;
   }
 
   async uploadPublicImage(
-    bucket: string,
+    _bucket: string,
     path: string,
     fileBuffer: Buffer,
-    contentType: string,
+    _contentType: string,
   ): Promise<string> {
-    if (!this.client) {
-      throw new Error(
-        'Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
-      );
+    if (!this.localDir) {
+      throw new Error('Storage is not configured. Set STORAGE_LOCAL_DIR to enable local uploads.');
     }
 
-    const { error } = await this.client.storage
-      .from(bucket)
-      .upload(path, fileBuffer, {
-        contentType,
-        upsert: true,
-      });
-
-    if (error) {
-      throw error;
-    }
-
-    const { data } = this.client.storage.from(bucket).getPublicUrl(path);
-    return data.publicUrl;
+    const fullPath = join(this.localDir, path);
+    const dir = fullPath.replace(/\/[^\/]+$/, '');
+    try {
+      await mkdir(dir, { recursive: true });
+    } catch {}
+    await writeFile(fullPath, fileBuffer);
+    // Return a path-like URL that the app can serve (user must configure static serving)
+    return `/static/${path}`;
   }
 }

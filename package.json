@@ -37,7 +37,6 @@
     "@nestjs/websockets": "^11.1.16",
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
-    "@supabase/supabase-js": "^2.99.1",
     "agora-access-token": "^2.0.4",
     "bcrypt": "^6.0.0",
     "helmet": "^8.1.0",

@@ -58,6 +58,16 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  * Notifications (in-app + email ready)
  */
 export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
+/**
+ * Model Presence
+ * Presence (replaces Supabase user_presence table)
+ */
+export type Presence = $Result.DefaultSelection<Prisma.$PresencePayload>
+/**
+ * Model AudioSession
+ * Audio call sessions (replaces Supabase audio_sessions table)
+ */
+export type AudioSession = $Result.DefaultSelection<Prisma.$AudioSessionPayload>
 
 /**
  * Enums
@@ -330,6 +340,26 @@ export class PrismaClient<
     * ```
     */
   get notification(): Prisma.NotificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.presence`: Exposes CRUD operations for the **Presence** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Presences
+    * const presences = await prisma.presence.findMany()
+    * ```
+    */
+  get presence(): Prisma.PresenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.audioSession`: Exposes CRUD operations for the **AudioSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AudioSessions
+    * const audioSessions = await prisma.audioSession.findMany()
+    * ```
+    */
+  get audioSession(): Prisma.AudioSessionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -772,7 +802,9 @@ export namespace Prisma {
     Prescription: 'Prescription',
     HealthReading: 'HealthReading',
     Message: 'Message',
-    Notification: 'Notification'
+    Notification: 'Notification',
+    Presence: 'Presence',
+    AudioSession: 'AudioSession'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -788,7 +820,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "provider" | "pharmacy" | "pharmacyMedicine" | "consultation" | "prescription" | "healthReading" | "message" | "notification"
+      modelProps: "user" | "provider" | "pharmacy" | "pharmacyMedicine" | "consultation" | "prescription" | "healthReading" | "message" | "notification" | "presence" | "audioSession"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1458,6 +1490,154 @@ export namespace Prisma {
           }
         }
       }
+      Presence: {
+        payload: Prisma.$PresencePayload<ExtArgs>
+        fields: Prisma.PresenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PresenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PresenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          findFirst: {
+            args: Prisma.PresenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PresenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          findMany: {
+            args: Prisma.PresenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>[]
+          }
+          create: {
+            args: Prisma.PresenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          createMany: {
+            args: Prisma.PresenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PresenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>[]
+          }
+          delete: {
+            args: Prisma.PresenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          update: {
+            args: Prisma.PresenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          deleteMany: {
+            args: Prisma.PresenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PresenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PresenceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>[]
+          }
+          upsert: {
+            args: Prisma.PresenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PresencePayload>
+          }
+          aggregate: {
+            args: Prisma.PresenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePresence>
+          }
+          groupBy: {
+            args: Prisma.PresenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PresenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PresenceCountArgs<ExtArgs>
+            result: $Utils.Optional<PresenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      AudioSession: {
+        payload: Prisma.$AudioSessionPayload<ExtArgs>
+        fields: Prisma.AudioSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AudioSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AudioSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.AudioSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AudioSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          findMany: {
+            args: Prisma.AudioSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>[]
+          }
+          create: {
+            args: Prisma.AudioSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          createMany: {
+            args: Prisma.AudioSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AudioSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>[]
+          }
+          delete: {
+            args: Prisma.AudioSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          update: {
+            args: Prisma.AudioSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.AudioSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AudioSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AudioSessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>[]
+          }
+          upsert: {
+            args: Prisma.AudioSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.AudioSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAudioSession>
+          }
+          groupBy: {
+            args: Prisma.AudioSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AudioSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AudioSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<AudioSessionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1575,6 +1755,8 @@ export namespace Prisma {
     healthReading?: HealthReadingOmit
     message?: MessageOmit
     notification?: NotificationOmit
+    presence?: PresenceOmit
+    audioSession?: AudioSessionOmit
   }
 
   /* Types for Logging */
@@ -1660,6 +1842,8 @@ export namespace Prisma {
     notifications: number
     healthReadings: number
     patientConsultations: number
+    initiatedCalls: number
+    receivedCalls: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1668,6 +1852,8 @@ export namespace Prisma {
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     healthReadings?: boolean | UserCountOutputTypeCountHealthReadingsArgs
     patientConsultations?: boolean | UserCountOutputTypeCountPatientConsultationsArgs
+    initiatedCalls?: boolean | UserCountOutputTypeCountInitiatedCallsArgs
+    receivedCalls?: boolean | UserCountOutputTypeCountReceivedCallsArgs
   }
 
   // Custom InputTypes
@@ -1714,6 +1900,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPatientConsultationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConsultationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountInitiatedCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AudioSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReceivedCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AudioSessionWhereInput
   }
 
 
@@ -2017,6 +2217,9 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     healthReadings?: boolean | User$healthReadingsArgs<ExtArgs>
     patientConsultations?: boolean | User$patientConsultationsArgs<ExtArgs>
+    presence?: boolean | User$presenceArgs<ExtArgs>
+    initiatedCalls?: boolean | User$initiatedCallsArgs<ExtArgs>
+    receivedCalls?: boolean | User$receivedCallsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2065,6 +2268,9 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     healthReadings?: boolean | User$healthReadingsArgs<ExtArgs>
     patientConsultations?: boolean | User$patientConsultationsArgs<ExtArgs>
+    presence?: boolean | User$presenceArgs<ExtArgs>
+    initiatedCalls?: boolean | User$initiatedCallsArgs<ExtArgs>
+    receivedCalls?: boolean | User$receivedCallsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2080,6 +2286,9 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       healthReadings: Prisma.$HealthReadingPayload<ExtArgs>[]
       patientConsultations: Prisma.$ConsultationPayload<ExtArgs>[]
+      presence: Prisma.$PresencePayload<ExtArgs> | null
+      initiatedCalls: Prisma.$AudioSessionPayload<ExtArgs>[]
+      receivedCalls: Prisma.$AudioSessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2492,6 +2701,9 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     healthReadings<T extends User$healthReadingsArgs<ExtArgs> = {}>(args?: Subset<T, User$healthReadingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     patientConsultations<T extends User$patientConsultationsArgs<ExtArgs> = {}>(args?: Subset<T, User$patientConsultationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    presence<T extends User$presenceArgs<ExtArgs> = {}>(args?: Subset<T, User$presenceArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    initiatedCalls<T extends User$initiatedCallsArgs<ExtArgs> = {}>(args?: Subset<T, User$initiatedCallsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedCalls<T extends User$receivedCallsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedCallsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3078,6 +3290,73 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConsultationScalarFieldEnum | ConsultationScalarFieldEnum[]
+  }
+
+  /**
+   * User.presence
+   */
+  export type User$presenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    where?: PresenceWhereInput
+  }
+
+  /**
+   * User.initiatedCalls
+   */
+  export type User$initiatedCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    where?: AudioSessionWhereInput
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    cursor?: AudioSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AudioSessionScalarFieldEnum | AudioSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedCalls
+   */
+  export type User$receivedCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    where?: AudioSessionWhereInput
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    cursor?: AudioSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AudioSessionScalarFieldEnum | AudioSessionScalarFieldEnum[]
   }
 
   /**
@@ -12206,6 +12485,2162 @@ export namespace Prisma {
 
 
   /**
+   * Model Presence
+   */
+
+  export type AggregatePresence = {
+    _count: PresenceCountAggregateOutputType | null
+    _min: PresenceMinAggregateOutputType | null
+    _max: PresenceMaxAggregateOutputType | null
+  }
+
+  export type PresenceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    status: string | null
+    updatedAt: Date | null
+  }
+
+  export type PresenceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    status: string | null
+    updatedAt: Date | null
+  }
+
+  export type PresenceCountAggregateOutputType = {
+    id: number
+    userId: number
+    status: number
+    meta: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PresenceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    status?: true
+    updatedAt?: true
+  }
+
+  export type PresenceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    status?: true
+    updatedAt?: true
+  }
+
+  export type PresenceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    status?: true
+    meta?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PresenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Presence to aggregate.
+     */
+    where?: PresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Presences to fetch.
+     */
+    orderBy?: PresenceOrderByWithRelationInput | PresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Presences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Presences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Presences
+    **/
+    _count?: true | PresenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PresenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PresenceMaxAggregateInputType
+  }
+
+  export type GetPresenceAggregateType<T extends PresenceAggregateArgs> = {
+        [P in keyof T & keyof AggregatePresence]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePresence[P]>
+      : GetScalarType<T[P], AggregatePresence[P]>
+  }
+
+
+
+
+  export type PresenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PresenceWhereInput
+    orderBy?: PresenceOrderByWithAggregationInput | PresenceOrderByWithAggregationInput[]
+    by: PresenceScalarFieldEnum[] | PresenceScalarFieldEnum
+    having?: PresenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PresenceCountAggregateInputType | true
+    _min?: PresenceMinAggregateInputType
+    _max?: PresenceMaxAggregateInputType
+  }
+
+  export type PresenceGroupByOutputType = {
+    id: string
+    userId: string
+    status: string
+    meta: JsonValue | null
+    updatedAt: Date
+    _count: PresenceCountAggregateOutputType | null
+    _min: PresenceMinAggregateOutputType | null
+    _max: PresenceMaxAggregateOutputType | null
+  }
+
+  type GetPresenceGroupByPayload<T extends PresenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PresenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PresenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PresenceGroupByOutputType[P]>
+            : GetScalarType<T[P], PresenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PresenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    status?: boolean
+    meta?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["presence"]>
+
+  export type PresenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    status?: boolean
+    meta?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["presence"]>
+
+  export type PresenceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    status?: boolean
+    meta?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["presence"]>
+
+  export type PresenceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    status?: boolean
+    meta?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PresenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "status" | "meta" | "updatedAt", ExtArgs["result"]["presence"]>
+  export type PresenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PresenceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PresenceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PresencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Presence"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      status: string
+      meta: Prisma.JsonValue | null
+      updatedAt: Date
+    }, ExtArgs["result"]["presence"]>
+    composites: {}
+  }
+
+  type PresenceGetPayload<S extends boolean | null | undefined | PresenceDefaultArgs> = $Result.GetResult<Prisma.$PresencePayload, S>
+
+  type PresenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PresenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PresenceCountAggregateInputType | true
+    }
+
+  export interface PresenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Presence'], meta: { name: 'Presence' } }
+    /**
+     * Find zero or one Presence that matches the filter.
+     * @param {PresenceFindUniqueArgs} args - Arguments to find a Presence
+     * @example
+     * // Get one Presence
+     * const presence = await prisma.presence.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PresenceFindUniqueArgs>(args: SelectSubset<T, PresenceFindUniqueArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Presence that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PresenceFindUniqueOrThrowArgs} args - Arguments to find a Presence
+     * @example
+     * // Get one Presence
+     * const presence = await prisma.presence.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PresenceFindUniqueOrThrowArgs>(args: SelectSubset<T, PresenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Presence that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceFindFirstArgs} args - Arguments to find a Presence
+     * @example
+     * // Get one Presence
+     * const presence = await prisma.presence.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PresenceFindFirstArgs>(args?: SelectSubset<T, PresenceFindFirstArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Presence that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceFindFirstOrThrowArgs} args - Arguments to find a Presence
+     * @example
+     * // Get one Presence
+     * const presence = await prisma.presence.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PresenceFindFirstOrThrowArgs>(args?: SelectSubset<T, PresenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Presences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Presences
+     * const presences = await prisma.presence.findMany()
+     * 
+     * // Get first 10 Presences
+     * const presences = await prisma.presence.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const presenceWithIdOnly = await prisma.presence.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PresenceFindManyArgs>(args?: SelectSubset<T, PresenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Presence.
+     * @param {PresenceCreateArgs} args - Arguments to create a Presence.
+     * @example
+     * // Create one Presence
+     * const Presence = await prisma.presence.create({
+     *   data: {
+     *     // ... data to create a Presence
+     *   }
+     * })
+     * 
+     */
+    create<T extends PresenceCreateArgs>(args: SelectSubset<T, PresenceCreateArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Presences.
+     * @param {PresenceCreateManyArgs} args - Arguments to create many Presences.
+     * @example
+     * // Create many Presences
+     * const presence = await prisma.presence.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PresenceCreateManyArgs>(args?: SelectSubset<T, PresenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Presences and returns the data saved in the database.
+     * @param {PresenceCreateManyAndReturnArgs} args - Arguments to create many Presences.
+     * @example
+     * // Create many Presences
+     * const presence = await prisma.presence.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Presences and only return the `id`
+     * const presenceWithIdOnly = await prisma.presence.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PresenceCreateManyAndReturnArgs>(args?: SelectSubset<T, PresenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Presence.
+     * @param {PresenceDeleteArgs} args - Arguments to delete one Presence.
+     * @example
+     * // Delete one Presence
+     * const Presence = await prisma.presence.delete({
+     *   where: {
+     *     // ... filter to delete one Presence
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PresenceDeleteArgs>(args: SelectSubset<T, PresenceDeleteArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Presence.
+     * @param {PresenceUpdateArgs} args - Arguments to update one Presence.
+     * @example
+     * // Update one Presence
+     * const presence = await prisma.presence.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PresenceUpdateArgs>(args: SelectSubset<T, PresenceUpdateArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Presences.
+     * @param {PresenceDeleteManyArgs} args - Arguments to filter Presences to delete.
+     * @example
+     * // Delete a few Presences
+     * const { count } = await prisma.presence.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PresenceDeleteManyArgs>(args?: SelectSubset<T, PresenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Presences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Presences
+     * const presence = await prisma.presence.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PresenceUpdateManyArgs>(args: SelectSubset<T, PresenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Presences and returns the data updated in the database.
+     * @param {PresenceUpdateManyAndReturnArgs} args - Arguments to update many Presences.
+     * @example
+     * // Update many Presences
+     * const presence = await prisma.presence.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Presences and only return the `id`
+     * const presenceWithIdOnly = await prisma.presence.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PresenceUpdateManyAndReturnArgs>(args: SelectSubset<T, PresenceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Presence.
+     * @param {PresenceUpsertArgs} args - Arguments to update or create a Presence.
+     * @example
+     * // Update or create a Presence
+     * const presence = await prisma.presence.upsert({
+     *   create: {
+     *     // ... data to create a Presence
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Presence we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PresenceUpsertArgs>(args: SelectSubset<T, PresenceUpsertArgs<ExtArgs>>): Prisma__PresenceClient<$Result.GetResult<Prisma.$PresencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Presences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceCountArgs} args - Arguments to filter Presences to count.
+     * @example
+     * // Count the number of Presences
+     * const count = await prisma.presence.count({
+     *   where: {
+     *     // ... the filter for the Presences we want to count
+     *   }
+     * })
+    **/
+    count<T extends PresenceCountArgs>(
+      args?: Subset<T, PresenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PresenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Presence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PresenceAggregateArgs>(args: Subset<T, PresenceAggregateArgs>): Prisma.PrismaPromise<GetPresenceAggregateType<T>>
+
+    /**
+     * Group by Presence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PresenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PresenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PresenceGroupByArgs['orderBy'] }
+        : { orderBy?: PresenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PresenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPresenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Presence model
+   */
+  readonly fields: PresenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Presence.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PresenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Presence model
+   */
+  interface PresenceFieldRefs {
+    readonly id: FieldRef<"Presence", 'String'>
+    readonly userId: FieldRef<"Presence", 'String'>
+    readonly status: FieldRef<"Presence", 'String'>
+    readonly meta: FieldRef<"Presence", 'Json'>
+    readonly updatedAt: FieldRef<"Presence", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Presence findUnique
+   */
+  export type PresenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Presence to fetch.
+     */
+    where: PresenceWhereUniqueInput
+  }
+
+  /**
+   * Presence findUniqueOrThrow
+   */
+  export type PresenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Presence to fetch.
+     */
+    where: PresenceWhereUniqueInput
+  }
+
+  /**
+   * Presence findFirst
+   */
+  export type PresenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Presence to fetch.
+     */
+    where?: PresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Presences to fetch.
+     */
+    orderBy?: PresenceOrderByWithRelationInput | PresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Presences.
+     */
+    cursor?: PresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Presences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Presences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Presences.
+     */
+    distinct?: PresenceScalarFieldEnum | PresenceScalarFieldEnum[]
+  }
+
+  /**
+   * Presence findFirstOrThrow
+   */
+  export type PresenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Presence to fetch.
+     */
+    where?: PresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Presences to fetch.
+     */
+    orderBy?: PresenceOrderByWithRelationInput | PresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Presences.
+     */
+    cursor?: PresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Presences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Presences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Presences.
+     */
+    distinct?: PresenceScalarFieldEnum | PresenceScalarFieldEnum[]
+  }
+
+  /**
+   * Presence findMany
+   */
+  export type PresenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Presences to fetch.
+     */
+    where?: PresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Presences to fetch.
+     */
+    orderBy?: PresenceOrderByWithRelationInput | PresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Presences.
+     */
+    cursor?: PresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Presences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Presences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Presences.
+     */
+    distinct?: PresenceScalarFieldEnum | PresenceScalarFieldEnum[]
+  }
+
+  /**
+   * Presence create
+   */
+  export type PresenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Presence.
+     */
+    data: XOR<PresenceCreateInput, PresenceUncheckedCreateInput>
+  }
+
+  /**
+   * Presence createMany
+   */
+  export type PresenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Presences.
+     */
+    data: PresenceCreateManyInput | PresenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Presence createManyAndReturn
+   */
+  export type PresenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Presences.
+     */
+    data: PresenceCreateManyInput | PresenceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Presence update
+   */
+  export type PresenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Presence.
+     */
+    data: XOR<PresenceUpdateInput, PresenceUncheckedUpdateInput>
+    /**
+     * Choose, which Presence to update.
+     */
+    where: PresenceWhereUniqueInput
+  }
+
+  /**
+   * Presence updateMany
+   */
+  export type PresenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Presences.
+     */
+    data: XOR<PresenceUpdateManyMutationInput, PresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which Presences to update
+     */
+    where?: PresenceWhereInput
+    /**
+     * Limit how many Presences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Presence updateManyAndReturn
+   */
+  export type PresenceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * The data used to update Presences.
+     */
+    data: XOR<PresenceUpdateManyMutationInput, PresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which Presences to update
+     */
+    where?: PresenceWhereInput
+    /**
+     * Limit how many Presences to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Presence upsert
+   */
+  export type PresenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Presence to update in case it exists.
+     */
+    where: PresenceWhereUniqueInput
+    /**
+     * In case the Presence found by the `where` argument doesn't exist, create a new Presence with this data.
+     */
+    create: XOR<PresenceCreateInput, PresenceUncheckedCreateInput>
+    /**
+     * In case the Presence was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PresenceUpdateInput, PresenceUncheckedUpdateInput>
+  }
+
+  /**
+   * Presence delete
+   */
+  export type PresenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+    /**
+     * Filter which Presence to delete.
+     */
+    where: PresenceWhereUniqueInput
+  }
+
+  /**
+   * Presence deleteMany
+   */
+  export type PresenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Presences to delete
+     */
+    where?: PresenceWhereInput
+    /**
+     * Limit how many Presences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Presence without action
+   */
+  export type PresenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Presence
+     */
+    select?: PresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Presence
+     */
+    omit?: PresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PresenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AudioSession
+   */
+
+  export type AggregateAudioSession = {
+    _count: AudioSessionCountAggregateOutputType | null
+    _min: AudioSessionMinAggregateOutputType | null
+    _max: AudioSessionMaxAggregateOutputType | null
+  }
+
+  export type AudioSessionMinAggregateOutputType = {
+    id: string | null
+    initiatorId: string | null
+    receiverId: string | null
+    status: string | null
+    meetingLink: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AudioSessionMaxAggregateOutputType = {
+    id: string | null
+    initiatorId: string | null
+    receiverId: string | null
+    status: string | null
+    meetingLink: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AudioSessionCountAggregateOutputType = {
+    id: number
+    initiatorId: number
+    receiverId: number
+    status: number
+    meetingLink: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AudioSessionMinAggregateInputType = {
+    id?: true
+    initiatorId?: true
+    receiverId?: true
+    status?: true
+    meetingLink?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AudioSessionMaxAggregateInputType = {
+    id?: true
+    initiatorId?: true
+    receiverId?: true
+    status?: true
+    meetingLink?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AudioSessionCountAggregateInputType = {
+    id?: true
+    initiatorId?: true
+    receiverId?: true
+    status?: true
+    meetingLink?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AudioSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AudioSession to aggregate.
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioSessions to fetch.
+     */
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AudioSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AudioSessions
+    **/
+    _count?: true | AudioSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AudioSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AudioSessionMaxAggregateInputType
+  }
+
+  export type GetAudioSessionAggregateType<T extends AudioSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateAudioSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAudioSession[P]>
+      : GetScalarType<T[P], AggregateAudioSession[P]>
+  }
+
+
+
+
+  export type AudioSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AudioSessionWhereInput
+    orderBy?: AudioSessionOrderByWithAggregationInput | AudioSessionOrderByWithAggregationInput[]
+    by: AudioSessionScalarFieldEnum[] | AudioSessionScalarFieldEnum
+    having?: AudioSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AudioSessionCountAggregateInputType | true
+    _min?: AudioSessionMinAggregateInputType
+    _max?: AudioSessionMaxAggregateInputType
+  }
+
+  export type AudioSessionGroupByOutputType = {
+    id: string
+    initiatorId: string
+    receiverId: string
+    status: string
+    meetingLink: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AudioSessionCountAggregateOutputType | null
+    _min: AudioSessionMinAggregateOutputType | null
+    _max: AudioSessionMaxAggregateOutputType | null
+  }
+
+  type GetAudioSessionGroupByPayload<T extends AudioSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AudioSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AudioSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AudioSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], AudioSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AudioSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initiatorId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    meetingLink?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["audioSession"]>
+
+  export type AudioSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initiatorId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    meetingLink?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["audioSession"]>
+
+  export type AudioSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initiatorId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    meetingLink?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["audioSession"]>
+
+  export type AudioSessionSelectScalar = {
+    id?: boolean
+    initiatorId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    meetingLink?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AudioSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "initiatorId" | "receiverId" | "status" | "meetingLink" | "createdAt" | "updatedAt", ExtArgs["result"]["audioSession"]>
+  export type AudioSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AudioSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AudioSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    initiator?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AudioSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AudioSession"
+    objects: {
+      initiator: Prisma.$UserPayload<ExtArgs>
+      receiver: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      initiatorId: string
+      receiverId: string
+      status: string
+      meetingLink: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["audioSession"]>
+    composites: {}
+  }
+
+  type AudioSessionGetPayload<S extends boolean | null | undefined | AudioSessionDefaultArgs> = $Result.GetResult<Prisma.$AudioSessionPayload, S>
+
+  type AudioSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AudioSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AudioSessionCountAggregateInputType | true
+    }
+
+  export interface AudioSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AudioSession'], meta: { name: 'AudioSession' } }
+    /**
+     * Find zero or one AudioSession that matches the filter.
+     * @param {AudioSessionFindUniqueArgs} args - Arguments to find a AudioSession
+     * @example
+     * // Get one AudioSession
+     * const audioSession = await prisma.audioSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AudioSessionFindUniqueArgs>(args: SelectSubset<T, AudioSessionFindUniqueArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AudioSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AudioSessionFindUniqueOrThrowArgs} args - Arguments to find a AudioSession
+     * @example
+     * // Get one AudioSession
+     * const audioSession = await prisma.audioSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AudioSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, AudioSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AudioSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionFindFirstArgs} args - Arguments to find a AudioSession
+     * @example
+     * // Get one AudioSession
+     * const audioSession = await prisma.audioSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AudioSessionFindFirstArgs>(args?: SelectSubset<T, AudioSessionFindFirstArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AudioSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionFindFirstOrThrowArgs} args - Arguments to find a AudioSession
+     * @example
+     * // Get one AudioSession
+     * const audioSession = await prisma.audioSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AudioSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, AudioSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AudioSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AudioSessions
+     * const audioSessions = await prisma.audioSession.findMany()
+     * 
+     * // Get first 10 AudioSessions
+     * const audioSessions = await prisma.audioSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const audioSessionWithIdOnly = await prisma.audioSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AudioSessionFindManyArgs>(args?: SelectSubset<T, AudioSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AudioSession.
+     * @param {AudioSessionCreateArgs} args - Arguments to create a AudioSession.
+     * @example
+     * // Create one AudioSession
+     * const AudioSession = await prisma.audioSession.create({
+     *   data: {
+     *     // ... data to create a AudioSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends AudioSessionCreateArgs>(args: SelectSubset<T, AudioSessionCreateArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AudioSessions.
+     * @param {AudioSessionCreateManyArgs} args - Arguments to create many AudioSessions.
+     * @example
+     * // Create many AudioSessions
+     * const audioSession = await prisma.audioSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AudioSessionCreateManyArgs>(args?: SelectSubset<T, AudioSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AudioSessions and returns the data saved in the database.
+     * @param {AudioSessionCreateManyAndReturnArgs} args - Arguments to create many AudioSessions.
+     * @example
+     * // Create many AudioSessions
+     * const audioSession = await prisma.audioSession.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AudioSessions and only return the `id`
+     * const audioSessionWithIdOnly = await prisma.audioSession.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AudioSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, AudioSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AudioSession.
+     * @param {AudioSessionDeleteArgs} args - Arguments to delete one AudioSession.
+     * @example
+     * // Delete one AudioSession
+     * const AudioSession = await prisma.audioSession.delete({
+     *   where: {
+     *     // ... filter to delete one AudioSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AudioSessionDeleteArgs>(args: SelectSubset<T, AudioSessionDeleteArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AudioSession.
+     * @param {AudioSessionUpdateArgs} args - Arguments to update one AudioSession.
+     * @example
+     * // Update one AudioSession
+     * const audioSession = await prisma.audioSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AudioSessionUpdateArgs>(args: SelectSubset<T, AudioSessionUpdateArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AudioSessions.
+     * @param {AudioSessionDeleteManyArgs} args - Arguments to filter AudioSessions to delete.
+     * @example
+     * // Delete a few AudioSessions
+     * const { count } = await prisma.audioSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AudioSessionDeleteManyArgs>(args?: SelectSubset<T, AudioSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AudioSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AudioSessions
+     * const audioSession = await prisma.audioSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AudioSessionUpdateManyArgs>(args: SelectSubset<T, AudioSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AudioSessions and returns the data updated in the database.
+     * @param {AudioSessionUpdateManyAndReturnArgs} args - Arguments to update many AudioSessions.
+     * @example
+     * // Update many AudioSessions
+     * const audioSession = await prisma.audioSession.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AudioSessions and only return the `id`
+     * const audioSessionWithIdOnly = await prisma.audioSession.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AudioSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, AudioSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AudioSession.
+     * @param {AudioSessionUpsertArgs} args - Arguments to update or create a AudioSession.
+     * @example
+     * // Update or create a AudioSession
+     * const audioSession = await prisma.audioSession.upsert({
+     *   create: {
+     *     // ... data to create a AudioSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AudioSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AudioSessionUpsertArgs>(args: SelectSubset<T, AudioSessionUpsertArgs<ExtArgs>>): Prisma__AudioSessionClient<$Result.GetResult<Prisma.$AudioSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AudioSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionCountArgs} args - Arguments to filter AudioSessions to count.
+     * @example
+     * // Count the number of AudioSessions
+     * const count = await prisma.audioSession.count({
+     *   where: {
+     *     // ... the filter for the AudioSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends AudioSessionCountArgs>(
+      args?: Subset<T, AudioSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AudioSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AudioSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AudioSessionAggregateArgs>(args: Subset<T, AudioSessionAggregateArgs>): Prisma.PrismaPromise<GetAudioSessionAggregateType<T>>
+
+    /**
+     * Group by AudioSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AudioSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AudioSessionGroupByArgs['orderBy'] }
+        : { orderBy?: AudioSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AudioSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAudioSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AudioSession model
+   */
+  readonly fields: AudioSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AudioSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AudioSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    initiator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AudioSession model
+   */
+  interface AudioSessionFieldRefs {
+    readonly id: FieldRef<"AudioSession", 'String'>
+    readonly initiatorId: FieldRef<"AudioSession", 'String'>
+    readonly receiverId: FieldRef<"AudioSession", 'String'>
+    readonly status: FieldRef<"AudioSession", 'String'>
+    readonly meetingLink: FieldRef<"AudioSession", 'String'>
+    readonly createdAt: FieldRef<"AudioSession", 'DateTime'>
+    readonly updatedAt: FieldRef<"AudioSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AudioSession findUnique
+   */
+  export type AudioSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioSession to fetch.
+     */
+    where: AudioSessionWhereUniqueInput
+  }
+
+  /**
+   * AudioSession findUniqueOrThrow
+   */
+  export type AudioSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioSession to fetch.
+     */
+    where: AudioSessionWhereUniqueInput
+  }
+
+  /**
+   * AudioSession findFirst
+   */
+  export type AudioSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioSession to fetch.
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioSessions to fetch.
+     */
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AudioSessions.
+     */
+    cursor?: AudioSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AudioSessions.
+     */
+    distinct?: AudioSessionScalarFieldEnum | AudioSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AudioSession findFirstOrThrow
+   */
+  export type AudioSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioSession to fetch.
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioSessions to fetch.
+     */
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AudioSessions.
+     */
+    cursor?: AudioSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AudioSessions.
+     */
+    distinct?: AudioSessionScalarFieldEnum | AudioSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AudioSession findMany
+   */
+  export type AudioSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioSessions to fetch.
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioSessions to fetch.
+     */
+    orderBy?: AudioSessionOrderByWithRelationInput | AudioSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AudioSessions.
+     */
+    cursor?: AudioSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AudioSessions.
+     */
+    distinct?: AudioSessionScalarFieldEnum | AudioSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AudioSession create
+   */
+  export type AudioSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AudioSession.
+     */
+    data: XOR<AudioSessionCreateInput, AudioSessionUncheckedCreateInput>
+  }
+
+  /**
+   * AudioSession createMany
+   */
+  export type AudioSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AudioSessions.
+     */
+    data: AudioSessionCreateManyInput | AudioSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AudioSession createManyAndReturn
+   */
+  export type AudioSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many AudioSessions.
+     */
+    data: AudioSessionCreateManyInput | AudioSessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AudioSession update
+   */
+  export type AudioSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AudioSession.
+     */
+    data: XOR<AudioSessionUpdateInput, AudioSessionUncheckedUpdateInput>
+    /**
+     * Choose, which AudioSession to update.
+     */
+    where: AudioSessionWhereUniqueInput
+  }
+
+  /**
+   * AudioSession updateMany
+   */
+  export type AudioSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AudioSessions.
+     */
+    data: XOR<AudioSessionUpdateManyMutationInput, AudioSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which AudioSessions to update
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * Limit how many AudioSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AudioSession updateManyAndReturn
+   */
+  export type AudioSessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * The data used to update AudioSessions.
+     */
+    data: XOR<AudioSessionUpdateManyMutationInput, AudioSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which AudioSessions to update
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * Limit how many AudioSessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AudioSession upsert
+   */
+  export type AudioSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AudioSession to update in case it exists.
+     */
+    where: AudioSessionWhereUniqueInput
+    /**
+     * In case the AudioSession found by the `where` argument doesn't exist, create a new AudioSession with this data.
+     */
+    create: XOR<AudioSessionCreateInput, AudioSessionUncheckedCreateInput>
+    /**
+     * In case the AudioSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AudioSessionUpdateInput, AudioSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * AudioSession delete
+   */
+  export type AudioSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+    /**
+     * Filter which AudioSession to delete.
+     */
+    where: AudioSessionWhereUniqueInput
+  }
+
+  /**
+   * AudioSession deleteMany
+   */
+  export type AudioSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AudioSessions to delete
+     */
+    where?: AudioSessionWhereInput
+    /**
+     * Limit how many AudioSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AudioSession without action
+   */
+  export type AudioSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioSession
+     */
+    select?: AudioSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AudioSession
+     */
+    omit?: AudioSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12347,6 +14782,30 @@ export namespace Prisma {
   };
 
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+  export const PresenceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    status: 'status',
+    meta: 'meta',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PresenceScalarFieldEnum = (typeof PresenceScalarFieldEnum)[keyof typeof PresenceScalarFieldEnum]
+
+
+  export const AudioSessionScalarFieldEnum: {
+    id: 'id',
+    initiatorId: 'initiatorId',
+    receiverId: 'receiverId',
+    status: 'status',
+    meetingLink: 'meetingLink',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AudioSessionScalarFieldEnum = (typeof AudioSessionScalarFieldEnum)[keyof typeof AudioSessionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12565,6 +15024,9 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     healthReadings?: HealthReadingListRelationFilter
     patientConsultations?: ConsultationListRelationFilter
+    presence?: XOR<PresenceNullableScalarRelationFilter, PresenceWhereInput> | null
+    initiatedCalls?: AudioSessionListRelationFilter
+    receivedCalls?: AudioSessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12584,6 +15046,9 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     healthReadings?: HealthReadingOrderByRelationAggregateInput
     patientConsultations?: ConsultationOrderByRelationAggregateInput
+    presence?: PresenceOrderByWithRelationInput
+    initiatedCalls?: AudioSessionOrderByRelationAggregateInput
+    receivedCalls?: AudioSessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12606,6 +15071,9 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     healthReadings?: HealthReadingListRelationFilter
     patientConsultations?: ConsultationListRelationFilter
+    presence?: XOR<PresenceNullableScalarRelationFilter, PresenceWhereInput> | null
+    initiatedCalls?: AudioSessionListRelationFilter
+    receivedCalls?: AudioSessionListRelationFilter
   }, "id" | "email" | "phoneNumber">
 
   export type UserOrderByWithAggregationInput = {
@@ -13234,6 +15702,129 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
+  export type PresenceWhereInput = {
+    AND?: PresenceWhereInput | PresenceWhereInput[]
+    OR?: PresenceWhereInput[]
+    NOT?: PresenceWhereInput | PresenceWhereInput[]
+    id?: UuidFilter<"Presence"> | string
+    userId?: UuidFilter<"Presence"> | string
+    status?: StringFilter<"Presence"> | string
+    meta?: JsonNullableFilter<"Presence">
+    updatedAt?: DateTimeFilter<"Presence"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PresenceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    meta?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PresenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: PresenceWhereInput | PresenceWhereInput[]
+    OR?: PresenceWhereInput[]
+    NOT?: PresenceWhereInput | PresenceWhereInput[]
+    status?: StringFilter<"Presence"> | string
+    meta?: JsonNullableFilter<"Presence">
+    updatedAt?: DateTimeFilter<"Presence"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type PresenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    meta?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: PresenceCountOrderByAggregateInput
+    _max?: PresenceMaxOrderByAggregateInput
+    _min?: PresenceMinOrderByAggregateInput
+  }
+
+  export type PresenceScalarWhereWithAggregatesInput = {
+    AND?: PresenceScalarWhereWithAggregatesInput | PresenceScalarWhereWithAggregatesInput[]
+    OR?: PresenceScalarWhereWithAggregatesInput[]
+    NOT?: PresenceScalarWhereWithAggregatesInput | PresenceScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Presence"> | string
+    userId?: UuidWithAggregatesFilter<"Presence"> | string
+    status?: StringWithAggregatesFilter<"Presence"> | string
+    meta?: JsonNullableWithAggregatesFilter<"Presence">
+    updatedAt?: DateTimeWithAggregatesFilter<"Presence"> | Date | string
+  }
+
+  export type AudioSessionWhereInput = {
+    AND?: AudioSessionWhereInput | AudioSessionWhereInput[]
+    OR?: AudioSessionWhereInput[]
+    NOT?: AudioSessionWhereInput | AudioSessionWhereInput[]
+    id?: UuidFilter<"AudioSession"> | string
+    initiatorId?: UuidFilter<"AudioSession"> | string
+    receiverId?: UuidFilter<"AudioSession"> | string
+    status?: StringFilter<"AudioSession"> | string
+    meetingLink?: StringNullableFilter<"AudioSession"> | string | null
+    createdAt?: DateTimeFilter<"AudioSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AudioSession"> | Date | string
+    initiator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AudioSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    initiatorId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    meetingLink?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    initiator?: UserOrderByWithRelationInput
+    receiver?: UserOrderByWithRelationInput
+  }
+
+  export type AudioSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AudioSessionWhereInput | AudioSessionWhereInput[]
+    OR?: AudioSessionWhereInput[]
+    NOT?: AudioSessionWhereInput | AudioSessionWhereInput[]
+    initiatorId?: UuidFilter<"AudioSession"> | string
+    receiverId?: UuidFilter<"AudioSession"> | string
+    status?: StringFilter<"AudioSession"> | string
+    meetingLink?: StringNullableFilter<"AudioSession"> | string | null
+    createdAt?: DateTimeFilter<"AudioSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AudioSession"> | Date | string
+    initiator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AudioSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    initiatorId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    meetingLink?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AudioSessionCountOrderByAggregateInput
+    _max?: AudioSessionMaxOrderByAggregateInput
+    _min?: AudioSessionMinOrderByAggregateInput
+  }
+
+  export type AudioSessionScalarWhereWithAggregatesInput = {
+    AND?: AudioSessionScalarWhereWithAggregatesInput | AudioSessionScalarWhereWithAggregatesInput[]
+    OR?: AudioSessionScalarWhereWithAggregatesInput[]
+    NOT?: AudioSessionScalarWhereWithAggregatesInput | AudioSessionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AudioSession"> | string
+    initiatorId?: UuidWithAggregatesFilter<"AudioSession"> | string
+    receiverId?: UuidWithAggregatesFilter<"AudioSession"> | string
+    status?: StringWithAggregatesFilter<"AudioSession"> | string
+    meetingLink?: StringNullableWithAggregatesFilter<"AudioSession"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AudioSession"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AudioSession"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     fullName: string
@@ -13251,6 +15842,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13270,6 +15864,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUpdateInput = {
@@ -13289,6 +15886,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13308,6 +15908,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13985,6 +16588,129 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PresenceCreateInput = {
+    id?: string
+    status?: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPresenceInput
+  }
+
+  export type PresenceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    status?: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type PresenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPresenceNestedInput
+  }
+
+  export type PresenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PresenceCreateManyInput = {
+    id?: string
+    userId: string
+    status?: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type PresenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PresenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionCreateInput = {
+    id?: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    initiator: UserCreateNestedOneWithoutInitiatedCallsInput
+    receiver: UserCreateNestedOneWithoutReceivedCallsInput
+  }
+
+  export type AudioSessionUncheckedCreateInput = {
+    id?: string
+    initiatorId: string
+    receiverId: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    initiator?: UserUpdateOneRequiredWithoutInitiatedCallsNestedInput
+    receiver?: UserUpdateOneRequiredWithoutReceivedCallsNestedInput
+  }
+
+  export type AudioSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initiatorId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionCreateManyInput = {
+    id?: string
+    initiatorId: string
+    receiverId: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initiatorId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -14084,6 +16810,17 @@ export namespace Prisma {
     none?: ConsultationWhereInput
   }
 
+  export type PresenceNullableScalarRelationFilter = {
+    is?: PresenceWhereInput | null
+    isNot?: PresenceWhereInput | null
+  }
+
+  export type AudioSessionListRelationFilter = {
+    every?: AudioSessionWhereInput
+    some?: AudioSessionWhereInput
+    none?: AudioSessionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14102,6 +16839,10 @@ export namespace Prisma {
   }
 
   export type ConsultationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AudioSessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14775,6 +17516,58 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type PresenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    meta?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PresenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PresenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AudioSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    initiatorId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    meetingLink?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AudioSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    initiatorId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    meetingLink?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AudioSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    initiatorId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    meetingLink?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type ProviderCreateNestedOneWithoutUserInput = {
     create?: XOR<ProviderCreateWithoutUserInput, ProviderUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProviderCreateOrConnectWithoutUserInput
@@ -14822,6 +17615,26 @@ export namespace Prisma {
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
   }
 
+  export type PresenceCreateNestedOneWithoutUserInput = {
+    create?: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PresenceCreateOrConnectWithoutUserInput
+    connect?: PresenceWhereUniqueInput
+  }
+
+  export type AudioSessionCreateNestedManyWithoutInitiatorInput = {
+    create?: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput> | AudioSessionCreateWithoutInitiatorInput[] | AudioSessionUncheckedCreateWithoutInitiatorInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutInitiatorInput | AudioSessionCreateOrConnectWithoutInitiatorInput[]
+    createMany?: AudioSessionCreateManyInitiatorInputEnvelope
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+  }
+
+  export type AudioSessionCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput> | AudioSessionCreateWithoutReceiverInput[] | AudioSessionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutReceiverInput | AudioSessionCreateOrConnectWithoutReceiverInput[]
+    createMany?: AudioSessionCreateManyReceiverInputEnvelope
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+  }
+
   export type ProviderUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ProviderCreateWithoutUserInput, ProviderUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProviderCreateOrConnectWithoutUserInput
@@ -14867,6 +17680,26 @@ export namespace Prisma {
     connectOrCreate?: ConsultationCreateOrConnectWithoutPatientInput | ConsultationCreateOrConnectWithoutPatientInput[]
     createMany?: ConsultationCreateManyPatientInputEnvelope
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type PresenceUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PresenceCreateOrConnectWithoutUserInput
+    connect?: PresenceWhereUniqueInput
+  }
+
+  export type AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput = {
+    create?: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput> | AudioSessionCreateWithoutInitiatorInput[] | AudioSessionUncheckedCreateWithoutInitiatorInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutInitiatorInput | AudioSessionCreateOrConnectWithoutInitiatorInput[]
+    createMany?: AudioSessionCreateManyInitiatorInputEnvelope
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+  }
+
+  export type AudioSessionUncheckedCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput> | AudioSessionCreateWithoutReceiverInput[] | AudioSessionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutReceiverInput | AudioSessionCreateOrConnectWithoutReceiverInput[]
+    createMany?: AudioSessionCreateManyReceiverInputEnvelope
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14979,6 +17812,44 @@ export namespace Prisma {
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
   }
 
+  export type PresenceUpdateOneWithoutUserNestedInput = {
+    create?: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PresenceCreateOrConnectWithoutUserInput
+    upsert?: PresenceUpsertWithoutUserInput
+    disconnect?: PresenceWhereInput | boolean
+    delete?: PresenceWhereInput | boolean
+    connect?: PresenceWhereUniqueInput
+    update?: XOR<XOR<PresenceUpdateToOneWithWhereWithoutUserInput, PresenceUpdateWithoutUserInput>, PresenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AudioSessionUpdateManyWithoutInitiatorNestedInput = {
+    create?: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput> | AudioSessionCreateWithoutInitiatorInput[] | AudioSessionUncheckedCreateWithoutInitiatorInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutInitiatorInput | AudioSessionCreateOrConnectWithoutInitiatorInput[]
+    upsert?: AudioSessionUpsertWithWhereUniqueWithoutInitiatorInput | AudioSessionUpsertWithWhereUniqueWithoutInitiatorInput[]
+    createMany?: AudioSessionCreateManyInitiatorInputEnvelope
+    set?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    disconnect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    delete?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    update?: AudioSessionUpdateWithWhereUniqueWithoutInitiatorInput | AudioSessionUpdateWithWhereUniqueWithoutInitiatorInput[]
+    updateMany?: AudioSessionUpdateManyWithWhereWithoutInitiatorInput | AudioSessionUpdateManyWithWhereWithoutInitiatorInput[]
+    deleteMany?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
+  }
+
+  export type AudioSessionUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput> | AudioSessionCreateWithoutReceiverInput[] | AudioSessionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutReceiverInput | AudioSessionCreateOrConnectWithoutReceiverInput[]
+    upsert?: AudioSessionUpsertWithWhereUniqueWithoutReceiverInput | AudioSessionUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: AudioSessionCreateManyReceiverInputEnvelope
+    set?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    disconnect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    delete?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    update?: AudioSessionUpdateWithWhereUniqueWithoutReceiverInput | AudioSessionUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: AudioSessionUpdateManyWithWhereWithoutReceiverInput | AudioSessionUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
+  }
+
   export type ProviderUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<ProviderCreateWithoutUserInput, ProviderUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProviderCreateOrConnectWithoutUserInput
@@ -15067,6 +17938,44 @@ export namespace Prisma {
     update?: ConsultationUpdateWithWhereUniqueWithoutPatientInput | ConsultationUpdateWithWhereUniqueWithoutPatientInput[]
     updateMany?: ConsultationUpdateManyWithWhereWithoutPatientInput | ConsultationUpdateManyWithWhereWithoutPatientInput[]
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
+  export type PresenceUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PresenceCreateOrConnectWithoutUserInput
+    upsert?: PresenceUpsertWithoutUserInput
+    disconnect?: PresenceWhereInput | boolean
+    delete?: PresenceWhereInput | boolean
+    connect?: PresenceWhereUniqueInput
+    update?: XOR<XOR<PresenceUpdateToOneWithWhereWithoutUserInput, PresenceUpdateWithoutUserInput>, PresenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput = {
+    create?: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput> | AudioSessionCreateWithoutInitiatorInput[] | AudioSessionUncheckedCreateWithoutInitiatorInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutInitiatorInput | AudioSessionCreateOrConnectWithoutInitiatorInput[]
+    upsert?: AudioSessionUpsertWithWhereUniqueWithoutInitiatorInput | AudioSessionUpsertWithWhereUniqueWithoutInitiatorInput[]
+    createMany?: AudioSessionCreateManyInitiatorInputEnvelope
+    set?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    disconnect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    delete?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    update?: AudioSessionUpdateWithWhereUniqueWithoutInitiatorInput | AudioSessionUpdateWithWhereUniqueWithoutInitiatorInput[]
+    updateMany?: AudioSessionUpdateManyWithWhereWithoutInitiatorInput | AudioSessionUpdateManyWithWhereWithoutInitiatorInput[]
+    deleteMany?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
+  }
+
+  export type AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput> | AudioSessionCreateWithoutReceiverInput[] | AudioSessionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: AudioSessionCreateOrConnectWithoutReceiverInput | AudioSessionCreateOrConnectWithoutReceiverInput[]
+    upsert?: AudioSessionUpsertWithWhereUniqueWithoutReceiverInput | AudioSessionUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: AudioSessionCreateManyReceiverInputEnvelope
+    set?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    disconnect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    delete?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    connect?: AudioSessionWhereUniqueInput | AudioSessionWhereUniqueInput[]
+    update?: AudioSessionUpdateWithWhereUniqueWithoutReceiverInput | AudioSessionUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: AudioSessionUpdateManyWithWhereWithoutReceiverInput | AudioSessionUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProviderInput = {
@@ -15371,6 +18280,48 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutNotificationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserCreateNestedOneWithoutPresenceInput = {
+    create?: XOR<UserCreateWithoutPresenceInput, UserUncheckedCreateWithoutPresenceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPresenceInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPresenceNestedInput = {
+    create?: XOR<UserCreateWithoutPresenceInput, UserUncheckedCreateWithoutPresenceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPresenceInput
+    upsert?: UserUpsertWithoutPresenceInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPresenceInput, UserUpdateWithoutPresenceInput>, UserUncheckedUpdateWithoutPresenceInput>
+  }
+
+  export type UserCreateNestedOneWithoutInitiatedCallsInput = {
+    create?: XOR<UserCreateWithoutInitiatedCallsInput, UserUncheckedCreateWithoutInitiatedCallsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInitiatedCallsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReceivedCallsInput = {
+    create?: XOR<UserCreateWithoutReceivedCallsInput, UserUncheckedCreateWithoutReceivedCallsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedCallsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutInitiatedCallsNestedInput = {
+    create?: XOR<UserCreateWithoutInitiatedCallsInput, UserUncheckedCreateWithoutInitiatedCallsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInitiatedCallsInput
+    upsert?: UserUpsertWithoutInitiatedCallsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInitiatedCallsInput, UserUpdateWithoutInitiatedCallsInput>, UserUncheckedUpdateWithoutInitiatedCallsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReceivedCallsNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedCallsInput, UserUncheckedCreateWithoutReceivedCallsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedCallsInput
+    upsert?: UserUpsertWithoutReceivedCallsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedCallsInput, UserUpdateWithoutReceivedCallsInput>, UserUncheckedUpdateWithoutReceivedCallsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -15929,6 +18880,81 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PresenceCreateWithoutUserInput = {
+    id?: string
+    status?: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type PresenceUncheckedCreateWithoutUserInput = {
+    id?: string
+    status?: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type PresenceCreateOrConnectWithoutUserInput = {
+    where: PresenceWhereUniqueInput
+    create: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type AudioSessionCreateWithoutInitiatorInput = {
+    id?: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    receiver: UserCreateNestedOneWithoutReceivedCallsInput
+  }
+
+  export type AudioSessionUncheckedCreateWithoutInitiatorInput = {
+    id?: string
+    receiverId: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionCreateOrConnectWithoutInitiatorInput = {
+    where: AudioSessionWhereUniqueInput
+    create: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput>
+  }
+
+  export type AudioSessionCreateManyInitiatorInputEnvelope = {
+    data: AudioSessionCreateManyInitiatorInput | AudioSessionCreateManyInitiatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AudioSessionCreateWithoutReceiverInput = {
+    id?: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    initiator: UserCreateNestedOneWithoutInitiatedCallsInput
+  }
+
+  export type AudioSessionUncheckedCreateWithoutReceiverInput = {
+    id?: string
+    initiatorId: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionCreateOrConnectWithoutReceiverInput = {
+    where: AudioSessionWhereUniqueInput
+    create: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type AudioSessionCreateManyReceiverInputEnvelope = {
+    data: AudioSessionCreateManyReceiverInput | AudioSessionCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProviderUpsertWithoutUserInput = {
     update: XOR<ProviderUpdateWithoutUserInput, ProviderUncheckedUpdateWithoutUserInput>
     create: XOR<ProviderCreateWithoutUserInput, ProviderUncheckedCreateWithoutUserInput>
@@ -16140,6 +19166,76 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Consultation"> | Date | string
   }
 
+  export type PresenceUpsertWithoutUserInput = {
+    update: XOR<PresenceUpdateWithoutUserInput, PresenceUncheckedUpdateWithoutUserInput>
+    create: XOR<PresenceCreateWithoutUserInput, PresenceUncheckedCreateWithoutUserInput>
+    where?: PresenceWhereInput
+  }
+
+  export type PresenceUpdateToOneWithWhereWithoutUserInput = {
+    where?: PresenceWhereInput
+    data: XOR<PresenceUpdateWithoutUserInput, PresenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PresenceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PresenceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUpsertWithWhereUniqueWithoutInitiatorInput = {
+    where: AudioSessionWhereUniqueInput
+    update: XOR<AudioSessionUpdateWithoutInitiatorInput, AudioSessionUncheckedUpdateWithoutInitiatorInput>
+    create: XOR<AudioSessionCreateWithoutInitiatorInput, AudioSessionUncheckedCreateWithoutInitiatorInput>
+  }
+
+  export type AudioSessionUpdateWithWhereUniqueWithoutInitiatorInput = {
+    where: AudioSessionWhereUniqueInput
+    data: XOR<AudioSessionUpdateWithoutInitiatorInput, AudioSessionUncheckedUpdateWithoutInitiatorInput>
+  }
+
+  export type AudioSessionUpdateManyWithWhereWithoutInitiatorInput = {
+    where: AudioSessionScalarWhereInput
+    data: XOR<AudioSessionUpdateManyMutationInput, AudioSessionUncheckedUpdateManyWithoutInitiatorInput>
+  }
+
+  export type AudioSessionScalarWhereInput = {
+    AND?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
+    OR?: AudioSessionScalarWhereInput[]
+    NOT?: AudioSessionScalarWhereInput | AudioSessionScalarWhereInput[]
+    id?: UuidFilter<"AudioSession"> | string
+    initiatorId?: UuidFilter<"AudioSession"> | string
+    receiverId?: UuidFilter<"AudioSession"> | string
+    status?: StringFilter<"AudioSession"> | string
+    meetingLink?: StringNullableFilter<"AudioSession"> | string | null
+    createdAt?: DateTimeFilter<"AudioSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AudioSession"> | Date | string
+  }
+
+  export type AudioSessionUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: AudioSessionWhereUniqueInput
+    update: XOR<AudioSessionUpdateWithoutReceiverInput, AudioSessionUncheckedUpdateWithoutReceiverInput>
+    create: XOR<AudioSessionCreateWithoutReceiverInput, AudioSessionUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type AudioSessionUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: AudioSessionWhereUniqueInput
+    data: XOR<AudioSessionUpdateWithoutReceiverInput, AudioSessionUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type AudioSessionUpdateManyWithWhereWithoutReceiverInput = {
+    where: AudioSessionScalarWhereInput
+    data: XOR<AudioSessionUpdateManyMutationInput, AudioSessionUncheckedUpdateManyWithoutReceiverInput>
+  }
+
   export type UserCreateWithoutProviderInput = {
     id?: string
     fullName: string
@@ -16156,6 +19252,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutProviderInput = {
@@ -16174,6 +19273,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutProviderInput = {
@@ -16248,6 +19350,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProviderInput = {
@@ -16266,6 +19371,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutProviderInput = {
@@ -16300,6 +19408,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutPharmacyInput = {
@@ -16318,6 +19429,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutPharmacyInput = {
@@ -16380,6 +19494,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPharmacyInput = {
@@ -16398,6 +19515,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type PharmacyMedicineUpsertWithWhereUniqueWithoutPharmacyInput = {
@@ -16509,6 +19629,9 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutPatientConsultationsInput = {
@@ -16527,6 +19650,9 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutPatientConsultationsInput = {
@@ -16622,6 +19748,9 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPatientConsultationsInput = {
@@ -16640,6 +19769,9 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type ProviderUpsertWithoutConsultationsInput = {
@@ -16802,6 +19934,9 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutHealthReadingsInput = {
@@ -16820,6 +19955,9 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutHealthReadingsInput = {
@@ -16854,6 +19992,9 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHealthReadingsInput = {
@@ -16872,6 +20013,9 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -16890,6 +20034,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -16908,6 +20055,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -16931,6 +20081,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -16949,6 +20102,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -16983,6 +20139,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -17001,6 +20160,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUpsertWithoutReceivedMessagesInput = {
@@ -17030,6 +20192,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -17048,6 +20213,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -17066,6 +20234,9 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -17084,6 +20255,9 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
     patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -17118,6 +20292,9 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -17136,6 +20313,309 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
     patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserCreateWithoutPresenceInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyCreateNestedOneWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserUncheckedCreateWithoutPresenceInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyUncheckedCreateNestedOneWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserCreateOrConnectWithoutPresenceInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPresenceInput, UserUncheckedCreateWithoutPresenceInput>
+  }
+
+  export type UserUpsertWithoutPresenceInput = {
+    update: XOR<UserUpdateWithoutPresenceInput, UserUncheckedUpdateWithoutPresenceInput>
+    create: XOR<UserCreateWithoutPresenceInput, UserUncheckedCreateWithoutPresenceInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPresenceInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPresenceInput, UserUncheckedUpdateWithoutPresenceInput>
+  }
+
+  export type UserUpdateWithoutPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUncheckedUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserCreateWithoutInitiatedCallsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyCreateNestedOneWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    receivedCalls?: AudioSessionCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserUncheckedCreateWithoutInitiatedCallsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyUncheckedCreateNestedOneWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    receivedCalls?: AudioSessionUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserCreateOrConnectWithoutInitiatedCallsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutInitiatedCallsInput, UserUncheckedCreateWithoutInitiatedCallsInput>
+  }
+
+  export type UserCreateWithoutReceivedCallsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyCreateNestedOneWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationCreateNestedManyWithoutPatientInput
+    presence?: PresenceCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionCreateNestedManyWithoutInitiatorInput
+  }
+
+  export type UserUncheckedCreateWithoutReceivedCallsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneNumber?: string | null
+    password: string
+    role: $Enums.UserRole
+    isSuspended?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider?: ProviderUncheckedCreateNestedOneWithoutUserInput
+    pharmacy?: PharmacyUncheckedCreateNestedOneWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    healthReadings?: HealthReadingUncheckedCreateNestedManyWithoutPatientInput
+    patientConsultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    presence?: PresenceUncheckedCreateNestedOneWithoutUserInput
+    initiatedCalls?: AudioSessionUncheckedCreateNestedManyWithoutInitiatorInput
+  }
+
+  export type UserCreateOrConnectWithoutReceivedCallsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceivedCallsInput, UserUncheckedCreateWithoutReceivedCallsInput>
+  }
+
+  export type UserUpsertWithoutInitiatedCallsInput = {
+    update: XOR<UserUpdateWithoutInitiatedCallsInput, UserUncheckedUpdateWithoutInitiatedCallsInput>
+    create: XOR<UserCreateWithoutInitiatedCallsInput, UserUncheckedCreateWithoutInitiatedCallsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutInitiatedCallsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutInitiatedCallsInput, UserUncheckedUpdateWithoutInitiatedCallsInput>
+  }
+
+  export type UserUpdateWithoutInitiatedCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    receivedCalls?: AudioSessionUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutInitiatedCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUncheckedUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    receivedCalls?: AudioSessionUncheckedUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedCallsInput = {
+    update: XOR<UserUpdateWithoutReceivedCallsInput, UserUncheckedUpdateWithoutReceivedCallsInput>
+    create: XOR<UserCreateWithoutReceivedCallsInput, UserUncheckedCreateWithoutReceivedCallsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedCallsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedCallsInput, UserUncheckedUpdateWithoutReceivedCallsInput>
+  }
+
+  export type UserUpdateWithoutReceivedCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUpdateManyWithoutInitiatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isSuspended?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: ProviderUncheckedUpdateOneWithoutUserNestedInput
+    pharmacy?: PharmacyUncheckedUpdateOneWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    healthReadings?: HealthReadingUncheckedUpdateManyWithoutPatientNestedInput
+    patientConsultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    presence?: PresenceUncheckedUpdateOneWithoutUserNestedInput
+    initiatedCalls?: AudioSessionUncheckedUpdateManyWithoutInitiatorNestedInput
   }
 
   export type MessageCreateManySenderInput = {
@@ -17183,6 +20663,24 @@ export namespace Prisma {
     meetingLink?: string | null
     patientVideoJoinAllowed?: boolean
     consultationNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionCreateManyInitiatorInput = {
+    id?: string
+    receiverId: string
+    status?: string
+    meetingLink?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AudioSessionCreateManyReceiverInput = {
+    id?: string
+    initiatorId: string
+    status?: string
+    meetingLink?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17332,6 +20830,60 @@ export namespace Prisma {
     meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     patientVideoJoinAllowed?: BoolFieldUpdateOperationsInput | boolean
     consultationNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUpdateWithoutInitiatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiver?: UserUpdateOneRequiredWithoutReceivedCallsNestedInput
+  }
+
+  export type AudioSessionUncheckedUpdateWithoutInitiatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUncheckedUpdateManyWithoutInitiatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    initiator?: UserUpdateOneRequiredWithoutInitiatedCallsNestedInput
+  }
+
+  export type AudioSessionUncheckedUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initiatorId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AudioSessionUncheckedUpdateManyWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initiatorId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    meetingLink?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

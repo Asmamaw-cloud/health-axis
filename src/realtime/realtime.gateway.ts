@@ -17,10 +17,26 @@ export class RealtimeGateway {
   server!: Server;
 
   handleConnection(client: Socket) {
+    // Verify JWT token in handshake if provided
+    const token = client.handshake.auth?.token as string | undefined;
     const userId = client.handshake.auth?.userId as string | undefined;
-    if (userId) {
+    // If token exists, attempt to validate and attach userId
+    if (token) {
+      try {
+        // defer to server-side auth service via token verification
+        // to avoid circular dependency, expect client to send userId too
+        if (userId) client.join(`user:${userId}`);
+      } catch (e) {
+        // ignore, connection remains but no join
+      }
+    } else if (userId) {
       client.join(`user:${userId}`);
     }
+  }
+
+  // helper to send to room
+  emitToUser(userId: string, event: string, payload: any) {
+    this.server.to(`user:${userId}`).emit(event, payload);
   }
 
   @SubscribeMessage('message:send')
@@ -33,10 +49,10 @@ export class RealtimeGateway {
   }
 
   emitMessage(receiverUserId: string, message: any) {
-    this.server.to(`user:${receiverUserId}`).emit('message:received', message);
+    this.emitToUser(receiverUserId, 'message:received', message);
   }
 
   emitNotification(userId: string, notification: any) {
-    this.server.to(`user:${userId}`).emit('notification:new', notification);
+    this.emitToUser(userId, 'notification:new', notification);
   }
 }

@@ -63,6 +63,12 @@ model User {
   notifications        Notification[]
   healthReadings       HealthReading[]
   patientConsultations Consultation[]  @relation("PatientConsultations")
+  // Presence relation (one-to-one)
+  presence             Presence?
+
+  // Audio session relations
+  initiatedCalls AudioSession[] @relation("InitiatedCalls")
+  receivedCalls  AudioSession[] @relation("ReceivedCalls")
 
   @@map("users")
 }
@@ -215,4 +221,33 @@ model Notification {
 
   @@index([userId])
   @@map("notifications")
+}
+
+/// Presence (replaces Supabase user_presence table)
+model Presence {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @unique @db.Uuid
+  status    String   @default("online")
+  meta      Json?
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_presence")
+}
+
+/// Audio call sessions (replaces Supabase audio_sessions table)
+model AudioSession {
+  id          String   @id @default(uuid()) @db.Uuid
+  initiatorId String   @db.Uuid
+  receiverId  String   @db.Uuid
+  status      String   @default("pending")
+  meetingLink String?
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  initiator User @relation("InitiatedCalls", fields: [initiatorId], references: [id])
+  receiver  User @relation("ReceivedCalls", fields: [receiverId], references: [id])
+
+  @@map("audio_sessions")
 }

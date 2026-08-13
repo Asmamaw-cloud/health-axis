@@ -223,6 +223,24 @@ exports.Prisma.NotificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PresenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  meta: 'meta',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AudioSessionScalarFieldEnum = {
+  id: 'id',
+  initiatorId: 'initiatorId',
+  receiverId: 'receiverId',
+  status: 'status',
+  meetingLink: 'meetingLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -285,7 +303,9 @@ exports.Prisma.ModelName = {
   Prescription: 'Prescription',
   HealthReading: 'HealthReading',
   Message: 'Message',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  Presence: 'Presence',
+  AudioSession: 'AudioSession'
 };
 
 /**
