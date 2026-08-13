@@ -55,18 +55,28 @@ async function bootstrap() {
       .map((o) => o.trim()) ?? [];
 
   // Use a function so we explicitly echo the request origin when allowed.
+  // Support entries with trailing slashes and simple wildcard suffixes like "https://example.com/*".
+  const allowedOrigins = origins
+    .map((o) => o.trim())
+    .filter(Boolean)
+    .map((o) => {
+      if (o === '*') return { any: true };
+      const wildcard = o.endsWith('/*');
+      const normalized = (wildcard ? o.slice(0, -2) : o).replace(/\/+$|\/*$/g, '');
+      return { any: false, wildcard, origin: normalized };
+    });
+
   app.enableCors({
     origin: (requestOrigin, callback) => {
       // Allow non-browser (e.g., server-side) requests when no origin is provided
       if (!requestOrigin) return callback(null, true);
 
-      if (origins.length === 0) {
-        // If no origins configured, allow any origin
-        return callback(null, true);
-      }
+      if (allowedOrigins.length === 0) return callback(null, true);
 
-      if (origins.includes(requestOrigin)) {
-        return callback(null, true);
+      for (const entry of allowedOrigins) {
+        if (entry.any) return callback(null, true);
+        if (entry.wildcard && requestOrigin.startsWith(entry.origin)) return callback(null, true);
+        if (requestOrigin === entry.origin) return callback(null, true);
       }
 
       return callback(new Error('Not allowed by CORS'));
